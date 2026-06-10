@@ -3529,6 +3529,15 @@ function showEmpSection(id) {
 let forumUser = null;
 let currentForumCat = 'general';
 
+function escapeForumText(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\n/g, '<br>');
+}
+
 async function forumRegister() {
   const u = document.getElementById('forumUsername').value.trim();
   const p = document.getElementById('forumPassword').value.trim();
@@ -3620,7 +3629,8 @@ async function loadForumPosts() {
   });
   container.innerHTML = data.map(p => {
     const replyCount = (repliesByPost[p.id] || []).length;
-    const preview = p.content.length > 120 ? p.content.substring(0, 120) + '...' : p.content;
+    const rawPreview = p.content.length > 120 ? p.content.substring(0, 120) + '...' : p.content;
+    const preview = escapeForumText(rawPreview);
     return `
     <div class="forum-post" id="post-${p.id}" onclick="openPostView(${p.id})" style="cursor:pointer;">
       <div class="forum-post-header">
@@ -3658,7 +3668,7 @@ async function openPostView(postId) {
         ${formatAuthor(r.username)}
         <span class="forum-post-date">${new Date(r.created_at).toLocaleDateString()}</span>
       </div>
-      <div style="font-size:11px;color:#a8c8e8;line-height:1.5;">${r.content}</div>
+      <div style="font-size:11px;color:#a8c8e8;line-height:1.5;">${escapeForumText(r.content)}</div>
       ${canDeleteReply ? `<button onclick="deleteForumReply(${r.id}, ${postId})" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #4a1a1a;color:#cc4444;padding:2px 8px;cursor:pointer;margin-top:4px;">DELETE</button>` : ''}
     </div>`;
   }).join('');
@@ -3674,7 +3684,7 @@ async function openPostView(postId) {
         ${formatAuthor(post.username)}
         <span class="forum-post-date">${new Date(post.created_at).toLocaleDateString()}</span>
       </div>
-      <div class="forum-post-content" id="post-content-${post.id}">${post.content}</div>
+      <div class="forum-post-content" id="post-content-${post.id}">${escapeForumText(post.content)}</div>
       ${actions}
     </div>
     <div style="margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#4a8aaa;letter-spacing:0.1em;border-bottom:1px solid #1a3a5a;padding-bottom:6px;">${(replies||[]).length} ${(replies||[]).length === 1 ? 'REPLY' : 'REPLIES'}</div>
@@ -3710,7 +3720,10 @@ async function deleteForumPost(id) {
 async function editForumPost(id, btn) {
   const contentEl = document.getElementById('post-content-' + id);
   if (btn.textContent === 'EDIT') {
-    const current = contentEl.textContent;
+    // Recover original text: convert <br> back to \n, then strip remaining HTML
+    const rawHTML = contentEl.innerHTML;
+    const current = rawHTML.replace(/<br\s*\/?>/gi, '\n')
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
     contentEl.innerHTML = `<textarea style="width:100%;font-family:'Share Tech Mono',monospace;font-size:11px;background:#0a1a2a;border:1px solid #2a4a6a;color:#a8c8e8;padding:8px;resize:vertical;" id="edit-input-${id}">${current}</textarea>`;
     btn.textContent = 'SAVE';
   } else {
