@@ -51,6 +51,17 @@ html {
   letter-spacing: 0.3em;
 }
 
+.fiction-banner {
+  color: #6a6a6a;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
 /* ===== HEADER ===== */
 header {
   background: var(--blue);
@@ -977,6 +988,16 @@ nav a:hover, nav a.active {
   user-select: none;
 }
 
+.redact-block {
+  background: #3a1018;
+  color: #3a1018;
+  padding: 0 3px;
+  user-select: none;
+  border-radius: 1px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .emp-table {
   width: 100%;
   border-collapse: collapse;
@@ -1009,6 +1030,8 @@ nav a:hover, nav a.active {
 .type-para { color: #4a1a7a; }
 .type-mixed { color: #7a5a1a; }
 .type-ben { color: #1a6a4a; }
+.type-dig { color: #1a5a7a; }
+.type-art { color: #6a6a1a; }
 
 .type-badge {
   display: inline-block;
@@ -1770,6 +1793,127 @@ footer span {
 }
 .log-modal-close:hover { border-color: var(--red); color: var(--red); }
 
+/* Singularity profile modal */
+.sing-profile-box {
+  background: #060d18;
+  border: 1px solid #1a3a5a;
+  padding: 0;
+  max-width: 640px;
+  width: 92%;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.sing-profile-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid #1a3a5a;
+  filter: grayscale(40%) contrast(1.05);
+}
+
+.sing-profile-noimg {
+  width: 100%;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #2a4a6a;
+  border-bottom: 1px solid #1a3a5a;
+  background: repeating-linear-gradient(45deg, #0a1a2a, #0a1a2a 10px, #0c1d30 10px, #0c1d30 20px);
+}
+
+.sing-profile-body { padding: 24px 28px 28px; }
+
+.sing-profile-id {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: #3a6a8a;
+  letter-spacing: 0.25em;
+  margin-bottom: 4px;
+}
+
+.sing-profile-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.sing-profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sing-profile-meta {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: #6a8aa8;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #1a3a5a;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 16px;
+}
+
+.sing-profile-meta span { color: #c8d8e8; letter-spacing: 0.05em; }
+
+.sing-profile-desc {
+  font-family: 'Source Serif 4', serif;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #a8c0d8;
+  margin-bottom: 18px;
+}
+
+.sing-subprofile-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #1a3a5a;
+}
+
+.sing-subprofile-btn {
+  background: transparent;
+  border: 1px solid #1a3a5a;
+  color: #6a8aa8;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sing-subprofile-btn:hover, .sing-subprofile-btn.active {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.sing-profile-back {
+  background: transparent;
+  border: 1px solid #1a3a5a;
+  color: #3a6a8a;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: all 0.2s;
+}
+.sing-profile-back:hover { border-color: var(--gold); color: var(--gold); }
+
+.emp-table tbody tr[onclick] { cursor: pointer; }
+.emp-table tbody tr[onclick]:hover td { background: #fce8ea; }
+
 .emp-no-auth {
   background: #0a1a2a;
   border: 1px solid #1a3a5a;
@@ -2284,7 +2428,7 @@ let currentUser = null;
 <body>
 
 <!-- DISSOLVED BANNER -->
-<div class="dissolved-banner" data-en="⚠ NOTICE: I.R.I.S. CORP DISSOLVED 2025–2026 — OPERATIONS TRANSFERRED TO INTERNATIONAL OVERSIGHT COMMITTEE ⚠" data-es="⚠ AVISO: I.R.I.S. CORP DISUELTA 2025–2026 — OPERACIONES TRANSFERIDAS AL COMITÉ INTERNACIONAL DE SUPERVISIÓN ⚠">
+<div class="dissolved-banner">
   ⚠ NOTICE: I.R.I.S. CORP DISSOLVED 2025–2026 — OPERATIONS TRANSFERRED TO INTERNATIONAL OVERSIGHT COMMITTEE ⚠
 </div>
 
@@ -2298,24 +2442,24 @@ let currentUser = null;
       </div>
       <div class="header-text">
         <h1>I.R.I.S. CORP</h1>
-        <div class="tagline" data-en="INSTITUTE FOR RESEARCH ON IRREGULAR SINGULARITIES — EST. 1938" data-es="INSTITUTO DE INVESTIGACIÓN DE SINGULARIDADES IRREGULARES — EST. 1938">
+        <div class="tagline">
           INSTITUTE FOR RESEARCH ON IRREGULAR SINGULARITIES — EST. 1938
         </div>
       </div>
       <div class="header-right">
-        <button class="employee-btn" id="portalBtn" onclick="tryEnterPortal()" disabled data-en="🔒 EMPLOYEE PORTAL" data-es="🔒 PORTAL DE EMPLEADOS" style="opacity:0.4; cursor:not-allowed;">🔒 EMPLOYEE PORTAL</button>
+ <button class="employee-btn" id="portalBtn" onclick="tryEnterPortal()" disabled style="opacity:0.4; cursor:not-allowed;">🔒 EMPLOYEE PORTAL</button>
       </div>
     </div>
   </header>
 
   <nav>
     <div class="nav-inner">
-      <a onclick="showPage('home')" id="nav-home" class="active" data-en="Home" data-es="Inicio">Home</a>
-      <a onclick="showPage('history')" id="nav-history" data-en="History" data-es="Historia">History</a>
-      <a onclick="showPage('departments')" id="nav-departments" data-en="Departments" data-es="Departamentos">Departments</a>
-      <a onclick="showPage('news')" id="nav-news" data-en="News" data-es="Noticias">News</a>
-      <a onclick="showPage('careers')" id="nav-careers" data-en="Careers" data-es="Empleos">Careers</a>
-      <a onclick="showPage('forums')" id="nav-forums" data-en="Forums" data-es="Foros">Forums</a>
+ <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+ <a onclick="showPage('history')" id="nav-history">History</a>
+ <a onclick="showPage('departments')" id="nav-departments">Departments</a>
+ <a onclick="showPage('news')" id="nav-news">News</a>
+ <a onclick="showPage('careers')" id="nav-careers">Careers</a>
+ <a onclick="showPage('forums')" id="nav-forums">Forums</a>
     </div>
   </nav>
 
@@ -2325,9 +2469,9 @@ let currentUser = null;
     <!-- HOME -->
     <div class="page active" id="page-home">
       <div class="hero">
-        <div class="hero-label" data-en="GLOBAL ANOMALOUS RESEARCH" data-es="INVESTIGACIÓN GLOBAL DE ANOMALÍAS">GLOBAL ANOMALOUS RESEARCH</div>
-        <h2 data-en="Looking through the layers of the incomprehensible." data-es="Viendo a través de las capas de lo incomprensible.">Looking through the layers of the incomprehensible.</h2>
-        <p data-en="I.R.I.S. Corp has been at the forefront of research into Irregular Singularities for over eight decades. Operating across multiple continents, our mission is to identify, classify, and study phenomena that fall outside the boundaries of conventional science." data-es="I.R.I.S. Corp ha estado a la vanguardia de la investigación de Singularidades Irregulares por más de ocho décadas. Operando en múltiples continentes, nuestra misión es identificar, clasificar y estudiar fenómenos que caen fuera de los límites de la ciencia convencional.">
+ <div class="hero-label">GLOBAL ANOMALOUS RESEARCH</div>
+ <h2>Looking through the layers of the incomprehensible.</h2>
+        <p>
           I.R.I.S. Corp has been at the forefront of research into Irregular Singularities for over eight decades. Operating across multiple continents, our mission is to identify, classify, and study phenomena that fall outside the boundaries of conventional science.
         </p>
         <div class="hero-since">1938</div>
@@ -2336,51 +2480,51 @@ let currentUser = null;
       <div class="stats-bar">
         <div class="stat-item">
           <span class="stat-number">1938</span>
-          <span class="stat-label" data-en="Year Founded" data-es="Año de Fundación">Year Founded</span>
+ <span class="stat-label">Year Founded</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">847</span>
-          <span class="stat-label" data-en="Singularities Catalogued" data-es="Singularidades Catalogadas">Singularities Catalogued</span>
+ <span class="stat-label">Singularities Catalogued</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">12</span>
-          <span class="stat-label" data-en="Active Regions" data-es="Regiones Activas">Active Regions</span>
+ <span class="stat-label">Active Regions</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">34</span>
-          <span class="stat-label" data-en="Research Installations" data-es="Instalaciones de Investigación">Research Installations</span>
+ <span class="stat-label">Research Installations</span>
         </div>
         <div class="stat-item">
           <span class="stat-number">19</span>
-          <span class="stat-label" data-en="Partner Governments" data-es="Gobiernos Asociados">Partner Governments</span>
+ <span class="stat-label">Partner Governments</span>
         </div>
         <div class="stat-item">
           <span class="stat-number" id="days-counter">—</span>
-          <span class="stat-label" data-en="Days Since Last Major Incident" data-es="Días Desde Último Gran Incidente">Days Since Last Major Incident</span>
+ <span class="stat-label">Days Since Last Major Incident</span>
         </div>
       </div>
 
       <div class="content-grid">
         <div>
           <div class="section-header">
-            <h3 data-en="About I.R.I.S." data-es="Sobre I.R.I.S.">About I.R.I.S.</h3>
-            <span data-en="OVERVIEW" data-es="RESUMEN"><span data-en="OVERVIEW" data-es="RESUMEN">OVERVIEW</span></span>
+ <h3>About I.R.I.S.</h3>
+ <span>OVERVIEW</span>
           </div>
           <div class="card">
-            <div class="card-label" data-en="MISSION STATEMENT" data-es="DECLARACIÓN DE MISIÓN">MISSION STATEMENT</div>
-            <p data-en="Founded in 1938 following an unprecedented geological event in Texas, I.R.I.S. Corp was established with a mandate from multiple international governments to research, classify, and where necessary, contain phenomena that defy standard scientific explanation. We operate with full discretion and the highest standards of scientific rigor." data-es="Fundada en 1938 tras un evento geológico sin precedentes en Texas, I.R.I.S. Corp fue establecida con un mandato de múltiples gobiernos internacionales para investigar, clasificar y, cuando sea necesario, contener fenómenos que desafían la explicación científica estándar.">
+ <div class="card-label">MISSION STATEMENT</div>
+            <p>
               Founded in 1938 following an unprecedented geological event in Texas, I.R.I.S. Corp was established with a mandate from multiple international governments to research, classify, and where necessary, contain phenomena that defy standard scientific explanation. We operate with full discretion and the highest standards of scientific rigor.
             </p>
           </div>
           <div class="card">
-            <div class="card-label" data-en="SINGULARITY CLASSIFICATION" data-es="CLASIFICACIÓN DE SINGULARIDADES">SINGULARITY CLASSIFICATION</div>
-            <p data-en="I.R.I.S. classifies anomalous phenomena into five categories: Geological, Biological, Paranormal, Mixed, and Beneficial. Each classification determines the research protocol, containment requirements, and personnel clearance levels necessary for safe investigation." data-es="I.R.I.S. clasifica los fenómenos anómalos en cinco categorías: Geológico, Biológico, Paranormal, Mixto y Beneficioso. Cada clasificación determina el protocolo de investigación, los requisitos de contención y los niveles de autorización necesarios.">
-              I.R.I.S. classifies anomalous phenomena into five categories: Geological, Biological, Paranormal, Mixed, and Beneficial. Each classification determines the research protocol, containment requirements, and personnel clearance levels necessary for safe investigation.
+ <div class="card-label">SINGULARITY CLASSIFICATION</div>
+            <p>
+              I.R.I.S. classifies anomalous phenomena into six categories: Geological, Biological, Paranormal, Mixed, Beneficial, and Digital. Each classification determines the research protocol, containment requirements, and personnel clearance levels necessary for safe investigation. A separate Artificial designation may be applied alongside any primary classification to indicate a Singularity created or caused by humanity or another intelligent life form.
             </p>
           </div>
           <div class="card">
-            <div class="card-label" data-en="GLOBAL OPERATIONS" data-es="OPERACIONES GLOBALES">GLOBAL OPERATIONS</div>
-            <p data-en="Our research network spans 12 designated regions across six continents. Each region operates under independent command with direct reporting to I.R.I.S. Central Command. Region-3, our Antarctic division, was among our most active research zones prior to the 2003 incident." data-es="Nuestra red de investigación abarca 12 regiones designadas en seis continentes. Cada región opera bajo mando independiente con reporte directo al Comando Central de I.R.I.S. La Región-3, nuestra división Antártica, fue una de nuestras zonas de investigación más activas antes del incidente de 2003.">
+ <div class="card-label">GLOBAL OPERATIONS</div>
+            <p>
               Our research network spans 12 designated regions across six continents. Each region operates under independent command with direct reporting to I.R.I.S. Central Command. Region-3, our Antarctic division, was among our most active research zones prior to the 2003 incident.
             </p>
           </div>
@@ -2388,51 +2532,63 @@ let currentUser = null;
 
         <div>
           <div class="sidebar-box">
-            <h4 data-en="LATEST BULLETIN" data-es="ÚLTIMO BOLETÍN">LATEST BULLETIN</h4>
+ <h4>LATEST BULLETIN</h4>
             <div class="sidebar-item">
-              <strong data-en="IOC Transfer Complete" data-es="Transferencia IOC Completa">IOC Transfer Complete</strong>
-              <span data-en="All I.R.I.S. archives have been transferred to the International Oversight Committee as of Q1 2026." data-es="Todos los archivos de I.R.I.S. han sido transferidos al Comité Internacional de Supervisión en el Q1 2026.">All I.R.I.S. archives have been transferred to the International Oversight Committee as of Q1 2026.</span>
+ <strong>IOC Transfer Complete</strong>
+ <span>All I.R.I.S. archives have been transferred to the International Oversight Committee as of Q1 2026.</span>
             </div>
             <div class="sidebar-item">
-              <strong data-en="Active Monitoring" data-es="Monitoreo Activo">Active Monitoring</strong>
-              <span data-en="Region-3 remote sensors remain active under IOC supervision." data-es="Los sensores remotos de la Región-3 permanecen activos bajo supervisión del IOC.">Region-3 remote sensors remain active under IOC supervision.</span>
+ <strong>Active Monitoring</strong>
+ <span>Region-3 remote sensors remain active under IOC supervision.</span>
             </div>
             <div class="sidebar-item">
-              <strong data-en="Personnel Status" data-es="Estado del Personal">Personnel Status</strong>
-              <span data-en="All former I.R.I.S. employees have been reassigned or released. Human Resources Division closed." data-es="Todos los ex empleados de I.R.I.S. han sido reasignados o dados de baja. División de Recursos Humanos cerrada.">All former I.R.I.S. employees have been reassigned or released.</span>
+ <strong>Personnel Status</strong>
+ <span>All former I.R.I.S. employees have been reassigned or released. Human Resources Division closed.</span>
             </div>
           </div>
 
           <div class="sidebar-box" style="background: #0a0f08; border: 1px solid #2a4a1a;">
-            <h4 style="color: #4a8a3a;" data-en="SINGULARITY TYPES" data-es="TIPOS DE SINGULARIDAD">SINGULARITY TYPES</h4>
+ <h4 style="color: #4a8a3a;">SINGULARITY TYPES</h4>
             <div class="sidebar-item" style="border-color: #1a2a12;">
               <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
-                <span class="type-badge type-geo"><span data-en="GEOLOGICAL" data-es="GEOLÓGICA">GEOLOGICAL</span></span>
-                <div class="type-popup" data-en="Tectonic formations, subterranean anomalies, seismic events, and geological phenomena outside documented scientific parameters." data-es="Formaciones tectónicas, anomalías subterráneas, eventos sísmicos y fenómenos geológicos fuera de los parámetros científicos documentados.">Tectonic formations, subterranean anomalies, seismic events, and geological phenomena outside documented scientific parameters.</div>
+ <span class="type-badge type-geo"><span>GEOLOGICAL</span></span>
+ <div class="type-popup">Tectonic formations, subterranean anomalies, seismic events, and geological phenomena outside documented scientific parameters.</div>
               </div>
             </div>
             <div class="sidebar-item" style="border-color: #1a2a12;">
               <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
-                <span class="type-badge type-bio"><span data-en="BIOLOGICAL" data-es="BIOLÓGICA">BIOLOGICAL</span></span>
-                <div class="type-popup" data-en="Organisms, ecosystems, or biological agents exhibiting properties outside known taxonomy or documented evolutionary models." data-es="Organismos, ecosistemas o agentes biológicos que exhiben propiedades fuera de la taxonomía conocida o los modelos evolutivos documentados.">Organisms, ecosystems, or biological agents exhibiting properties outside known taxonomy or documented evolutionary models.</div>
+ <span class="type-badge type-bio"><span>BIOLOGICAL</span></span>
+ <div class="type-popup">Organisms, ecosystems, or biological agents exhibiting properties outside known taxonomy or documented evolutionary models.</div>
               </div>
             </div>
             <div class="sidebar-item" style="border-color: #1a2a12;">
               <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
-                <span class="type-badge type-para"><span data-en="PARANORMAL" data-es="PARANORMAL">PARANORMAL</span></span>
-                <div class="type-popup" data-en="Phenomena with no identifiable physical, biological, or chemical explanation. Classification reserved for events that consistently resist conventional scientific modelling." data-es="Fenómenos sin explicación física, biológica o química identificable. Clasificación reservada para eventos que resisten sistemáticamente el modelado científico convencional.">Phenomena with no identifiable physical, biological, or chemical explanation. Classification reserved for events that consistently resist conventional scientific modelling.</div>
+ <span class="type-badge type-para"><span>PARANORMAL</span></span>
+ <div class="type-popup">Phenomena with no identifiable physical, biological, or chemical explanation. Classification reserved for events that consistently resist conventional scientific modelling.</div>
               </div>
             </div>
             <div class="sidebar-item" style="border-color: #1a2a12;">
               <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
-                <span class="type-badge type-mixed"><span data-en="MIXED" data-es="MIXTA">MIXED</span></span>
-                <div class="type-popup" data-en="Singularities combining characteristics of two or more primary classifications. Require coordinated inter-departmental research teams." data-es="Singularidades que combinan características de dos o más clasificaciones primarias. Requieren equipos de investigación interdepartamentales coordinados.">Singularities combining characteristics of two or more primary classifications. Require coordinated inter-departmental research teams.</div>
+ <span class="type-badge type-mixed"><span>MIXED</span></span>
+ <div class="type-popup">Singularities combining characteristics of two or more primary classifications. Require coordinated inter-departmental research teams.</div>
               </div>
             </div>
             <div class="sidebar-item" style="border-color: #1a2a12;">
               <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
-                <span class="type-badge type-ben"><span data-en="BENEFICIAL" data-es="BENÉFICA">BENEFICIAL</span></span>
-                <div class="type-popup" data-en="Anomalies with confirmed positive applications in medicine, science, or industry. I.R.I.S. prioritizes study and responsible development of Beneficial Singularities." data-es="Anomalías con aplicaciones positivas confirmadas en medicina, ciencia o industria. I.R.I.S. prioriza el estudio y desarrollo responsable de Singularidades Beneficiosas.">Anomalies with confirmed positive applications in medicine, science, or industry. I.R.I.S. prioritizes study and responsible development of Beneficial Singularities.</div>
+ <span class="type-badge type-ben"><span>BENEFICIAL</span></span>
+ <div class="type-popup">Anomalies with confirmed positive applications in medicine, science, or industry. I.R.I.S. prioritizes study and responsible development of Beneficial Singularities.</div>
+              </div>
+            </div>
+            <div class="sidebar-item" style="border-color: #1a2a12;">
+              <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
+ <span class="type-badge type-dig"><span>DIGITAL</span></span>
+ <div class="type-popup">Singularities manifesting within digital substrates — electronic devices, software, networks, and stored data. Classification added following the increasing prevalence of anomalies with no physical point of origin.</div>
+              </div>
+            </div>
+            <div class="sidebar-item" style="border-color: #1a2a12;">
+              <div class="sing-type-wrap" onclick="toggleTypePopup(this)">
+ <span class="type-badge type-art"><span>ARTIFICIAL</span></span>
+ <div class="type-popup">Not a category of phenomenon, but of origin. Designates any Singularity created or caused — intentionally or otherwise — by humanity or any other intelligent life form. Always assigned alongside a primary classification.</div>
               </div>
             </div>
           </div>
@@ -2443,123 +2599,123 @@ let currentUser = null;
     <!-- HISTORY -->
     <div class="page" id="page-history">
       <div class="section-header">
-        <h3 data-en="Institutional History" data-es="Historia Institucional">Institutional History</h3>
-        <span data-en="EST. 1938" data-es="EST. 1938">EST. 1938</span>
+ <h3>Institutional History</h3>
+ <span>EST. 1938</span>
       </div>
 
-      <p class="history-lead" data-en="I.R.I.S. Corp was not founded by design. It was founded by necessity. When the world encountered something it could not explain, a small group of scientists and government officials decided that ignorance was not an option." data-es="I.R.I.S. Corp no fue fundada por diseño. Fue fundada por necesidad. Cuando el mundo se encontró con algo que no podía explicar, un pequeño grupo de científicos y funcionarios gubernamentales decidió que la ignorancia no era una opción.">
+      <p class="history-lead">
         I.R.I.S. Corp was not founded by design. It was founded by necessity. When the world encountered something it could not explain, a small group of scientists and government officials decided that ignorance was not an option.
       </p>
 
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-year">1938</div>
-          <h4 data-en="The Texas Event — Foundation" data-es="El Evento de Texas — Fundación">The Texas Event — Foundation</h4>
-          <p data-en="On October 3, 1938, a self-sealing dimensional rift was reported in rural Texas. The event lasted seven days, splitting a tectonic plate and causing approximately 128 kilometers of structural damage across three counties. No conventional geological explanation was ever found. Following classified review by multiple governments, I.R.I.S. Corp was formally established under clearance designation TX38 to prevent and respond to future anomalous events of this nature." data-es="El 3 de octubre de 1938, se reportó una grieta dimensional auto-sellante en el sector rural de Texas. El evento duró siete días, dividiendo una placa tectónica y causando aproximadamente 128 kilómetros de daño estructural en tres condados. Nunca se encontró una explicación geológica convencional. Tras una revisión clasificada por múltiples gobiernos, I.R.I.S. Corp fue formalmente establecida bajo la designación de autorización TX38 para prevenir y responder a futuros eventos anómalos de esta naturaleza.">
-            On October 3, 1938, a self-sealing dimensional rift was reported in rural Texas. The event lasted seven days, splitting a tectonic plate and causing approximately 128 kilometers of structural damage across three counties. No conventional geological explanation was ever found. Following classified review by multiple governments, I.R.I.S. Corp was formally established under <span class="highlight-code">Clearance</span> designation <span class="highlight-code">TX38</span> to prevent and respond to future anomalous events of this nature.
+ <h4>The Texas Event — Foundation</h4>
+          <p>
+            On October 3, 1938, a self-sealing dimensional rift was reported in rural Texas. The event lasted seven days, splitting a tectonic plate and causing approximately 128 kilometers of structural damage across three counties. No conventional geological explanation was ever found. Following classified review by multiple governments, I.R.I.S. Corp was formally established under clearance designation TX38 to prevent and respond to future anomalous events of this nature.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1938–1970</div>
-          <h4 data-en="Early Decades — Building the Network" data-es="Primeras Décadas — Construyendo la Red">Early Decades — Building the Network</h4>
-          <p data-en="The first three decades of I.R.I.S. operations focused on establishing a global monitoring network. By 1955, eight regional divisions had been created. The Singularity classification system was standardized in 1962, replacing earlier ad-hoc categorizations." data-es="Las primeras tres décadas de operaciones de I.R.I.S. se centraron en establecer una red de monitoreo global. Para 1955, se habían creado ocho divisiones regionales. El sistema de clasificación de Singularidades fue estandarizado en 1962.">
+ <h4>Early Decades — Building the Network</h4>
+          <p>
             The first three decades of I.R.I.S. operations focused on establishing a global monitoring network. By 1955, eight regional divisions had been created. The Singularity classification system was standardized in 1962, replacing earlier ad-hoc categorizations.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1952</div>
-          <h4 data-en="The Pacific Accords — Region Expansion" data-es="Los Acuerdos del Pacífico — Expansión Regional">The Pacific Accords — Region Expansion</h4>
-          <p data-en="A series of classified agreements between I.R.I.S. Corp and Pacific Rim governments established Regions 4, 6, and 8. Anomalous deep-sea phenomena in the Mariana Trench area were designated as priority research zones. The Pacific division would go on to catalogue over 200 Singularities before the turn of the century." data-es="Una serie de acuerdos clasificados entre I.R.I.S. Corp y los gobiernos del Pacífico establecieron las Regiones 4, 6 y 8. Los fenómenos anómalos de aguas profundas en el área de la Fosa de las Marianas fueron designados como zonas de investigación prioritarias.">
+ <h4>The Pacific Accords — Region Expansion</h4>
+          <p>
             A series of classified agreements between I.R.I.S. Corp and Pacific Rim governments established Regions 4, 6, and 8. Anomalous deep-sea phenomena in the Mariana Trench area were designated as priority research zones. The Pacific division would go on to catalogue over 200 Singularities before the turn of the century.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1967</div>
-          <h4 data-en="The Siberian Classification Event" data-es="El Evento de Clasificación Siberiano">The Siberian Classification Event</h4>
-          <p data-en="A large-scale Paranormal Singularity in remote Siberia — designated TLF-099-B, The Listening Field — required the first deployment of I.R.I.S. containment teams outside a laboratory environment. The event lasted 11 months and established protocols that remain in use today. Details remain classified; the region was designated a permanent exclusion zone." data-es="Una Singularidad Paranormal a gran escala en la remota Siberia requirió el primer despliegue de equipos de contención de I.R.I.S. fuera de un entorno de laboratorio. El evento duró 11 meses y estableció protocolos que siguen vigentes hoy.">
-            A large-scale Paranormal Singularity in remote Siberia — designated TLF-099-B, <em>The Listening Field</em> — required the first deployment of I.R.I.S. containment teams outside a laboratory environment. The event lasted 11 months and established protocols that remain in use today. Details remain classified; the region was designated a permanent exclusion zone.
+ <h4>The Siberian Classification Event</h4>
+          <p>
+            A large-scale Paranormal Singularity in remote Siberia — designated TLF-099-B, The Listening Field — required the first deployment of I.R.I.S. containment teams outside a laboratory environment. The event lasted 11 months and established protocols that remain in use today. Details remain classified; the region was designated a permanent exclusion zone.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1971</div>
-          <h4 data-en="Classification System Revision — Mixed Singularities" data-es="Revisión del Sistema de Clasificación — Singularidades Mixtas">Classification System Revision — Mixed Singularities</h4>
-          <p data-en="Following encounters with phenomena that defied single-category classification, the Mixed Singularity designation was formally added to the I.R.I.S. classification framework. This revision also introduced the Threat Tier system (Tiers 1–5) used internally to prioritize containment resources." data-es="Tras encuentros con fenómenos que desafiaban la clasificación de una sola categoría, la designación de Singularidad Mixta fue formalmente añadida al marco de clasificación de I.R.I.S. Esta revisión también introdujo el sistema de Nivel de Amenaza (Niveles 1–5).">
+ <h4>Classification System Revision — Mixed Singularities</h4>
+          <p>
             Following encounters with phenomena that defied single-category classification, the Mixed Singularity designation was formally added to the I.R.I.S. classification framework. This revision also introduced the Threat Tier system (Tiers 1–5) used internally to prioritize containment resources.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1984</div>
-          <h4 data-en="The African Corridor — Region 9 & 10" data-es="El Corredor Africano — Regiones 9 y 10">The African Corridor — Region 9 & 10</h4>
-          <p data-en="Geological surveying across central and eastern Africa revealed an unusually high density of low-tier Singularities following tectonic lines. I.R.I.S. established two regional divisions and a permanent research installation in a classified location. The African Corridor remains one of our most active research zones." data-es="Los estudios geológicos en el centro y este de África revelaron una densidad inusualmente alta de Singularidades de bajo nivel. I.R.I.S. estableció dos divisiones regionales y una instalación de investigación permanente en una ubicación clasificada.">
+ <h4>The African Corridor — Region 9 & 10</h4>
+          <p>
             Geological surveying across central and eastern Africa revealed an unusually high density of low-tier Singularities following tectonic lines. I.R.I.S. established two regional divisions and a permanent research installation in a classified location. The African Corridor remains one of our most active research zones.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1989</div>
-          <h4 data-en="Eastern European Archive Recovery" data-es="Recuperación de Archivos en Europa del Este">Eastern European Archive Recovery</h4>
-          <p data-en="Following the geopolitical restructuring of Eastern Europe, I.R.I.S. Corp coordinated with multiple transitional governments to preserve and catalogue scientific documentation previously maintained by Soviet-era research institutions. Over 4,200 documents and 318 physical samples were transferred to I.R.I.S. secure storage facilities under international archival agreements. Several materials required immediate classification upon review." data-es="Tras la reestructuración geopolítica de Europa del Este, I.R.I.S. Corp coordinó con múltiples gobiernos de transición para preservar y catalogar documentación científica mantenida por instituciones de investigación de la era soviética. Más de 4.200 documentos y 318 muestras físicas fueron transferidos a instalaciones seguras de I.R.I.S. bajo acuerdos internacionales de archivo.">
+ <h4>Eastern European Archive Recovery</h4>
+          <p>
             Following the geopolitical restructuring of Eastern Europe, I.R.I.S. Corp coordinated with multiple transitional governments to preserve and catalogue scientific documentation previously maintained by Soviet-era research institutions. Over 4,200 documents and 318 physical samples were transferred to I.R.I.S. secure storage facilities under international archival agreements. Several materials required immediate classification upon review.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1991</div>
-          <h4 data-en="The Beneficial Singularity Program" data-es="El Programa de Singularidades Beneficiosas">The Beneficial Singularity Program</h4>
-          <p data-en="I.R.I.S. Corp formally established the Beneficial Singularity Program, dedicated to studying anomalies with potential positive applications in medicine, materials science, and energy. Several classified discoveries from this program have been quietly integrated into commercial and governmental use through partner agreements." data-es="I.R.I.S. Corp estableció formalmente el Programa de Singularidades Beneficiosas, dedicado al estudio de anomalías con aplicaciones positivas potenciales en medicina, ciencia de materiales y energía. Varios descubrimientos clasificados han sido integrados silenciosamente en uso comercial y gubernamental.">
+ <h4>The Beneficial Singularity Program</h4>
+          <p>
             I.R.I.S. Corp formally established the Beneficial Singularity Program, dedicated to studying anomalies with potential positive applications in medicine, materials science, and energy. Several classified discoveries from this program have been quietly integrated into commercial and governmental use through partner agreements.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1996</div>
-          <h4 data-en="Discovery of Lichen Vorax — Region-7 Biological Survey" data-es="Descubrimiento de Lichen Vorax — Estudio Biológico de la Región-7">Discovery of Lichen Vorax — Region-7 Biological Survey</h4>
-          <p data-en="During a routine biological survey in Region-7, I.R.I.S. researchers identified a previously undocumented fungal organism designated Lichen Vorax. Preliminary analysis revealed an extraordinary capacity for selective cellular apoptosis — specifically targeting malignant tissue while leaving healthy cells unaffected. Initial trials conducted in collaboration with the University of Geneva and the Institut Curie demonstrated a 91.4% malignant cell reduction rate in controlled environments. The discovery was immediately classified under the Beneficial Singularity Program. Full research findings were shared with the World Health Organization under a restricted data-sharing agreement in December 1996." data-es="Durante un estudio biológico de rutina en la Región-7, investigadores de I.R.I.S. identificaron un organismo fúngico previamente no documentado designado Lichen Vorax. El análisis preliminar reveló una capacidad extraordinaria para la apoptosis celular selectiva. Los ensayos iniciales demostraron una tasa de reducción del 91,4% de células malignas.">
-            During a routine biological survey in Region-7, I.R.I.S. researchers identified a previously undocumented fungal organism designated <em>Lichen Vorax</em>. Preliminary analysis revealed an extraordinary capacity for selective cellular apoptosis — specifically targeting malignant tissue while leaving healthy cells unaffected. Initial trials conducted in collaboration with the University of Geneva and the Institut Curie demonstrated a <strong>91.4% malignant cell reduction rate</strong> in controlled environments. The discovery was immediately classified under the Beneficial Singularity Program. Full research findings were shared with the World Health Organization under a restricted data-sharing agreement in December 1996.
+ <h4>Discovery of Lichen Vorax — Region-7 Biological Survey</h4>
+          <p>
+            During a routine biological survey in Region-7, I.R.I.S. researchers identified a previously undocumented fungal organism designated Lichen Vorax. Preliminary analysis revealed an extraordinary capacity for selective cellular apoptosis — specifically targeting malignant tissue while leaving healthy cells unaffected. Initial trials conducted in collaboration with the University of Geneva and the Institut Curie demonstrated a 91.4% malignant cell reduction rate in controlled environments. The discovery was immediately classified under the Beneficial Singularity Program. Full research findings were shared with the World Health Organization under a restricted data-sharing agreement in December 1996.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">1998</div>
-          <h4 data-en="Antarctic Program — Operation Whiteout" data-es="Programa Antártico — Operación Whiteout">Antarctic Program — Operation Whiteout</h4>
-          <p data-en="Following satellite detection of anomalous thermal signatures in Antarctica, Operation Whiteout was initiated. Three research installations were established: Halley III, Halley IV, and Halley V, positioned in Region-3 at coordinates -75.5731, -26.6642 and surrounding areas." data-es="Tras la detección por satélite de firmas térmicas anómalas en la Antártida, se inició la Operación Whiteout. Se establecieron tres instalaciones de investigación: Halley III, Halley IV y Halley V, posicionadas en la Región-3.">
+ <h4>Antarctic Program — Operation Whiteout</h4>
+          <p>
             Following satellite detection of anomalous thermal signatures in Antarctica, Operation Whiteout was initiated. Three research installations were established: Halley III, Halley IV, and Halley V, positioned in Region-3 at coordinates -75.5731, -26.6642 and surrounding areas.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">2003</div>
-          <h4 data-en="Region-3 Restructuring" data-es="Reestructuración de la Región-3">Region-3 Restructuring</h4>
-          <p data-en="Following a routine operational review, I.R.I.S. Corp elected to consolidate its Antarctic research program. Halley V was decommissioned and its research objectives were integrated into the broader Region-3 monitoring framework. All personnel were successfully transitioned to other roles within the organization." data-es="Tras una revisión operativa de rutina, I.R.I.S. Corp decidió consolidar su programa de investigación antártico. Halley V fue descomisionada y sus objetivos de investigación fueron integrados en el marco de monitoreo más amplio de la Región-3. Todo el personal fue exitosamente reubicado en otros roles.">
+ <h4>Region-3 Restructuring</h4>
+          <p>
             Following a routine operational review, I.R.I.S. Corp elected to consolidate its Antarctic research program. Halley V was decommissioned and its research objectives were integrated into the broader Region-3 monitoring framework. All personnel were successfully transitioned to other roles within the organization.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">2007</div>
-          <h4 data-en="FDA Approval — LV-Compound Oncological Treatment" data-es="Aprobación FDA — Tratamiento Oncológico Compuesto LV">FDA Approval — LV-Compound Oncological Treatment</h4>
-          <p data-en="After eleven years of clinical development, the United States Food and Drug Administration granted approval to the LV-Compound, an oncological treatment derived from the biological properties of Lichen Vorax. Developed in partnership with Novartis AG and the Institut Gustave Roussy, the LV-Compound demonstrated a 94.2% remission rate across Phase III clinical trials involving 3,800 patients in 14 countries. The treatment is currently indicated for aggressive forms of pancreatic and lung carcinoma. I.R.I.S. Corp waived all patent royalties on the compound, ensuring unrestricted access for national health systems worldwide. Director-General Voss described the approval as 'the clearest proof that the incomprehensible, when understood, becomes a gift.'" data-es="Tras once años de desarrollo clínico, la FDA otorgó aprobación al Compuesto LV. Desarrollado con Novartis AG e Institut Gustave Roussy, demostró una tasa de remisión del 94,2% en ensayos clínicos de Fase III con 3.800 pacientes en 14 países. I.R.I.S. Corp renunció a todas las regalías de patente.">
-            After eleven years of clinical development, the FDA granted approval to the <strong>LV-Compound</strong>, an oncological treatment derived from the biological properties of <em>Lichen Vorax</em>. Developed in partnership with Novartis AG and the Institut Gustave Roussy, the LV-Compound demonstrated a <strong>94.2% remission rate</strong> across Phase III trials involving 3,800 patients in 14 countries. I.R.I.S. Corp waived all patent royalties on the compound, ensuring unrestricted access for national health systems worldwide. Director-General Voss described the approval as <em>"the clearest proof that the incomprehensible, when understood, becomes a gift."</em>
+ <h4>FDA Approval — LV-Compound Oncological Treatment</h4>
+          <p>
+            After eleven years of clinical development, the United States Food and Drug Administration granted approval to the LV-Compound, an oncological treatment derived from the biological properties of Lichen Vorax. Developed in partnership with Novartis AG and the Institut Gustave Roussy, the LV-Compound demonstrated a 94.2% remission rate across Phase III clinical trials involving 3,800 patients in 14 countries. The treatment is currently indicated for aggressive forms of pancreatic and lung carcinoma. I.R.I.S. Corp waived all patent royalties on the compound, ensuring unrestricted access for national health systems worldwide. Director-General Voss described the approval as 'the clearest proof that the incomprehensible, when understood, becomes a gift.'
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">2024</div>
-          <h4 data-en="The Japanese Singularity Event" data-es="El Evento de Singularidad Japonesa">The Japanese Singularity Event</h4>
-          <p data-en="A major Singularity event in Japan triggered a cascade of operational and financial failures across I.R.I.S. Corp global infrastructure. The organization entered dissolution proceedings in late 2024, with full transfer to the International Oversight Committee completed by early 2026." data-es="Un importante evento de Singularidad en Japón desencadenó una cascada de fallas operativas y financieras en la infraestructura global de I.R.I.S. Corp. La organización inició procedimientos de disolución a finales de 2024.">
+ <h4>The Japanese Singularity Event</h4>
+          <p>
             A major Singularity event in Japan triggered a cascade of operational and financial failures across I.R.I.S. Corp global infrastructure. The organization entered dissolution proceedings in late 2024, with full transfer to the International Oversight Committee completed by early 2026.
           </p>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-year">2026</div>
-          <h4 data-en="Dissolution" data-es="Disolución">Dissolution</h4>
-          <p data-en="I.R.I.S. Corp officially ceased operations. All assets, personnel records, and research archives were transferred to the IOC. This website remains active as a public archive under IOC mandate." data-es="I.R.I.S. Corp cesó oficialmente sus operaciones. Todos los activos, registros de personal y archivos de investigación fueron transferidos al IOC. Este sitio web permanece activo como archivo público bajo mandato del IOC.">
+ <h4>Dissolution</h4>
+          <p>
             I.R.I.S. Corp officially ceased operations. All assets, personnel records, and research archives were transferred to the IOC. This website remains active as a public archive under IOC mandate.
           </p>
         </div>
@@ -2569,39 +2725,39 @@ let currentUser = null;
     <!-- DEPARTMENTS -->
     <div class="page" id="page-departments">
       <div class="section-header">
-        <h3 data-en="Departments & Divisions" data-es="Departamentos y Divisiones">Departments & Divisions</h3>
-        <span data-en="ORGANIZATIONAL STRUCTURE" data-es="ESTRUCTURA ORGANIZACIONAL">ORGANIZATIONAL STRUCTURE</span>
+ <h3>Departments & Divisions</h3>
+ <span>ORGANIZATIONAL STRUCTURE</span>
       </div>
       <div class="dept-grid">
         <div class="dept-card">
           <span class="dept-icon">🔬</span>
-          <h4 data-en="Research Division" data-es="División de Investigación">Research Division</h4>
-          <p data-en="Primary scientific research into classified Singularity phenomena. Responsible for sample analysis, behavioral documentation, and theoretical frameworks for anomalous events." data-es="Investigación científica primaria de fenómenos de Singularidad clasificados. Responsable del análisis de muestras, documentación conductual y marcos teóricos para eventos anómalos.">Primary scientific research into classified Singularity phenomena. Responsible for sample analysis, behavioral documentation, and theoretical frameworks for anomalous events.</p>
+ <h4>Research Division</h4>
+ <p>Primary scientific research into classified Singularity phenomena. Responsible for sample analysis, behavioral documentation, and theoretical frameworks for anomalous events.</p>
         </div>
         <div class="dept-card">
           <span class="dept-icon">🛡️</span>
-          <h4 data-en="Containment Division" data-es="División de Contención">Containment Division</h4>
-          <p data-en="Design and implementation of containment protocols for active Singularities. Works in direct coordination with field teams and installation security personnel." data-es="Diseño e implementación de protocolos de contención para Singularidades activas. Trabaja en coordinación directa con equipos de campo y personal de seguridad de instalaciones.">Design and implementation of containment protocols for active Singularities. Works in direct coordination with field teams and installation security personnel.</p>
+ <h4>Containment Division</h4>
+ <p>Design and implementation of containment protocols for active Singularities. Works in direct coordination with field teams and installation security personnel.</p>
         </div>
         <div class="dept-card">
           <span class="dept-icon">📡</span>
-          <h4 data-en="Communications Division" data-es="División de Comunicaciones">Communications Division</h4>
-          <p data-en="Maintenance of secure inter-installation communication networks. Management of information disclosure protocols and public relations for anomalous events requiring cover narratives." data-es="Mantenimiento de redes de comunicación seguras entre instalaciones. Gestión de protocolos de divulgación de información y relaciones públicas para eventos anómalos.">Maintenance of secure inter-installation communication networks. Management of information disclosure protocols and public relations for anomalous events requiring cover narratives.</p>
+ <h4>Communications Division</h4>
+ <p>Maintenance of secure inter-installation communication networks. Management of information disclosure protocols and public relations for anomalous events requiring cover narratives.</p>
         </div>
         <div class="dept-card">
           <span class="dept-icon">⚕️</span>
-          <h4 data-en="Medical Division" data-es="División Médica">Medical Division</h4>
-          <p data-en="Personnel health monitoring with specialization in anomalous exposure treatment. Maintains classified research into biological Singularity effects on human subjects." data-es="Monitoreo de salud del personal con especialización en tratamiento de exposición anómala. Mantiene investigación clasificada sobre efectos de Singularidades biológicas en sujetos humanos.">Personnel health monitoring with specialization in anomalous exposure treatment. Maintains classified research into biological Singularity effects on human subjects.</p>
+ <h4>Medical Division</h4>
+ <p>Personnel health monitoring with specialization in anomalous exposure treatment. Maintains classified research into biological Singularity effects on human subjects.</p>
         </div>
         <div class="dept-card">
           <span class="dept-icon">🗂️</span>
-          <h4 data-en="Classification Division — C.L.E.A.R." data-es="División de Clasificación — C.L.E.A.R.">Classification Division — C.L.E.A.R.</h4>
-          <p data-en="Categorical Logging and Evaluation of Anomalous Records. Responsible for maintaining the global Singularity registry and assigning classification levels to new phenomena." data-es="Registro Categórico y Evaluación de Registros Anómalos. Responsable de mantener el registro global de Singularidades y asignar niveles de clasificación a nuevos fenómenos.">Categorical Logging and Evaluation of Anomalous Records. Responsible for maintaining the global Singularity registry and assigning classification levels to new phenomena.</p>
+ <h4>Classification Division — C.L.E.A.R.</h4>
+ <p>Categorical Logging and Evaluation of Anomalous Records. Responsible for maintaining the global Singularity registry and assigning classification levels to new phenomena.</p>
         </div>
         <div class="dept-card">
           <span class="dept-icon">🌍</span>
-          <h4 data-en="Regional Operations" data-es="Operaciones Regionales">Regional Operations</h4>
-          <p data-en="Coordination of field teams across all 12 designated regions. Direct oversight of research installations and emergency response deployment." data-es="Coordinación de equipos de campo en las 12 regiones designadas. Supervisión directa de instalaciones de investigación y despliegue de respuesta de emergencia.">Coordination of field teams across all 12 designated regions. Direct oversight of research installations and emergency response deployment.</p>
+ <h4>Regional Operations</h4>
+ <p>Coordination of field teams across all 12 designated regions. Direct oversight of research installations and emergency response deployment.</p>
         </div>
       </div>
     </div>
@@ -2609,15 +2765,15 @@ let currentUser = null;
     <!-- NEWS -->
     <div class="page" id="page-news">
       <div class="section-header">
-        <h3 data-en="News & Bulletins" data-es="Noticias y Boletines">News & Bulletins</h3>
-        <span data-en="PUBLIC COMMUNICATIONS" data-es="COMUNICACIONES PÚBLICAS">PUBLIC COMMUNICATIONS</span>
+ <h3>News & Bulletins</h3>
+ <span>PUBLIC COMMUNICATIONS</span>
       </div>
 
       <div class="news-item">
         <div class="news-date">14 JAN 2026</div>
         <div class="news-content">
-          <h4 data-en="IOC Assumes Full Control of I.R.I.S. Archives" data-es="El IOC Asume el Control Total de los Archivos de I.R.I.S.">IOC Assumes Full Control of I.R.I.S. Archives</h4>
-          <p data-en="The International Oversight Committee has completed the transfer of all I.R.I.S. Corp operational archives. A partial declassification of Antarctic operations documents has been approved under IOC Order 2024-88, with full disclosure estimated for 2031." data-es="El Comité Internacional de Supervisión ha completado la transferencia de todos los archivos operativos de I.R.I.S. Corp. Se ha aprobado una desclasificación parcial de documentos antárticos bajo la Orden IOC 2024-88.">The International Oversight Committee has completed the transfer of all I.R.I.S. Corp operational archives. A partial declassification of Antarctic operations documents has been approved under IOC Order 2024-88, with full disclosure estimated for 2031.</p>
+ <h4>IOC Assumes Full Control of I.R.I.S. Archives</h4>
+ <p>The International Oversight Committee has completed the transfer of all I.R.I.S. Corp operational archives. A partial declassification of Antarctic operations documents has been approved under IOC Order 2024-88, with full disclosure estimated for 2031.</p>
           <span class="news-tag">INSTITUTIONAL</span>
         </div>
       </div>
@@ -2625,8 +2781,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">03 NOV 2025</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Enters Dissolution Proceedings" data-es="I.R.I.S. Corp Inicia Procedimientos de Disolución">I.R.I.S. Corp Enters Dissolution Proceedings</h4>
-          <p data-en="Following significant operational disruptions in 2024, I.R.I.S. Corp has formally initiated dissolution proceedings. All active research programs have been suspended pending IOC review. The organization thanks its personnel, partners, and the governments that made its mission possible for over eight decades." data-es="Tras importantes interrupciones operativas en 2024, I.R.I.S. Corp ha iniciado formalmente los procedimientos de disolución. La organización agradece a su personal, socios y los gobiernos que hicieron posible su misión durante más de ocho décadas.">Following significant operational disruptions in 2024, I.R.I.S. Corp has formally initiated dissolution proceedings. All active research programs have been suspended pending IOC review. The organization thanks its personnel, partners, and the governments that made its mission possible for over eight decades.</p>
+ <h4>I.R.I.S. Corp Enters Dissolution Proceedings</h4>
+ <p>Following significant operational disruptions in 2024, I.R.I.S. Corp has formally initiated dissolution proceedings. All active research programs have been suspended pending IOC review. The organization thanks its personnel, partners, and the governments that made its mission possible for over eight decades.</p>
           <span class="news-tag">INSTITUTIONAL</span>
         </div>
       </div>
@@ -2634,8 +2790,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">03 OCT 2023</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp 85th Anniversary — Looking Forward" data-es="85° Aniversario de I.R.I.S. Corp — Mirando al Futuro">I.R.I.S. Corp 85th Anniversary — Looking Forward</h4>
-          <p data-en="I.R.I.S. Corp marks 85 years of operation with a renewed commitment to transparency and international collaboration. A donation of $8.7M to UNESCO's Environmental Anomaly Research Fund was announced alongside the expansion of the Forsythe Initiative scholarship program to 12 additional universities worldwide." data-es="I.R.I.S. Corp marca 85 años de operación con un renovado compromiso con la transparencia y la colaboración internacional. Se anunció una donación de $8.7M al Fondo de Investigación de Anomalías Ambientales de la UNESCO junto con la expansión del programa de becas Iniciativa Forsythe a 12 universidades adicionales.">I.R.I.S. Corp marks 85 years of operation with a renewed commitment to transparency and international collaboration. A donation of $8.7M to UNESCO's Environmental Anomaly Research Fund was announced alongside the expansion of the Forsythe Initiative scholarship program to 12 additional universities worldwide.</p>
+ <h4>I.R.I.S. Corp 85th Anniversary — Looking Forward</h4>
+ <p>I.R.I.S. Corp marks 85 years of operation with a renewed commitment to transparency and international collaboration. A donation of $8.7M to UNESCO's Environmental Anomaly Research Fund was announced alongside the expansion of the Forsythe Initiative scholarship program to 12 additional universities worldwide.</p>
           <span class="news-tag">ANNIVERSARY</span>
         </div>
       </div>
@@ -2643,8 +2799,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">17 MAR 2020</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Operations Continue During Global Health Emergency" data-es="Las Operaciones de I.R.I.S. Corp Continúan Durante la Emergencia Sanitaria Global">I.R.I.S. Corp Operations Continue During Global Health Emergency</h4>
-          <p data-en="I.R.I.S. Corp confirms that all research installations remain fully operational during the current global health emergency. Personnel safety protocols have been updated in line with WHO guidelines. Remote work arrangements have been implemented for non-field staff. Monitoring of active Singularities continues without interruption." data-es="I.R.I.S. Corp confirma que todas las instalaciones de investigación permanecen completamente operativas durante la actual emergencia sanitaria global. Los protocolos de seguridad del personal han sido actualizados conforme a las directrices de la OMS. El monitoreo de Singularidades activas continúa sin interrupciones.">I.R.I.S. Corp confirms that all research installations remain fully operational during the current global health emergency. Personnel safety protocols have been updated in line with WHO guidelines. Remote work arrangements have been implemented for non-field staff. Monitoring of active Singularities continues without interruption.</p>
+ <h4>I.R.I.S. Corp Operations Continue During Global Health Emergency</h4>
+ <p>I.R.I.S. Corp confirms that all research installations remain fully operational during the current global health emergency. Personnel safety protocols have been updated in line with WHO guidelines. Remote work arrangements have been implemented for non-field staff. Monitoring of active Singularities continues without interruption.</p>
           <span class="news-tag">OPERATIONS</span>
         </div>
       </div>
@@ -2652,8 +2808,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">11 SEP 2019</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Donates $15M to Global Disaster Relief Efforts" data-es="I.R.I.S. Corp Dona $15M a Esfuerzos Globales de Ayuda en Desastres">I.R.I.S. Corp Donates $15M to Global Disaster Relief Efforts</h4>
-          <p data-en="Marking the anniversary of one of the most significant geological events of the modern era, I.R.I.S. Corp has committed $15M to international disaster preparedness and relief organizations. CEO Dr. Marcus Hale stated: 'Our research exists to make the world safer. It is only right that we contribute beyond the laboratory.'" data-es="Marcando el aniversario de uno de los eventos geológicos más significativos de la era moderna, I.R.I.S. Corp se ha comprometido con $15M a organizaciones internacionales de preparación y ayuda en desastres.">Marking the anniversary of one of the most significant geological events of the modern era, I.R.I.S. Corp has committed $15M to international disaster preparedness and relief organizations. CEO Dr. Marcus Hale stated: <em>"Our research exists to make the world safer. It is only right that we contribute beyond the laboratory."</em></p>
+ <h4>I.R.I.S. Corp Donates $15M to Global Disaster Relief Efforts</h4>
+ <p>Marking the anniversary of one of the most significant geological events of the modern era, I.R.I.S. Corp has committed $15M to international disaster preparedness and relief organizations. CEO Dr. Marcus Hale stated: 'Our research exists to make the world safer. It is only right that we contribute beyond the laboratory.'</em></p>
           <span class="news-tag">CHARITY</span>
         </div>
       </div>
@@ -2661,8 +2817,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">11 DEC 2015</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Contributes to COP21 Scientific Framework" data-es="I.R.I.S. Corp Contribuye al Marco Científico de la COP21">I.R.I.S. Corp Contributes to COP21 Scientific Framework</h4>
-          <p data-en="I.R.I.S. Corp is proud to have contributed a declassified subset of its geological and geothermal research data to the scientific body of the 2015 United Nations Climate Change Conference in Paris. The dataset, compiled from 34 active monitoring installations across 12 regions, provides longitudinal subsurface temperature readings spanning 60 years — among the most comprehensive deep-earth thermal datasets available to climate researchers. Director-General Elara Voss attended COP21 as an observer and signed the scientific consensus statement alongside representatives from 195 nations. 'What happens beneath the surface,' she noted, 'has always been our concern.'" data-es="I.R.I.S. Corp se enorgullece de haber contribuido datos geológicos y geotérmicos desclasificados al cuerpo científico de la COP21 en París. El conjunto de datos, compilado de 34 instalaciones de monitoreo en 12 regiones, proporciona lecturas de temperatura subsuperficial que abarcan 60 años. La Directora General Voss asistió como observadora y firmó la declaración de consenso científico.">I.R.I.S. Corp is proud to have contributed a declassified subset of its geological and geothermal research data to the COP21 scientific body in Paris. The dataset spans 60 years of deep-earth thermal readings across 12 regions. Director-General Voss attended as an observer and signed the scientific consensus statement. <em>"What happens beneath the surface has always been our concern."</em></p>
+ <h4>I.R.I.S. Corp Contributes to COP21 Scientific Framework</h4>
+ <p>I.R.I.S. Corp is proud to have contributed a declassified subset of its geological and geothermal research data to the scientific body of the 2015 United Nations Climate Change Conference in Paris. The dataset, compiled from 34 active monitoring installations across 12 regions, provides longitudinal subsurface temperature readings spanning 60 years — among the most comprehensive deep-earth thermal datasets available to climate researchers. Director-General Elara Voss attended COP21 as an observer and signed the scientific consensus statement alongside representatives from 195 nations. 'What happens beneath the surface,' she noted, 'has always been our concern.'</em></p>
           <span class="news-tag">SCIENCE</span>
         </div>
       </div>
@@ -2670,8 +2826,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">03 OCT 2013</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp 75th Anniversary — The Forsythe Prize Established" data-es="75° Aniversario de I.R.I.S. Corp — Se Establece el Premio Forsythe">I.R.I.S. Corp 75th Anniversary — The Forsythe Prize Established</h4>
-          <p data-en="To mark its 75th anniversary, I.R.I.S. Corp established the Forsythe Prize — a $500,000 annual award for breakthrough research in fields adjacent to anomalous science, open to researchers worldwide. The prize is named after founding director Dr. Elaine Forsythe and is administered independently from I.R.I.S. operations." data-es="Para marcar su 75° aniversario, I.R.I.S. Corp estableció el Premio Forsythe — un galardón anual de $500,000 para investigación innovadora en campos adyacentes a la ciencia anómala, abierto a investigadores de todo el mundo. El premio lleva el nombre de la directora fundadora Dra. Elaine Forsythe.">To mark its 75th anniversary, I.R.I.S. Corp established the Forsythe Prize — a $500,000 annual award for breakthrough research in fields adjacent to anomalous science, open to researchers worldwide. The prize is named after founding director Dr. Elaine Forsythe and is administered independently from I.R.I.S. operations.</p>
+ <h4>I.R.I.S. Corp 75th Anniversary — The Forsythe Prize Established</h4>
+ <p>To mark its 75th anniversary, I.R.I.S. Corp established the Forsythe Prize — a $500,000 annual award for breakthrough research in fields adjacent to anomalous science, open to researchers worldwide. The prize is named after founding director Dr. Elaine Forsythe and is administered independently from I.R.I.S. operations.</p>
           <span class="news-tag">ANNIVERSARY</span>
         </div>
       </div>
@@ -2679,8 +2835,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">25 AUG 2012</div>
         <div class="news-content">
-          <h4 data-en="Statement on Voyager 1 — A Message From the Edge" data-es="Declaración sobre Voyager 1 — Un Mensaje Desde el Borde">Statement on Voyager 1 — A Message From the Edge</h4>
-          <p data-en="On August 25th, 2012, NASA confirmed that Voyager 1 had crossed the heliopause, becoming the first human-made object to enter interstellar space. I.R.I.S. Corp issued the following public statement: 'For 74 years, I.R.I.S. has looked inward — into the earth, into the biological, into the phenomena that exist between what science understands and what it does not. Voyager looks outward. Both directions lead to the same place: the boundary of what we know. We congratulate NASA and the global scientific community. The incomprehensible does not end at the atmosphere. It simply changes shape.'" data-es="El 25 de agosto de 2012, la NASA confirmó que la Voyager 1 había cruzado la heliopausa. I.R.I.S. Corp emitió la siguiente declaración pública: 'Durante 74 años, I.R.I.S. ha mirado hacia adentro. La Voyager mira hacia afuera. Ambas direcciones llevan al mismo lugar: el límite de lo que conocemos. Lo incomprensible no termina en la atmósfera. Simplemente cambia de forma.'">NASA confirmed that Voyager 1 crossed the heliopause on this date, becoming the first human-made object in interstellar space. I.R.I.S. Corp issued a rare public statement: <em>"For 74 years, I.R.I.S. has looked inward — into the earth, into the biological, into the phenomena that exist between what science understands and what it does not. Voyager looks outward. Both directions lead to the same place: the boundary of what we know. The incomprehensible does not end at the atmosphere. It simply changes shape."</em></p>
+ <h4>Statement on Voyager 1 — A Message From the Edge</h4>
+ <p>On August 25th, 2012, NASA confirmed that Voyager 1 had crossed the heliopause, becoming the first human-made object to enter interstellar space. I.R.I.S. Corp issued the following public statement: 'For 74 years, I.R.I.S. has looked inward — into the earth, into the biological, into the phenomena that exist between what science understands and what it does not. Voyager looks outward. Both directions lead to the same place: the boundary of what we know. We congratulate NASA and the global scientific community. The incomprehensible does not end at the atmosphere. It simply changes shape.'</em></p>
           <span class="news-tag">OFFICIAL STATEMENT</span>
         </div>
       </div>
@@ -2688,8 +2844,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">22 SEP 2011</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Opens New Headquarters in Geneva" data-es="I.R.I.S. Corp Inaugura Nueva Sede en Ginebra">I.R.I.S. Corp Opens New Headquarters in Geneva</h4>
-          <p data-en="I.R.I.S. Corp has officially relocated its Central Command to a new purpose-built facility in Geneva, Switzerland. The new headquarters consolidates administrative, communications, and coordination functions previously spread across three locations. The facility features state-of-the-art secure communications infrastructure." data-es="I.R.I.S. Corp ha trasladado oficialmente su Comando Central a una nueva instalación en Ginebra, Suiza. La nueva sede consolida las funciones administrativas, de comunicaciones y coordinación que antes estaban distribuidas en tres ubicaciones.">I.R.I.S. Corp has officially relocated its Central Command to a new purpose-built facility in Geneva, Switzerland. The new headquarters consolidates administrative, communications, and coordination functions previously spread across three locations. The facility features state-of-the-art secure communications infrastructure.</p>
+ <h4>I.R.I.S. Corp Opens New Headquarters in Geneva</h4>
+ <p>I.R.I.S. Corp has officially relocated its Central Command to a new purpose-built facility in Geneva, Switzerland. The new headquarters consolidates administrative, communications, and coordination functions previously spread across three locations. The facility features state-of-the-art secure communications infrastructure.</p>
           <span class="news-tag">CORPORATE</span>
         </div>
       </div>
@@ -2697,8 +2853,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">14 JAN 2010</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Mobilizes Aid Following Haiti Earthquake" data-es="I.R.I.S. Corp Moviliza Ayuda tras el Terremoto de Haití">I.R.I.S. Corp Mobilizes Aid Following Haiti Earthquake</h4>
-          <p data-en="Following the devastating earthquake that struck Haiti on January 12th, I.R.I.S. Corp has deployed 63 personnel to Port-au-Prince within 72 hours of the event. In coordination with Partners in Health and the Pan American Health Organization, I.R.I.S. has committed $3.8 million USD in direct aid. Medical teams are providing care in field hospitals across the Ouest Department, including the administration of experimental LV-Compound treatments for infection management. I.R.I.S. medical teams expect to remain operational for a minimum of six months." data-es="Tras el devastador terremoto que azotó Haití el 12 de enero, I.R.I.S. Corp ha desplegado 63 personas en Puerto Príncipe en menos de 72 horas. En coordinación con Partners in Health y la PAHO, I.R.I.S. ha comprometido 3,8 millones de dólares en ayuda directa, incluyendo tratamientos experimentales de Compuesto LV.">Following the January 12th earthquake, I.R.I.S. Corp deployed 63 personnel to Port-au-Prince within 72 hours. In coordination with Partners in Health and the PAHO, I.R.I.S. committed <strong>$3.8 million USD</strong> in direct aid, including experimental LV-Compound treatments for infection management in field hospitals. Teams expect to remain operational for a minimum of six months.</p>
+ <h4>I.R.I.S. Corp Mobilizes Aid Following Haiti Earthquake</h4>
+ <p>Following the devastating earthquake that struck Haiti on January 12th, I.R.I.S. Corp has deployed 63 personnel to Port-au-Prince within 72 hours of the event. In coordination with Partners in Health and the Pan American Health Organization, I.R.I.S. has committed $3.8 million USD in direct aid. Medical teams are providing care in field hospitals across the Ouest Department, including the administration of experimental LV-Compound treatments for infection management. I.R.I.S. medical teams expect to remain operational for a minimum of six months.</strong> in direct aid, including experimental LV-Compound treatments for infection management in field hospitals. Teams expect to remain operational for a minimum of six months.</p>
           <span class="news-tag">HUMANITARIAN</span>
         </div>
       </div>
@@ -2706,8 +2862,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">15 JAN 2009</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Commits $22M to Earthquake Relief in Region-11" data-es="I.R.I.S. Corp Compromete $22M para Ayuda por Terremoto en Región-11">I.R.I.S. Corp Commits $22M to Earthquake Relief in Region-11</h4>
-          <p data-en="Following seismic events in our Region-11 operational territory, I.R.I.S. Corp has committed $22M to local and international relief efforts, in addition to deploying geological assessment teams to assist government authorities. Our deepest sympathies go to all those affected." data-es="Tras los eventos sísmicos en nuestro territorio operativo de la Región-11, I.R.I.S. Corp se ha comprometido con $22M para esfuerzos de ayuda locales e internacionales, además de desplegar equipos de evaluación geológica para asistir a las autoridades gubernamentales.">Following seismic events in our Region-11 operational territory, I.R.I.S. Corp has committed $22M to local and international relief efforts, in addition to deploying geological assessment teams to assist government authorities. Our deepest sympathies go to all those affected.</p>
+ <h4>I.R.I.S. Corp Commits $22M to Earthquake Relief in Region-11</h4>
+ <p>Following seismic events in our Region-11 operational territory, I.R.I.S. Corp has committed $22M to local and international relief efforts, in addition to deploying geological assessment teams to assist government authorities. Our deepest sympathies go to all those affected.</p>
           <span class="news-tag">CHARITY</span>
         </div>
       </div>
@@ -2715,8 +2871,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">29 DEC 2004</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Responds to Indian Ocean Disaster" data-es="I.R.I.S. Corp Responde al Desastre del Océano Índico">I.R.I.S. Corp Responds to Indian Ocean Disaster</h4>
-          <p data-en="Following the December 26th earthquake and subsequent tsunami in the Indian Ocean, I.R.I.S. Corp has mobilized humanitarian aid in coordination with UNICEF and the WHO. $4.1 million USD has been allocated across relief efforts in Indonesia, Sri Lanka, Thailand, and India. Eighty-two I.R.I.S. medical volunteers have been deployed to the Aceh and Banda Aceh regions. I.R.I.S. also notes that Underwater Monitoring Outpost 7-C sustained structural damage during the event and has been decommissioned. Sensor coverage in the affected area will be restored via alternative monitoring assets." data-es="Tras el terremoto del 26 de diciembre y el tsunami en el Océano Índico, I.R.I.S. Corp ha movilizado ayuda humanitaria con UNICEF y la OMS. Se han asignado 4,1 millones de dólares en Indonesia, Sri Lanka, Tailandia e India. Ochenta y dos voluntarios médicos han sido desplegados en Aceh. El Puesto de Monitoreo Submarino 7-C sufrió daños y ha sido descomisionado.">I.R.I.S. Corp has mobilized <strong>$4.1 million USD</strong> in humanitarian aid across Indonesia, Sri Lanka, Thailand, and India in coordination with UNICEF and the WHO. Eighty-two medical volunteers have been deployed to the Aceh region. I.R.I.S. also notes that Underwater Monitoring Outpost 7-C sustained structural damage during the event and has been decommissioned. Alternative sensor coverage is being arranged.</p>
+ <h4>I.R.I.S. Corp Responds to Indian Ocean Disaster</h4>
+ <p>Following the December 26th earthquake and subsequent tsunami in the Indian Ocean, I.R.I.S. Corp has mobilized humanitarian aid in coordination with UNICEF and the WHO. $4.1 million USD has been allocated across relief efforts in Indonesia, Sri Lanka, Thailand, and India. Eighty-two I.R.I.S. medical volunteers have been deployed to the Aceh and Banda Aceh regions. I.R.I.S. also notes that Underwater Monitoring Outpost 7-C sustained structural damage during the event and has been decommissioned. Sensor coverage in the affected area will be restored via alternative monitoring assets.</strong> in humanitarian aid across Indonesia, Sri Lanka, Thailand, and India in coordination with UNICEF and the WHO. Eighty-two medical volunteers have been deployed to the Aceh region. I.R.I.S. also notes that Underwater Monitoring Outpost 7-C sustained structural damage during the event and has been decommissioned. Alternative sensor coverage is being arranged.</p>
           <span class="news-tag">HUMANITARIAN</span>
         </div>
       </div>
@@ -2724,8 +2880,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">12 MAR 2004</div>
         <div class="news-content">
-          <h4 data-en="Statement on Antarctic Operations — 2003" data-es="Declaración sobre Operaciones Antárticas — 2003">Statement on Antarctic Operations — 2003</h4>
-          <p data-en="I.R.I.S. Corp confirms that a planned restructuring of our Region-3 Antarctic program was completed in late 2003. All personnel transitions have been finalized. Remote monitoring of the installation continues as planned. We thank all staff involved for their professionalism during this transition period." data-es="I.R.I.S. Corp confirma que la reestructuración planificada de nuestro programa antártico de la Región-3 se completó a finales de 2003. Todas las transiciones de personal han sido finalizadas. Agradecemos a todo el personal involucrado por su profesionalismo.">I.R.I.S. Corp confirms that a planned restructuring of our Region-3 Antarctic program was completed in late 2003. All personnel transitions have been finalized. Remote monitoring of the installation continues as planned. We thank all staff involved for their professionalism during this transition period.</p>
+ <h4>Statement on Antarctic Operations — 2003</h4>
+ <p>I.R.I.S. Corp confirms that a planned restructuring of our Region-3 Antarctic program was completed in late 2003. All personnel transitions have been finalized. Remote monitoring of the installation continues as planned. We thank all staff involved for their professionalism during this transition period.</p>
           <span class="news-tag">OFFICIAL STATEMENT</span>
         </div>
       </div>
@@ -2733,8 +2889,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">03 OCT 2003</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp 65th Anniversary — Gala & Symposium" data-es="65° Aniversario de I.R.I.S. Corp — Gala y Simposio">I.R.I.S. Corp 65th Anniversary — Gala & Symposium</h4>
-          <p data-en="I.R.I.S. Corp celebrated its 65th anniversary with an invitation-only gala in Geneva, Switzerland. The event included a private symposium on advances in Singularity research methodology, attended by representatives from 14 partner governments. I.R.I.S. Corp announced a $4.2M donation to the International Geological Research Foundation." data-es="I.R.I.S. Corp celebró su 65° aniversario con una gala por invitación en Ginebra, Suiza. El evento incluyó un simposio privado sobre avances en metodología de investigación de Singularidades. I.R.I.S. Corp anunció una donación de $4.2M a la Fundación Internacional de Investigación Geológica.">I.R.I.S. Corp celebrated its 65th anniversary with an invitation-only gala in Geneva, Switzerland. The event included a private symposium on advances in Singularity research methodology, attended by representatives from 14 partner governments. I.R.I.S. Corp announced a $4.2M donation to the International Geological Research Foundation.</p>
+ <h4>I.R.I.S. Corp 65th Anniversary — Gala & Symposium</h4>
+ <p>I.R.I.S. Corp celebrated its 65th anniversary with an invitation-only gala in Geneva, Switzerland. The event included a private symposium on advances in Singularity research methodology, attended by representatives from 14 partner governments. I.R.I.S. Corp announced a $4.2M donation to the International Geological Research Foundation.</p>
           <span class="news-tag">ANNIVERSARY</span>
         </div>
       </div>
@@ -2742,8 +2898,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">28 SEP 2001</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Statement Following September Events" data-es="Declaración de I.R.I.S. Corp Tras los Eventos de Septiembre">I.R.I.S. Corp Statement Following September Events</h4>
-          <p data-en="I.R.I.S. Corp expresses its profound condolences to all those affected by the tragic events of September 2001. Our teams in Region-1 have been placed on standby to assist federal authorities with any requests for geological or environmental assessment in affected areas. We have also committed $3M to relief efforts through the American Red Cross." data-es="I.R.I.S. Corp expresa sus más profundas condolencias a todos los afectados por los trágicos eventos de septiembre de 2001. Nuestros equipos en la Región-1 han sido puestos en alerta para asistir a las autoridades federales. También nos hemos comprometido con $3M para los esfuerzos de ayuda.">I.R.I.S. Corp expresses its profound condolences to all those affected by the tragic events of September 2001. Our teams in Region-1 have been placed on standby to assist federal authorities with any requests for geological or environmental assessment in affected areas. We have also committed $3M to relief efforts through the American Red Cross.</p>
+ <h4>I.R.I.S. Corp Statement Following September Events</h4>
+ <p>I.R.I.S. Corp expresses its profound condolences to all those affected by the tragic events of September 2001. Our teams in Region-1 have been placed on standby to assist federal authorities with any requests for geological or environmental assessment in affected areas. We have also committed $3M to relief efforts through the American Red Cross.</p>
           <span class="news-tag">OFFICIAL STATEMENT</span>
         </div>
       </div>
@@ -2751,8 +2907,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">01 JAN 2000</div>
         <div class="news-content">
-          <h4 data-en="Project Meridian — Digital Infrastructure Transition Complete" data-es="Proyecto Meridian — Transición de Infraestructura Digital Completada">Project Meridian — Digital Infrastructure Transition Complete</h4>
-          <p data-en="I.R.I.S. Corp is pleased to confirm the successful completion of Project Meridian, a full migration of its digital archival and communications infrastructure to modernized, redundant systems. The transition was finalized on December 28th, 1999, with no significant disruption to operations. All 34 research installations reported full system continuity through the January 1st rollover. I.R.I.S. Corp commends its technical teams for their thorough and professional handling of this transition." data-es="I.R.I.S. Corp confirma la finalización exitosa del Proyecto Meridian, una migración completa de su infraestructura digital a sistemas modernizados y redundantes. La transición se finalizó el 28 de diciembre de 1999, sin interrupciones significativas. Las 34 instalaciones de investigación reportaron continuidad total del sistema.">I.R.I.S. Corp confirms the successful completion of Project Meridian — a full digital infrastructure migration finalized December 28th, 1999. All 34 research installations reported full system continuity through the January 1st rollover. I.R.I.S. commends its technical teams for their professionalism.</p>
+ <h4>Project Meridian — Digital Infrastructure Transition Complete</h4>
+ <p>I.R.I.S. Corp is pleased to confirm the successful completion of Project Meridian, a full migration of its digital archival and communications infrastructure to modernized, redundant systems. The transition was finalized on December 28th, 1999, with no significant disruption to operations. All 34 research installations reported full system continuity through the January 1st rollover. I.R.I.S. Corp commends its technical teams for their thorough and professional handling of this transition.</p>
           <span class="news-tag">OPERATIONS</span>
         </div>
       </div>
@@ -2760,8 +2916,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">15 JUN 1998</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Expands Antarctic Research Program" data-es="I.R.I.S. Corp Expande su Programa de Investigación Antártico">I.R.I.S. Corp Expands Antarctic Research Program</h4>
-          <p data-en="I.R.I.S. Corp announces the expansion of its Region-3 Antarctic research program with the construction of a new primary research installation, Halley V. The installation will serve as a base for geological and environmental research in the subglacial territories of the Antarctic interior. Construction is scheduled for completion by 2001." data-es="I.R.I.S. Corp anuncia la expansión de su programa de investigación antártico con la construcción de una nueva instalación principal, Halley V. La instalación servirá como base para investigación geológica y ambiental. Se espera completar la construcción para 2001.">I.R.I.S. Corp announces the expansion of its Region-3 Antarctic research program with the construction of a new primary research installation, Halley V. The installation will serve as a base for geological and environmental research in the subglacial territories of the Antarctic interior. Construction is scheduled for completion by 2001.</p>
+ <h4>I.R.I.S. Corp Expands Antarctic Research Program</h4>
+ <p>I.R.I.S. Corp announces the expansion of its Region-3 Antarctic research program with the construction of a new primary research installation, Halley V. The installation will serve as a base for geological and environmental research in the subglacial territories of the Antarctic interior. Construction is scheduled for completion by 2001.</p>
           <span class="news-tag">OPERATIONS</span>
         </div>
       </div>
@@ -2769,8 +2925,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">03 OCT 1997</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Launches Official Website" data-es="I.R.I.S. Corp Lanza Sitio Web Oficial">I.R.I.S. Corp Launches Official Website</h4>
-          <p data-en="I.R.I.S. Corp is pleased to announce the launch of its official public website, marking the organization's first presence on the World Wide Web. The site will serve as a point of contact for partner institutions, academic researchers, and government liaisons. Public information will be updated periodically." data-es="I.R.I.S. Corp se complace en anunciar el lanzamiento de su sitio web público oficial, marcando la primera presencia de la organización en la World Wide Web. El sitio servirá como punto de contacto para instituciones asociadas, investigadores académicos y enlaces gubernamentales.">I.R.I.S. Corp is pleased to announce the launch of its official public website, marking the organization's first presence on the World Wide Web. The site will serve as a point of contact for partner institutions, academic researchers, and government liaisons. Public information will be updated periodically.</p>
+ <h4>I.R.I.S. Corp Launches Official Website</h4>
+ <p>I.R.I.S. Corp is pleased to announce the launch of its official public website, marking the organization's first presence on the World Wide Web. The site will serve as a point of contact for partner institutions, academic researchers, and government liaisons. Public information will be updated periodically.</p>
           <span class="news-tag">CORPORATE</span>
         </div>
       </div>
@@ -2778,8 +2934,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">14 JAN 1997</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp 59th Anniversary — New Headquarters Inaugurated" data-es="59° Aniversario de I.R.I.S. Corp — Nueva Sede Inaugurada">I.R.I.S. Corp 59th Anniversary — New Headquarters Inaugurated</h4>
-          <p data-en="I.R.I.S. Corp celebrated its 59th anniversary with the formal inauguration of its expanded Central Command headquarters in Geneva, Switzerland. The new facility consolidates administrative, communications, and archival operations previously distributed across three separate offices. The event was attended by representatives from 19 partner governments and 6 international scientific bodies. Director-General Elara Voss reaffirmed I.R.I.S.'s core mandate: 'To look further, to understand deeper, and to protect those who cannot protect themselves from what they cannot see.'" data-es="I.R.I.S. Corp celebró su 59° aniversario con la inauguración de su sede ampliada de Comando Central en Ginebra, Suiza. El evento contó con representantes de 19 gobiernos asociados y 6 organismos científicos internacionales. La Directora General Voss reafirmó el mandato central de I.R.I.S.">I.R.I.S. Corp celebrated its 59th anniversary with the inauguration of its expanded Geneva headquarters. Representatives from 19 partner governments and 6 international scientific bodies attended. Director-General Voss reaffirmed the organization's mandate: <em>"To look further, to understand deeper, and to protect those who cannot protect themselves from what they cannot see."</em></p>
+ <h4>I.R.I.S. Corp 59th Anniversary — New Headquarters Inaugurated</h4>
+ <p>I.R.I.S. Corp celebrated its 59th anniversary with the formal inauguration of its expanded Central Command headquarters in Geneva, Switzerland. The new facility consolidates administrative, communications, and archival operations previously distributed across three separate offices. The event was attended by representatives from 19 partner governments and 6 international scientific bodies. Director-General Elara Voss reaffirmed I.R.I.S.'s core mandate: 'To look further, to understand deeper, and to protect those who cannot protect themselves from what they cannot see.'</em></p>
           <span class="news-tag">CORPORATE</span>
         </div>
       </div>
@@ -2787,8 +2943,8 @@ let currentUser = null;
       <div class="news-item">
         <div class="news-date">15 SEP 1994</div>
         <div class="news-content">
-          <h4 data-en="I.R.I.S. Corp Humanitarian Mission — Central Africa" data-es="Misión Humanitaria de I.R.I.S. Corp — África Central">I.R.I.S. Corp Humanitarian Mission — Central Africa</h4>
-          <p data-en="I.R.I.S. Corp has concluded its humanitarian deployment to Rwanda following the crisis that began in April 1994. Over the course of five months, 47 I.R.I.S. medical personnel operated in the Kigali and Gitarama regions in partnership with Médecins Sans Frontières and the International Committee of the Red Cross, providing medical assistance to an estimated 12,000 displaced persons. Total aid committed reached $2.3 million USD. I.R.I.S. Corp considers this one of its most significant non-research humanitarian commitments to date and extends its deepest condolences to all those affected." data-es="I.R.I.S. Corp ha concluido su despliegue humanitario en Ruanda. Durante cinco meses, 47 médicos de I.R.I.S. operaron en las regiones de Kigali y Gitarama junto a Médicos Sin Fronteras y el CICR, asistiendo a aproximadamente 12.000 personas desplazadas. La ayuda total comprometida alcanzó los 2,3 millones de dólares.">I.R.I.S. Corp has concluded its five-month humanitarian deployment to Rwanda. 47 medical personnel operated in the Kigali and Gitarama regions alongside Médecins Sans Frontières and the ICRC, assisting an estimated 12,000 displaced persons. Total aid committed: <strong>$2.3 million USD</strong>. I.R.I.S. extends its deepest condolences to all those affected.</p>
+ <h4>I.R.I.S. Corp Humanitarian Mission — Central Africa</h4>
+ <p>I.R.I.S. Corp has concluded its humanitarian deployment to Rwanda following the crisis that began in April 1994. Over the course of five months, 47 I.R.I.S. medical personnel operated in the Kigali and Gitarama regions in partnership with Médecins Sans Frontières and the International Committee of the Red Cross, providing medical assistance to an estimated 12,000 displaced persons. Total aid committed reached $2.3 million USD. I.R.I.S. Corp considers this one of its most significant non-research humanitarian commitments to date and extends its deepest condolences to all those affected.</strong>. I.R.I.S. extends its deepest condolences to all those affected.</p>
           <span class="news-tag">HUMANITARIAN</span>
         </div>
       </div>
@@ -2797,55 +2953,55 @@ let currentUser = null;
     <!-- CAREERS -->
     <div class="page" id="page-careers">
       <div class="careers-intro">
-        <h3 data-en="Join I.R.I.S. Corp" data-es="Únete a I.R.I.S. Corp">Join I.R.I.S. Corp</h3>
-        <p data-en="I.R.I.S. Corp is currently not accepting new applications due to our ongoing dissolution proceedings. However, as part of our transition to IOC oversight, we are processing final onboarding requests for pre-approved candidates. If you have received a referral from an existing I.R.I.S. employee or hold a valid clearance code, please complete the form below." data-es="I.R.I.S. Corp actualmente no acepta nuevas solicitudes debido a nuestros procedimientos de disolución en curso. Sin embargo, como parte de nuestra transición a la supervisión del IOC, estamos procesando solicitudes finales de incorporación para candidatos pre-aprobados. Si recibió una referencia de un empleado de I.R.I.S. o tiene un código de autorización válido, complete el formulario a continuación.">
-          I.R.I.S. Corp has always sought the most exceptional minds in their fields. While our organization is currently undergoing a structural transition, we continue to process applications from candidates referred through our professional network. We are committed to advancing our research mission regardless of institutional changes.
+ <h3>Join I.R.I.S. Corp</h3>
+        <p>
+          I.R.I.S. Corp is currently not accepting new applications due to our ongoing dissolution proceedings. However, as part of our transition to IOC oversight, we are processing final onboarding requests for pre-approved candidates. If you have received a referral from an existing I.R.I.S. employee or hold a valid clearance code, please complete the form below.
         </p>
       </div>
 
       <div class="careers-form">
-        <h4 data-en="Personnel Application Form — IOC Transition Registry" data-es="Formulario de Solicitud de Personal — Registro de Transición IOC">Personnel Application Form — IOC Transition Registry</h4>
+ <h4>Personnel Application Form — IOC Transition Registry</h4>
         <div class="form-group">
-          <label data-en="Full Name" data-es="Nombre Completo">Full Name</label>
+ <label>Full Name</label>
           <input type="text" id="f-name" placeholder="Last, First">
         </div>
         <div class="form-group">
-          <label data-en="Age" data-es="Edad">Age</label>
+ <label>Age</label>
           <input type="number" id="f-age" placeholder="—" min="1" max="99" style="width:100px;">
         </div>
         <div class="form-group">
-          <label data-en="Email Address" data-es="Dirección de Email">Email Address</label>
+ <label>Email Address</label>
           <input type="email" id="f-email" placeholder="your@email.com">
         </div>
         <div class="form-group">
-          <label data-en="Area of Expertise" data-es="Área de Especialización">Area of Expertise</label>
+ <label>Area of Expertise</label>
           <select id="f-dept">
-            <option data-en="Select..." data-es="Seleccionar...">Select...</option>
-            <option data-en="Research & Analysis" data-es="Investigación y Análisis">Research & Analysis</option>
-            <option data-en="Containment Operations" data-es="Operaciones de Contención">Containment Operations</option>
-            <option data-en="Field Security" data-es="Seguridad de Campo">Field Security</option>
-            <option data-en="Medical" data-es="Médico">Medical</option>
-            <option data-en="Communications" data-es="Comunicaciones">Communications</option>
-            <option data-en="Engineering & Infrastructure" data-es="Ingeniería e Infraestructura">Engineering & Infrastructure</option>
-            <option data-en="Other" data-es="Otro">Other</option>
+ <option>Select...</option>
+ <option>Research & Analysis</option>
+ <option>Containment Operations</option>
+ <option>Field Security</option>
+ <option>Medical</option>
+ <option>Communications</option>
+ <option>Engineering & Infrastructure</option>
+ <option>Other</option>
           </select>
         </div>
         <div class="form-group">
-          <label data-en="How did you hear about I.R.I.S. Corp?" data-es="¿Cómo se enteró de I.R.I.S. Corp?">How did you hear about I.R.I.S. Corp?</label>
+ <label>How did you hear about I.R.I.S. Corp?</label>
           <textarea id="f-how" placeholder="..."></textarea>
         </div>
         <div class="form-group">
-          <label data-en="Previous Experience with Anomalous Research (if any)" data-es="Experiencia Previa con Investigación Anómala (si aplica)">Previous Experience with Anomalous Research (if any)</label>
+ <label>Previous Experience with Anomalous Research (if any)</label>
           <textarea id="f-exp" placeholder="..." style="height:60px;"></textarea>
         </div>
         <div class="form-group">
-          <label data-en="Referral / Access Code (optional)" data-es="Código de Referencia / Acceso (opcional)">Referral / Access Code (optional)</label>
+ <label>Referral / Access Code (optional)</label>
           <input type="text" id="f-code" style="text-transform:uppercase; letter-spacing:0.1em;" oninput="this.value=this.value.replace(/ /g,'-')">
         </div>
-        <button class="form-submit" onclick="submitCareers()" data-en="SUBMIT APPLICATION" data-es="ENVIAR SOLICITUD">SUBMIT APPLICATION</button>
+ <button class="form-submit" onclick="submitCareers()">SUBMIT APPLICATION</button>
         <div class="form-success" id="form-success" style="display:none;"></div>
         <div style="margin-top:24px; padding-top:16px; border-top:1px solid #d0ccc4;">
-          <p style="font-size:11px; color:#7a7a7a; line-height:1.8;" data-en="Experiencing technical issues with this page? Report bugs, errors or security concerns to iris.corp.1938@gmail.com or post in the Bug Reports section of our Forums." data-es="¿Experimenta problemas técnicos con esta página? Reporte bugs, errores o problemas de seguridad en iris.corp.1938@gmail.com o publique en la sección de Bug Reports de nuestros Foros.">Experiencing technical issues with this page? Report bugs, errors or security concerns to <strong>iris.corp.1938@gmail.com</strong> or post in the <strong>Bug Reports</strong> section of our Forums.</p>
+ <p style="font-size:11px; color:#7a7a7a; line-height:1.8;">Experiencing technical issues with this page? Report bugs, errors or security concerns to iris.corp.1938@gmail.com or post in the Bug Reports section of our Forums.</strong> or post in the <strong>Bug Reports</strong> section of our Forums.</p>
         </div>
       </div>
     </div>
@@ -2854,50 +3010,50 @@ let currentUser = null;
     <!-- FORUMS -->
     <div class="page" id="page-forums">
       <div class="section-header">
-        <h3 data-en="Community Forums" data-es="Foros de la Comunidad">Community Forums</h3>
-        <span data-en="PUBLIC DISCUSSION — MODERATED" data-es="DISCUSIÓN PÚBLICA — MODERADA">PUBLIC DISCUSSION — MODERATED</span>
+ <h3>Community Forums</h3>
+ <span>PUBLIC DISCUSSION — MODERATED</span>
       </div>
 
-      <p style="font-size:12px; color:var(--ink-light); margin-bottom:20px; line-height:1.7;" data-en="Welcome to the I.R.I.S. Corp community forums. These boards are open to the public for discussion of anomalous phenomena, geological research, and related topics. All posts are moderated. I.R.I.S. Corp is not responsible for user-submitted content." data-es="Bienvenido a los foros de la comunidad de I.R.I.S. Corp. Estos foros están abiertos al público para discusión de fenómenos anómalos, investigación geológica y temas relacionados. Todas las publicaciones son moderadas.">Welcome to the I.R.I.S. Corp community forums. These boards are open to the public for discussion of anomalous phenomena, geological research, and related topics. All posts are moderated. I.R.I.S. Corp is not responsible for user-submitted content.</p>
+ <p style="font-size:12px; color:var(--ink-light); margin-bottom:20px; line-height:1.7;">Welcome to the I.R.I.S. Corp community forums. These boards are open to the public for discussion of anomalous phenomena, geological research, and related topics. All posts are moderated. I.R.I.S. Corp is not responsible for user-submitted content.</p>
 
       <!-- AUTH BOX -->
       <div class="forum-auth-box" id="forumAuthBox">
-        <span style="font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--ink-light); letter-spacing:0.1em;" data-en="SIGN IN TO POST:" data-es="INICIA SESIÓN PARA PUBLICAR:">SIGN IN TO POST:</span>
+ <span style="font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--ink-light); letter-spacing:0.1em;">SIGN IN TO POST:</span>
         <input type="text" id="forumUsername" placeholder="Username" maxlength="20">
         <input type="password" id="forumPassword" placeholder="Password" style="width:140px;">
-        <button class="forum-btn" onclick="forumLogin()" data-en="LOGIN" data-es="ENTRAR"><span data-en="LOGIN" data-es="INICIAR SESIÓN">LOGIN</span></button>
-        <button class="forum-btn secondary" onclick="forumRegister()" data-en="REGISTER" data-es="REGISTRARSE"><span data-en="REGISTER" data-es="REGISTRARSE">REGISTER</span></button>
+ <button class="forum-btn" onclick="forumLogin()">LOGIN</span></button>
+ <button class="forum-btn secondary" onclick="forumRegister()">REGISTER</span></button>
         <div class="forum-status" id="forumStatus"></div>
       </div>
 
       <div class="forum-auth-box" id="forumUserBox" style="display:none;">
         <span class="forum-user-info" id="forumUserName"></span>
-        <button class="forum-btn secondary" onclick="forumLogout()" data-en="LOGOUT" data-es="CERRAR SESIÓN" style="margin-left:auto;"><span data-en="LOGOUT" data-es="CERRAR SESIÓN">LOGOUT</span></button>
+ <button class="forum-btn secondary" onclick="forumLogout()" style="margin-left:auto;">LOGOUT</span></button>
       </div>
 
       <div class="forum-layout">
         <div class="forum-categories">
-          <div style="font-family:'Share Tech Mono',monospace; font-size:9px; color:var(--ink-light); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:8px;" data-en="CATEGORIES" data-es="CATEGORÍAS">CATEGORIES</div>
-          <div class="forum-cat-item active" onclick="setForumCat('general')" data-en="General" data-es="General">General</div>
-          <div class="forum-cat-item" onclick="setForumCat('anomalies')" data-en="Anomalies" data-es="Anomalías">Anomalies</div>
-          <div class="forum-cat-item" onclick="setForumCat('research')" data-en="Research" data-es="Investigación">Research</div>
-          <div class="forum-cat-item" onclick="setForumCat('region1')" data-en="Region-1" data-es="Región-1">Region-1</div>
-          <div class="forum-cat-item" onclick="setForumCat('region2')" data-en="Region-2" data-es="Región-2">Region-2</div>
-          <div class="forum-cat-item" onclick="setForumCat('region4')" data-en="Region-4" data-es="Región-4">Region-4</div>
-          <div class="forum-cat-item" onclick="setForumCat('region5')" data-en="Region-5" data-es="Región-5">Region-5</div>
-          <div class="forum-cat-item" onclick="setForumCat('region6')" data-en="Region-6" data-es="Región-6">Region-6</div>
-          <div class="forum-cat-item" onclick="setForumCat('region7')" data-en="Region-7" data-es="Región-7">Region-7</div>
-          <div class="forum-cat-item" onclick="setForumCat('region8')" data-en="Region-8" data-es="Región-8">Region-8</div>
-          <div class="forum-cat-item" onclick="setForumCat('region9')" data-en="Region-9" data-es="Región-9">Region-9</div>
-          <div class="forum-cat-item" onclick="setForumCat('region10')" data-en="Region-10" data-es="Región-10">Region-10</div>
-          <div class="forum-cat-item" onclick="setForumCat('offtopic')" data-en="Off-Topic" data-es="Fuera de Tema">Off-Topic</div>
+ <div style="font-family:'Share Tech Mono',monospace; font-size:9px; color:var(--ink-light); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:8px;">CATEGORIES</div>
+ <div class="forum-cat-item active" onclick="setForumCat('general')">General</div>
+ <div class="forum-cat-item" onclick="setForumCat('anomalies')">Anomalies</div>
+ <div class="forum-cat-item" onclick="setForumCat('research')">Research</div>
+ <div class="forum-cat-item" onclick="setForumCat('region1')">Region-1</div>
+ <div class="forum-cat-item" onclick="setForumCat('region2')">Region-2</div>
+ <div class="forum-cat-item" onclick="setForumCat('region4')">Region-4</div>
+ <div class="forum-cat-item" onclick="setForumCat('region5')">Region-5</div>
+ <div class="forum-cat-item" onclick="setForumCat('region6')">Region-6</div>
+ <div class="forum-cat-item" onclick="setForumCat('region7')">Region-7</div>
+ <div class="forum-cat-item" onclick="setForumCat('region8')">Region-8</div>
+ <div class="forum-cat-item" onclick="setForumCat('region9')">Region-9</div>
+ <div class="forum-cat-item" onclick="setForumCat('region10')">Region-10</div>
+ <div class="forum-cat-item" onclick="setForumCat('offtopic')">Off-Topic</div>
           <div class="forum-cat-item" onclick="setForumCat('bug')" style="border-color:#cc4444;color:#cc4444;">Bug Reports</div>
         </div>
 
         <div class="forum-main">
           <div class="forum-post-form" id="forumPostForm">
             <textarea id="forumPostContent" placeholder="Write your post..."></textarea>
-            <button class="forum-btn" onclick="submitForumPost()" data-en="POST" data-es="PUBLICAR">POST</button>
+ <button class="forum-btn" onclick="submitForumPost()">POST</button>
           </div>
           <div id="forumPosts"></div>
           <div id="forumPostView" style="display:none;"></div>
@@ -2909,16 +3065,11 @@ let currentUser = null;
 
   <footer>
     <div class="footer-inner">
-      <span data-en="© I.R.I.S. CORP 1938–2026 — ALL RIGHTS RESERVED" data-es="© I.R.I.S. CORP 1938–2026 — TODOS LOS DERECHOS RESERVADOS">© I.R.I.S. CORP 1938–2026 — ALL RIGHTS RESERVED</span>
-      <span data-en="ARCHIVE MAINTAINED UNDER IOC MANDATE" data-es="ARCHIVO MANTENIDO BAJO MANDATO DEL IOC">ARCHIVE MAINTAINED UNDER IOC MANDATE</span>
-      <span data-en="UNAUTHORIZED ACCESS PROHIBITED" data-es="ACCESO NO AUTORIZADO PROHIBIDO">UNAUTHORIZED ACCESS PROHIBITED</span>
-      <div class="footer-controls">
-        <div class="lang-toggle">
-          <button class="lang-btn active" onclick="setLang('en')">EN</button>
-          <button class="lang-btn" onclick="setLang('es')">ES</button>
-        </div>
-      </div>
+ <span>© I.R.I.S. CORP 1938–2026 — ALL RIGHTS RESERVED</span>
+ <span>ARCHIVE MAINTAINED UNDER IOC MANDATE</span>
+ <span>UNAUTHORIZED ACCESS PROHIBITED</span>
     </div>
+    <div class="fiction-banner">THIS WEBSITE IS A WORK OF FICTION. I.R.I.S. CORP, ITS PERSONNEL, EVENTS, AND ALL DOCUMENTS ARE FICTITIOUS AND DO NOT DEPICT REAL ORGANIZATIONS, PEOPLE, OR EVENTS.</div>
   </footer>
   </div><!-- end main-scroll -->
 
@@ -2929,14 +3080,14 @@ let currentUser = null;
 <div class="portal-overlay" id="portalOverlay">
   <div class="portal-box">
     <div class="portal-header">I.R.I.S. CORP — RESTRICTED ACCESS PORTAL</div>
-    <div class="portal-title" data-en="EMPLOYEE ACCESS" data-es="ACCESO DE EMPLEADOS">EMPLOYEE ACCESS</div>
-    <div class="portal-sub" data-en="ENTER CLEARANCE CODE TO PROCEED" data-es="INGRESE CÓDIGO DE AUTORIZACIÓN PARA CONTINUAR">ENTER CLEARANCE CODE TO PROCEED</div>
+ <div class="portal-title">EMPLOYEE ACCESS</div>
+ <div class="portal-sub">ENTER CLEARANCE CODE TO PROCEED</div>
     <div class="portal-input-wrap">
       <input type="text" class="portal-input" id="portalInput" placeholder="CLEARANCE CODE" onkeydown="if(event.key==='Enter')checkPortal()">
     </div>
-    <button class="portal-enter" onclick="checkPortal()" data-en="ACCESS PORTAL" data-es="ACCEDER AL PORTAL">ACCESS PORTAL</button>
-    <div class="portal-error" id="portalError" data-en="⚠ INVALID CODE — ACCESS DENIED" data-es="⚠ CÓDIGO INVÁLIDO — ACCESO DENEGADO">⚠ INVALID CODE — ACCESS DENIED</div>
-    <button class="portal-close" onclick="hidePortal()" data-en="← RETURN TO PUBLIC SITE" data-es="← VOLVER AL SITIO PÚBLICO">← RETURN TO PUBLIC SITE</button>
+ <button class="portal-enter" onclick="checkPortal()">ACCESS PORTAL</button>
+ <div class="portal-error" id="portalError">⚠ INVALID CODE — ACCESS DENIED</div>
+ <button class="portal-close" onclick="hidePortal()">← RETURN TO PUBLIC SITE</button>
   </div>
 </div>
 
@@ -2945,18 +3096,18 @@ let currentUser = null;
   <div class="emp-header">
     <div class="emp-header-left">
       <div class="emp-logo">I.R.I.S. CORP</div>
-      <div class="emp-status" data-en="RESTRICTED — EMPLOYEE ACCESS" data-es="RESTRINGIDO — ACCESO DE EMPLEADOS">RESTRICTED — EMPLOYEE ACCESS</div>
+ <div class="emp-status">RESTRICTED — EMPLOYEE ACCESS</div>
     </div>
-    <button class="emp-logout" onclick="logout()" data-en="LOGOUT" data-es="CERRAR SESIÓN">LOGOUT</button>
+ <button class="emp-logout" onclick="logout()">LOGOUT</button>
   </div>
 
   <div class="emp-nav">
-    <a onclick="showEmpSection('dashboard')" id="enav-dashboard" class="active" data-en="Dashboard" data-es="Panel">Dashboard</a>
-    <a onclick="showEmpSection('singularities')" id="enav-singularities" data-en="Singularity Registry" data-es="Registro de Singularidades">Singularity Registry</a>
-    <a onclick="showEmpSection('installations')" id="enav-installations" data-en="Installations" data-es="Instalaciones">Installations</a>
-    <a onclick="showEmpSection('region3')" id="enav-region3" data-en="Regional Files" data-es="Archivos Regionales">Regional Files</a>
-    <a onclick="showEmpSection('protocols')" id="enav-protocols" data-en="Protocols" data-es="Protocolos">Protocols</a>
-    <a onclick="showEmpSection('logs')" id="enav-logs" data-en="My Logs" data-es="Mis Registros">My Logs</a>
+ <a onclick="showEmpSection('dashboard')" id="enav-dashboard" class="active">Dashboard</a>
+ <a onclick="showEmpSection('singularities')" id="enav-singularities">Singularity Registry</a>
+ <a onclick="showEmpSection('installations')" id="enav-installations">Installations</a>
+ <a onclick="showEmpSection('region3')" id="enav-region3">Regional Files</a>
+ <a onclick="showEmpSection('protocols')" id="enav-protocols">Protocols</a>
+ <a onclick="showEmpSection('logs')" id="enav-logs">My Logs</a>
   </div>
 
   <div class="emp-main">
@@ -2965,34 +3116,36 @@ let currentUser = null;
     <div class="emp-section active" id="empsec-dashboard">
       <div class="emp-doc-header" data-class="EMPLOYEE — LEVEL 2">
         <div class="emp-doc-num">IRIS/EMP/PORTAL/DASH</div>
-        <div class="emp-doc-title" data-en="Employee Dashboard" data-es="Panel de Empleado">Employee Dashboard</div>
-        <div class="emp-doc-meta"><span data-en="Access Level: Standard" data-es="Nivel de Acceso: Estándar">Access Level: Standard</span></div>
+ <div class="emp-doc-title">Employee Dashboard</div>
+ <div class="emp-doc-meta"><span>Access Level: Standard</span></div>
       </div>
       <div class="emp-report">
-        <div class="emp-report-title" data-en="WELCOME" data-es="BIENVENIDO">WELCOME</div>
-        <p data-en="Access granted. You are viewing the I.R.I.S. Corp restricted employee portal. Note that this organization has been formally dissolved as of 2026. All data presented here is maintained under IOC custody for legal and historical purposes." data-es="Acceso concedido. Está viendo el portal restringido de empleados de I.R.I.S. Corp. Tenga en cuenta que esta organización ha sido formalmente disuelta en 2026. Todos los datos presentados aquí se mantienen bajo custodia del IOC con fines legales e históricos.">
+ <div class="emp-report-title">WELCOME</div>
+        <p>
           Access granted. You are viewing the I.R.I.S. Corp restricted employee portal. Note that this organization has been formally dissolved as of 2026. All data presented here is maintained under IOC custody for legal and historical purposes.
         </p>
-        <p data-en="Some sections of this portal remain partially or fully redacted pending ongoing legal proceedings. Full declassification is estimated for 2031." data-es="Algunas secciones de este portal permanecen parcial o totalmente redactadas pendientes de procedimientos legales en curso. La desclasificación completa está prevista para 2031.">
+        <p>
           Some sections of this portal remain partially or fully redacted pending ongoing legal proceedings. Full declassification is estimated for 2031.
         </p>
       </div>
       <div class="emp-report">
-        <div class="emp-report-title" data-en="QUICK REFERENCE — SINGULARITY CLASSIFICATIONS" data-es="REFERENCIA RÁPIDA — CLASIFICACIONES DE SINGULARIDADES">QUICK REFERENCE — SINGULARITY CLASSIFICATIONS</div>
+ <div class="emp-report-title">QUICK REFERENCE — SINGULARITY CLASSIFICATIONS</div>
         <table class="emp-table">
           <thead>
             <tr>
-              <th data-en="Type" data-es="Tipo">Type</th>
-              <th data-en="Description" data-es="Descripción">Description</th>
-              <th data-en="Clearance Required" data-es="Autorización Requerida">Clearance Required</th>
+ <th>Type</th>
+ <th>Description</th>
+ <th>Clearance Required</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><span class="type-badge type-geo">GEOLOGICAL</span></td><td data-en="Anomalies of terrain, ice, rock, or tectonic origin" data-es="Anomalías de origen geológico, sísmico o tectónico">Anomalies of terrain, ice, rock, or tectonic origin</td><td>Level 1</td></tr>
-            <tr><td><span class="type-badge type-bio">BIOLOGICAL</span></td><td data-en="Organisms or agents outside known taxonomy" data-es="Organismos o agentes fuera de la taxonomía conocida">Organisms or agents outside known taxonomy</td><td>Level 2</td></tr>
-            <tr><td><span class="type-badge type-para">PARANORMAL</span></td><td data-en="Phenomena with no physical or biological explanation" data-es="Fenómenos sin explicación física o biológica">Phenomena with no physical or biological explanation</td><td>Level 3</td></tr>
-            <tr><td><span class="type-badge type-mixed">MIXED</span></td><td data-en="Entities combining multiple classification types" data-es="Entidades que combinan múltiples tipos de clasificación">Entities combining multiple classification types</td><td>Level 4</td></tr>
-            <tr><td><span class="type-badge type-ben">BENEFICIAL</span></td><td data-en="Anomalies with confirmed positive applications" data-es="Anomalías con aplicaciones positivas confirmadas">Anomalies with confirmed positive applications</td><td>Level 1</td></tr>
+ <tr><td><span class="type-badge type-geo">GEOLOGICAL</span></td><td>Anomalies of terrain, ice, rock, or tectonic origin</td><td>Level 1</td></tr>
+ <tr><td><span class="type-badge type-bio">BIOLOGICAL</span></td><td>Organisms or agents outside known taxonomy</td><td>Level 2</td></tr>
+ <tr><td><span class="type-badge type-para">PARANORMAL</span></td><td>Phenomena with no physical or biological explanation</td><td>Level 3</td></tr>
+ <tr><td><span class="type-badge type-mixed">MIXED</span></td><td>Entities combining multiple classification types</td><td>Level 4</td></tr>
+ <tr><td><span class="type-badge type-ben">BENEFICIAL</span></td><td>Anomalies with confirmed positive applications</td><td>Level 1</td></tr>
+ <tr><td><span class="type-badge type-dig">DIGITAL</span></td><td>Anomalies manifesting within electronic devices, software, networks, or stored data</td><td>Level 3</td></tr>
+ <tr><td><span class="type-badge type-art">ARTIFICIAL</span></td><td>Origin designation only — applied alongside a primary classification when a Singularity was created or caused by humanity or another intelligent life form</td><td>Level 2</td></tr>
           </tbody>
         </table>
       </div>
@@ -3002,27 +3155,27 @@ let currentUser = null;
     <div class="emp-section" id="empsec-singularities">
       <div class="emp-doc-header" data-class="RESTRICTED">
         <div class="emp-doc-num">IRIS/REG/GLOBAL/PARTIAL</div>
-        <div class="emp-doc-title" data-en="Global Singularity Registry — Partial Extract" data-es="Registro Global de Singularidades — Extracto Parcial">Global Singularity Registry — Partial Extract</div>
-        <div class="emp-doc-meta"><span data-en="847 total entries — 312 accessible at current clearance" data-es="847 entradas totales — 312 accesibles con autorización actual">847 total entries — 312 accessible at current clearance</span></div>
+ <div class="emp-doc-title">Global Singularity Registry — Partial Extract</div>
+ <div class="emp-doc-meta"><span>847 total entries — 312 accessible at current clearance</span></div>
       </div>
       <div class="emp-report"><div style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="emp-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th data-en="Designation" data-es="Designación">Designation</th>
-              <th data-en="Type" data-es="Tipo">Type</th>
-              <th data-en="Region" data-es="Región">Region</th>
-              <th data-en="Status" data-es="Estado">Status</th>
+ <th>Designation</th>
+ <th>Type</th>
+ <th>Region</th>
+ <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <tr><td>TTR-001</td><td>The Texas Rift</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-1</td><td style="color:#4a8a3a;">SEALED — 1938</td></tr>
-            <tr><td>RP7-004</td><td>Resonance Pocket 7</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;"><span data-en="MONITORING" data-es="MONITOREO">MONITORING</span></td></tr>
+ <tr><td>RP7-004</td><td>Resonance Pocket 7</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;"><span>MONITORING</span></td></tr>
             <tr><td>TPC-008</td><td>The Pale Circuit</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;">MONITORING</td></tr>
             <tr><td>DS4-011</td><td>Drift Station 4</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#8a6a2a;">UNRESOLVED</td></tr>
             <tr><td>TMC-019</td><td>The Mariana Choir</td><td><span class="type-badge type-para">PARA</span></td><td>Region-6</td><td style="color:#4a6a8a;">MONITORING</td></tr>
-            <tr><td>IC-021</td><td>Ice Cathedral</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-3</td><td style="color:#8a6a2a;"><span data-en="ACCESS SUSPENDED" data-es="ACCESO SUSPENDIDO">ACCESS SUSPENDED</span></td></tr>
-            <tr><td>ML-033</td><td>Mirror Lake (Siberia)</td><td><span class="type-badge type-para">PARA</span></td><td>Region-2</td><td style="color:#4a8a3a;"><span data-en="CONTAINED" data-es="CONTENIDO">CONTAINED</span></td></tr>
+ <tr><td>IC-021</td><td>Ice Cathedral</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-3</td><td style="color:#8a6a2a;"><span>ACCESS SUSPENDED</span></td></tr>
+ <tr><td>ML-033</td><td>Mirror Lake (Siberia)</td><td><span class="type-badge type-para">PARA</span></td><td>Region-2</td><td style="color:#4a8a3a;"><span>CONTAINED</span></td></tr>
             <tr><td>TLF-044</td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td>Region-5</td><td style="color:#cc4444;">⚠ ACTIVE</td></tr>
             <tr><td>TBS-058</td><td>The Breathing Shelf</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;">MONITORING</td></tr>
             <tr><td>CE-067</td><td>Corridor Entity — Class B</td><td><span class="type-badge type-bio">BIO</span></td><td>Region-9</td><td style="color:#4a8a3a;">CONTAINED</td></tr>
@@ -3039,15 +3192,16 @@ let currentUser = null;
             <tr><td>TLF-099-B</td><td>The Listening Field (Siberia)</td><td><span class="type-badge type-para">PARA</span></td><td>Region-2</td><td style="color:#4a8a3a;">CONTAINED — 1968</td></tr>
             <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td>Region-5</td><td style="color:#cc4444;">⚠ ACTIVE</td></tr>
             <tr><td>BCK-230</td><td>Bioluminescent Colony K</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-4</td><td style="color:#4a8a3a;">RESEARCH — ACTIVE</td></tr>
-            <tr><td>TSC-247</td><td>The Singing Crack</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;"><span data-en="ARCHIVED" data-es="ARCHIVADO">ARCHIVED</span></td></tr>
+ <tr><td>TSC-247</td><td>The Singing Crack</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;"><span>ARCHIVED</span></td></tr>
             <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td>Region-9</td><td style="color:#8a6a2a;">UNRESOLVED</td></tr>
             <tr><td>TVA-279</td><td>Thermal Vent Array (Iceland)</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-12</td><td style="color:#4a6a8a;">MONITORING</td></tr>
             <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td style="color:#cc4444;">CRITICAL — LEVEL 5</td></tr>
             <tr><td>TPC-008-B</td><td>The Pale Circuit (Secondary)</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td style="color:#4a6a8a;">MONITORING</td></tr>
             <tr><td>DM-101</td><td>Desmodus Monarchis</td><td><span class="type-badge type-mixed">MIXED</span></td><td>Region-3</td><td style="color:#4a6a8a;">NEUTRALIZED — 2003</td></tr>
+            <tr onclick="openSingProfile('TFR-314')"><td>TFR-314</td><td>The Fractals</td><td><span class="type-badge type-dig">DIG</span> <span class="type-badge type-art">ART</span></td><td><span class="redact">████████</span></td><td style="color:#cc4444;">⚠ ACTIVE — UNCONTAINABLE</td></tr>
             <tr><td>DM-101-B</td><td>DM-101-B Fungal Agent</td><td><span class="type-badge type-bio">BIO</span></td><td>Region-3</td><td style="color:#cc4444;">⚠ ACTIVE / NO CURE</td></tr>
             <tr><td>DM-101-C</td><td>Pandemonium / Pandemonio</td><td><span class="type-badge type-mixed">MIXED</span></td><td>Region-3</td><td style="color:#8a6a2a;"><span class="redact">STATUS CLASSIFIED</span></td></tr>
-            <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td><span class="redact">████████</span></td><td style="color:#cc4444;"><span data-en="CRITICAL" data-es="CRÍTICO">CRITICAL</span></td></tr>
+ <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td><span class="redact">████████</span></td><td style="color:#cc4444;"><span>CRITICAL</span></td></tr>
             <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td>Region-7</td><td style="color:#cc4444;">⚠ ACTIVE</td></tr>
             <tr><td>CFA-388</td><td>Crystalline Formation — Class A</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-10</td><td style="color:#4a8a3a;">RESEARCH — ACTIVE</td></tr>
             <tr><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td style="color:#cc4444;">⚠ ACTIVE — PRIORITY 1</td></tr>
@@ -3057,7 +3211,7 @@ let currentUser = null;
             <tr><td colspan="5" style="text-align:center; color:#2a4a6a; font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:0.2em; padding:12px;">— 809 ADDITIONAL ENTRIES REQUIRE LEVEL 3+ CLEARANCE — CONTACT IOC RECORDS OFFICE —</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:12px;" data-en="535 additional entries require Level 3 clearance or above. Contact IOC Records Office for access." data-es="535 entradas adicionales requieren autorización de Nivel 3 o superior. Contacte la Oficina de Registros del IOC para acceso.">535 additional entries require Level 3 clearance or above. Contact IOC Records Office for access.</p>
+ <p style="margin-top:12px;">535 additional entries require Level 3 clearance or above. Contact IOC Records Office for access.</p>
       </div>
     </div>
     </div>
@@ -3066,22 +3220,22 @@ let currentUser = null;
     <div class="emp-section" id="empsec-installations">
       <div class="emp-doc-header" data-class="RESTRICTED">
         <div class="emp-doc-num">IRIS/OPS/INSTALL/GLOBAL</div>
-        <div class="emp-doc-title" data-en="Global Installation Registry" data-es="Registro Global de Instalaciones">Global Installation Registry</div>
-        <div class="emp-doc-meta"><span data-en="34 total installations — 19 active under IOC, 15 decommissioned" data-es="34 instalaciones totales — 19 activas bajo IOC, 15 descomisionadas">34 total installations — 19 active under IOC, 15 decommissioned</span></div>
+ <div class="emp-doc-title">Global Installation Registry</div>
+ <div class="emp-doc-meta"><span>34 total installations — 19 active under IOC, 15 decommissioned</span></div>
       </div>
       <div class="emp-report">
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
         <table class="emp-table">      <tr>
-              <th data-en="Installation" data-es="Instalación">Installation</th>
-              <th data-en="Region" data-es="Región">Region</th>
-              <th data-en="Coordinates" data-es="Coordenadas">Coordinates</th>
-              <th data-en="Purpose" data-es="Propósito">Purpose</th>
-              <th data-en="Status" data-es="Estado">Status</th>
+ <th>Installation</th>
+ <th>Region</th>
+ <th>Coordinates</th>
+ <th>Purpose</th>
+ <th>Status</th>
             </tr>
           </thead>
           <tbody>
             <tr><td><strong>Station Forsythe</strong></td><td>Region-1</td><td>31.22, -98.44</td><td>Central Command / Administration</td><td style="color:#4a8a3a;">ACTIVE — HQ</td></tr>
-            <tr><td><strong>Outpost Vance</strong></td><td>Region-1</td><td>29.75, -95.36</td><td>Containment — TTR-001 monitoring</td><td style="color:#4a8a3a;"><span data-en="ACTIVE" data-es="ACTIVO">ACTIVE</span></td></tr>
+ <tr><td><strong>Outpost Vance</strong></td><td>Region-1</td><td>29.75, -95.36</td><td>Containment — TTR-001 monitoring</td><td style="color:#4a8a3a;"><span>ACTIVE</span></td></tr>
             <tr><td><strong>Station Bering</strong></td><td>Region-2</td><td>63.75, 160.42</td><td>Siberian exclusion zone monitoring</td><td style="color:#4a6a8a;">MONITORING</td></tr>
             <tr><td><strong>Outpost Kazakh</strong></td><td>Region-2</td><td>48.22, 67.88</td><td>Geological survey — Class B zone</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
             <tr><td><strong>Halley III</strong></td><td>Region-3</td><td>-75.41, -26.21</td><td>Survey base</td><td style="color:#4a6a8a;">Decommissioned 2001</td></tr>
@@ -3114,14 +3268,14 @@ let currentUser = null;
     <div class="emp-section" id="empsec-region3">
       <div class="emp-doc-header" data-class="RESTRICTED">
         <div class="emp-doc-num">IRIS/OPS/REGIONAL/INDEX</div>
-        <div class="emp-doc-title" data-en="Regional Operations Files" data-es="Archivos de Operaciones Regionales">Regional Operations Files</div>
+ <div class="emp-doc-title">Regional Operations Files</div>
         <div class="emp-doc-meta"><span>Clearance Level 2 — 12 regions — partial access</span></div>
       </div>
       <div class="emp-report"><div class="emp-report-title">REGION-1 — NORTH AMERICA</div><p>Central Command in Texas. TTR-001 (The Texas Rift) permanently sealed and monitored. <span class="redact">Additional activity — Level 3.</span></p></div>
       <div class="emp-report"><div class="emp-report-title">REGION-2 — NORTHERN EURASIA</div><p>TLF-099-B (The Listening Field) contained 1968. Siberian exclusion zone active. <span class="redact">Three additional Singularities — Level 3.</span></p></div>
-      <div class="emp-report"><div class="emp-report-title">REGION-3 — ANTARCTIC</div><p>Three installations 1998-2003. DM-101 neutralized 2003. DM-101-B active in region. <span class="redact">Full file — Level 4 required.</span></p><div class="emp-stamp"><span data-en="PARTIAL ACCESS ONLY" data-es="ACCESO PARCIAL">PARTIAL ACCESS ONLY</span></div></div>
+ <div class="emp-report"><div class="emp-report-title">REGION-3 — ANTARCTIC</div><p>Three installations 1998-2003. DM-101 neutralized 2003. DM-101-B active in region. <span class="redact">Full file — Level 4 required.</span></p><div class="emp-stamp"><span>PARTIAL ACCESS ONLY</span></div></div>
       <div class="emp-report"><div class="emp-report-title">REGION-4 — ATLANTIC / WESTERN EUROPE</div><p>Platform Azores primary hub. Above average Paranormal rate. <span class="redact">TLF-044 — Level 3.</span></p></div>
-      <div class="emp-report"><div class="emp-report-title">REGION-5 — <span class="redact"><span data-en="CLASSIFIED" data-es="CLASIFICADO">CLASSIFIED</span></span></div><p><span class="redact">Full file — Level 4 required.</span></p><div class="emp-stamp"><span data-en="ACCESS DENIED" data-es="ACCESO DENEGADO">ACCESS DENIED</span></div></div>
+ <div class="emp-report"><div class="emp-report-title">REGION-5 — <span class="redact"><span>CLASSIFIED</span></span></div><p><span class="redact">Full file — Level 4 required.</span></p><div class="emp-stamp"><span>ACCESS DENIED</span></div></div>
       <div class="emp-report"><div class="emp-report-title">REGION-6 — PACIFIC DEEP</div><p>Station Mariana extreme depth operations. TMC-019 (The Mariana Choir) monitored since 1955. Highest Biological density of any region.</p></div>
       <div class="emp-report"><div class="emp-report-title">REGION-7 — <span class="redact">CLASSIFIED</span></div><p><span class="redact">Full file — Level 4 required.</span></p><div class="emp-stamp">ACCESS DENIED</div></div>
       <div class="emp-report"><div class="emp-report-title">REGION-8 — NORDIC / ARCTIC</div><p>Station Reykjavik primary hub. Outpost Jan Mayen seasonal. Two low-tier Geological Singularities monitored.</p></div>
@@ -3135,18 +3289,18 @@ let currentUser = null;
     <div class="emp-section" id="empsec-protocols">
       <div class="emp-doc-header" data-class="RESTRICTED">
         <div class="emp-doc-num">IRIS/OPS/PROTO/STANDARD</div>
-        <div class="emp-doc-title" data-en="Standard Operating Protocols" data-es="Protocolos Operativos Estandar">Standard Operating Protocols</div>
+ <div class="emp-doc-title">Standard Operating Protocols</div>
       </div>
       <div class="emp-report">
-        <div class="emp-report-title" data-en="BIOLOGICAL EXPOSURE PROTOCOL" data-es="PROTOCOLO DE EXPOSICION BIOLOGICA"><span data-en="BIOLOGICAL EXPOSURE PROTOCOL" data-es="PROTOCOLO DE EXPOSICIÓN BIOLÓGICA">BIOLOGICAL EXPOSURE PROTOCOL</span></div>
+ <div class="emp-report-title">BIOLOGICAL EXPOSURE PROTOCOL</span></div>
         <p>Upon suspected exposure to any unclassified biological agent: immediate isolation, medical evaluation within 2 hours, notification of Medical Division and Regional Command. For DM-101-B specifically: isolation is permanent pending research. No treatment protocol currently exists.</p>
       </div>
       <div class="emp-report">
-        <div class="emp-report-title" data-en="CONTAINMENT BREACH PROTOCOL" data-es="PROTOCOLO DE RUPTURA DE CONTENCION"><span data-en="CONTAINMENT BREACH PROTOCOL" data-es="PROTOCOLO DE BRECHA DE CONTENCIÓN">CONTAINMENT BREACH PROTOCOL</span></div>
+ <div class="emp-report-title">CONTAINMENT BREACH PROTOCOL</span></div>
         <p>Level 1-2 breach: Regional Command notification, standard containment team deployment. Level 3 breach: Multi-regional response, evacuation of non-essential personnel. Level 4 breach: Full evacuation, cover narrative activation, classified response measures.</p>
       </div>
       <div class="emp-report">
-        <div class="emp-report-title" data-en="COMMUNICATION BLACKOUT PROTOCOL" data-es="PROTOCOLO DE CORTE DE COMUNICACIONES"><span data-en="COMMUNICATION BLACKOUT PROTOCOL" data-es="PROTOCOLO DE APAGÓN COMUNICACIONAL">COMMUNICATION BLACKOUT PROTOCOL</span></div>
+ <div class="emp-report-title">COMMUNICATION BLACKOUT PROTOCOL</span></div>
         <p>In the event of total communication loss with an installation: 24-hour wait period before escalation. If no contact after 48 hours: presumed Level 4 breach. Evacuation and cover narrative teams dispatched. Do not attempt direct re-entry without Regional Command authorization.</p>
       </div>
     </div>
@@ -3199,12 +3353,12 @@ let currentUser = null;
 
           <!-- NOT AUTH STATE -->
           <div class="logs-not-auth" id="logsNotAuthNew">
-            <div class="logs-auth-title" data-en="EMPLOYEE LOG SYSTEM — AUTHENTICATION REQUIRED" data-es="SISTEMA DE REGISTROS — AUTENTICACIÓN REQUERIDA">EMPLOYEE LOG SYSTEM — AUTHENTICATION REQUIRED</div>
+ <div class="logs-auth-title">EMPLOYEE LOG SYSTEM — AUTHENTICATION REQUIRED</div>
             <input type="text" class="logs-add-input" id="logUsernameNew" placeholder="Username" style="max-width:280px; margin-bottom:8px;">
             <input type="password" class="logs-add-input" id="logPasswordNew" placeholder="Password" style="max-width:280px; margin-bottom:8px;">
             <div style="display:flex;gap:8px;max-width:280px;width:100%;">
-              <button class="logs-save-btn" onclick="logLoginNew()" style="flex:1;" data-en="LOGIN" data-es="ENTRAR">LOGIN</button>
-              <button class="logs-save-btn" onclick="logRegisterNew()" style="flex:1;border-color:#2a5a7a;color:#4a8aaa;" data-en="REGISTER" data-es="REGISTRARSE">REGISTER</button>
+ <button class="logs-save-btn" onclick="logLoginNew()" style="flex:1;">LOGIN</button>
+ <button class="logs-save-btn" onclick="logRegisterNew()" style="flex:1;border-color:#2a5a7a;color:#4a8aaa;">REGISTER</button>
             </div>
             <div id="logAuthStatusNew" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#cc4444;margin-top:8px;letter-spacing:0.1em;"></div>
           </div>
@@ -3213,10 +3367,10 @@ let currentUser = null;
           <div style="display:none;flex-direction:column;height:100%;" id="logsAuthNew">
             <div class="logs-main-header">
               <div>
-                <div class="logs-main-title" data-en="ALL YOUR LOGS" data-es="TODOS TUS LOGS"><span data-en="ALL YOUR LOGS" data-es="TODOS TUS REGISTROS">ALL YOUR LOGS</span></div>
+ <div class="logs-main-title">ALL YOUR LOGS</span></div>
                 <div class="logs-main-subtitle" id="logsUserLabel"></div>
               </div>
-              <button onclick="logLogoutNew()" style="background:transparent;border:1px solid #1a3050;color:#2a4a6a;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.15em;padding:4px 10px;cursor:pointer;text-transform:uppercase;" data-en="LOGOUT" data-es="SALIR">LOGOUT</button>
+ <button onclick="logLogoutNew()" style="background:transparent;border:1px solid #1a3050;color:#2a4a6a;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:0.15em;padding:4px 10px;cursor:pointer;text-transform:uppercase;">LOGOUT</button>
             </div>
             <div class="logs-content" id="logsContentNew"></div>
           </div>
@@ -3224,62 +3378,62 @@ let currentUser = null;
           <!-- PANELS -->
           <div class="logs-panel" id="logsPanel-add">
             <div class="logs-panel-header">
-              <div class="logs-panel-title" data-en="NEW LOG ENTRY" data-es="NUEVA ENTRADA"><span data-en="NEW LOG ENTRY" data-es="NUEVA ENTRADA">NEW LOG ENTRY</span></div>
+ <div class="logs-panel-title">NEW LOG ENTRY</span></div>
               <button class="logs-panel-close" onclick="hideLogsPanel('add')">✕</button>
             </div>
             <div class="logs-panel-body">
               <div class="logs-add-field">
-                <label class="logs-add-label" data-en="TITLE / SUBJECT" data-es="TÍTULO / ASUNTO">TITLE / SUBJECT</label>
+ <label class="logs-add-label">TITLE / SUBJECT</label>
                 <input type="text" class="logs-add-input" id="logNewTitle" placeholder="...">
               </div>
               <div class="logs-add-field">
-                <label class="logs-add-label" data-en="ENTRY CONTENT" data-es="CONTENIDO DE LA ENTRADA"><span data-en="ENTRY CONTENT" data-es="CONTENIDO DE LA ENTRADA">ENTRY CONTENT</span></label>
+ <label class="logs-add-label">ENTRY CONTENT</span></label>
                 <textarea class="logs-add-textarea" id="logNewContent" placeholder="Write your log entry..."></textarea>
               </div>
-              <button class="logs-save-btn" onclick="submitNewLog()" data-en="SAVE ENTRY" data-es="GUARDAR ENTRADA"><span data-en="SAVE ENTRY" data-es="GUARDAR ENTRADA">SAVE ENTRY</span></button>
+ <button class="logs-save-btn" onclick="submitNewLog()">SAVE ENTRY</span></button>
               <div id="logSaveStatusNew" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#4a8a4a;margin-top:8px;letter-spacing:0.1em;"></div>
             </div>
           </div>
 
           <div class="logs-panel" id="logsPanel-settings">
             <div class="logs-panel-header">
-              <div class="logs-panel-title" data-en="SETTINGS" data-es="CONFIGURACIÓN">SETTINGS</div>
+ <div class="logs-panel-title">SETTINGS</div>
               <button class="logs-panel-close" onclick="hideLogsPanel('settings')">✕</button>
             </div>
             <div class="logs-panel-body">
               <div class="logs-setting-row">
-                <span class="logs-setting-label" data-en="BACKGROUND — SOLID COLOR" data-es="FONDO — COLOR SÓLIDO">BACKGROUND — SOLID COLOR</span>
+ <span class="logs-setting-label">BACKGROUND — SOLID COLOR</span>
                 <div class="logs-color-row">
                   <input type="color" id="logsBgSolid" value="#040b14">
-                  <span data-en="Single color background" data-es="Fondo de color sólido">Single color background</span>
+ <span>Single color background</span>
                 </div>
-                <button class="logs-apply-btn" onclick="applyLogsBg('solid')" data-en="APPLY" data-es="APLICAR"><span data-en="APPLY" data-es="APLICAR">APPLY</span></button>
+ <button class="logs-apply-btn" onclick="applyLogsBg('solid')">APPLY</span></button>
               </div>
               <div class="logs-setting-row">
-                <span class="logs-setting-label" data-en="BACKGROUND — GRADIENT" data-es="FONDO — DEGRADADO">BACKGROUND — GRADIENT</span>
+ <span class="logs-setting-label">BACKGROUND — GRADIENT</span>
                 <div class="logs-color-row" style="flex-wrap:wrap;gap:8px;">
                   <input type="color" id="logsBgGrad1" value="#040b14">
                   <span>→</span>
                   <input type="color" id="logsBgGrad2" value="#0a1a2a">
                 </div>
-                <button class="logs-apply-btn" onclick="applyLogsBg('gradient')" data-en="APPLY GRADIENT" data-es="APLICAR DEGRADADO"><span data-en="APPLY GRADIENT" data-es="APLICAR GRADIENTE">APPLY GRADIENT</span></button>
+ <button class="logs-apply-btn" onclick="applyLogsBg('gradient')">APPLY GRADIENT</span></button>
               </div>
               <div class="logs-setting-row">
-                <span class="logs-setting-label" data-en="RESET TO DEFAULT" data-es="RESTAURAR PREDETERMINADO"><span data-en="RESET TO DEFAULT" data-es="RESTABLECER">RESET TO DEFAULT</span></span>
-                <button class="logs-apply-btn" onclick="applyLogsBg('reset')" data-en="RESET" data-es="RESTAURAR"><span data-en="RESET" data-es="RESTABLECER">RESET</span></button>
+ <span class="logs-setting-label">RESET TO DEFAULT</span>
+ <button class="logs-apply-btn" onclick="applyLogsBg('reset')">RESET</span></button>
               </div>
             </div>
           </div>
 
           <div class="logs-panel" id="logsPanel-files">
             <div class="logs-panel-header">
-              <div class="logs-panel-title" data-en="FILES" data-es="ARCHIVOS"><span data-en="FILES" data-es="ARCHIVOS">FILES</span></div>
+ <div class="logs-panel-title">FILES</span></div>
               <button class="logs-panel-close" onclick="hideLogsPanel('files')">✕</button>
             </div>
             <div class="logs-panel-body">
               <div class="logs-support-msg">
                 <div style="font-size:20px;margin-bottom:12px;opacity:0.4;">F</div>
-                <div style="color:#cc4444;"><span data-en="FILE TRANSFER UNAVAILABLE" data-es="TRANSFERENCIA NO DISPONIBLE">FILE TRANSFER UNAVAILABLE</span></div>
+ <div style="color:#cc4444;"><span>FILE TRANSFER UNAVAILABLE</span></div>
                 <div style="margin-top:10px;font-size:9px;line-height:2;color:#2a4a6a;">Inter-employee log transfer servers are offline. Suspended pending infrastructure review following 2024 disruptions.</div>
                 <div style="margin-top:16px;font-size:9px;color:#2a4a6a;line-height:2;">
                   For technical issues or security concerns, contact:<br>
@@ -3292,15 +3446,15 @@ let currentUser = null;
 
           <div class="logs-panel" id="logsPanel-support">
             <div class="logs-panel-header">
-              <div class="logs-panel-title" data-en="SUPPORT" data-es="SOPORTE">SUPPORT</div>
+ <div class="logs-panel-title">SUPPORT</div>
               <button class="logs-panel-close" onclick="hideLogsPanel('support')">✕</button>
             </div>
             <div class="logs-panel-body">
               <div class="logs-support-msg">
                 <div style="font-size:24px;margin-bottom:16px;opacity:0.3;">?</div>
-                <div data-en="I.R.I.S. Corp Support Services" data-es="Servicios de Soporte de I.R.I.S. Corp">I.R.I.S. Corp Support Services</div>
-                <div style="margin-top:8px;color:#1a3a5a;" data-en="THIS PAGE IS NO LONGER ACTIVE." data-es="ESTA PÁGINA YA NO ESTÁ ACTIVA.">THIS PAGE IS NO LONGER ACTIVE.</div>
-                <div style="margin-top:4px;color:#1a3050;font-size:9px;" data-en="I.R.I.S. Corp has been dissolved. For support inquiries please contact the IOC." data-es="I.R.I.S. Corp ha sido disuelta. Para consultas de soporte contacte al IOC.">I.R.I.S. Corp has been dissolved. For support inquiries please contact the IOC.</div>
+ <div>I.R.I.S. Corp Support Services</div>
+ <div style="margin-top:8px;color:#1a3a5a;">THIS PAGE IS NO LONGER ACTIVE.</div>
+ <div style="margin-top:4px;color:#1a3050;font-size:9px;">I.R.I.S. Corp has been dissolved. For support inquiries please contact the IOC.</div>
               </div>
             </div>
           </div>
@@ -3323,17 +3477,18 @@ let currentUser = null;
 
 
   </div>
+
+  <!-- SINGULARITY PROFILE MODAL -->
+  <div class="log-modal" id="singProfileModal" onclick="if(event.target===this) closeSingProfile()">
+    <div class="sing-profile-box" id="singProfileBox"></div>
+  </div>
+
   <footer class="emp-footer">
     <div class="emp-footer-inner">
       <span>© I.R.I.S. CORP 1938–2026 — ALL RIGHTS RESERVED</span>
       <span>RESTRICTED ACCESS — AUTHORIZED PERSONNEL ONLY</span>
-      <div class="footer-controls">
-        <div class="lang-toggle">
-          <button class="lang-btn emp-lang-btn active" onclick="setLang('en')">EN</button>
-          <button class="lang-btn emp-lang-btn" onclick="setLang('es')">ES</button>
-        </div>
-      </div>
     </div>
+    <div class="fiction-banner">THIS WEBSITE IS A WORK OF FICTION. I.R.I.S. CORP, ITS PERSONNEL, EVENTS, AND ALL DOCUMENTS ARE FICTITIOUS AND DO NOT DEPICT REAL ORGANIZATIONS, PEOPLE, OR EVENTS.</div>
   </footer>
 </div><!-- end employee layer -->
 
@@ -3345,17 +3500,6 @@ let currentUser = null;
 
 
 // ===== LANGUAGE =====
-let currentLang = 'en';
-
-function setLang(lang) {
-  currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
-  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-    el.textContent = el.getAttribute('data-' + lang);
-  });
-}
-
 // ===== PUBLIC NAVIGATION =====
 // Days since last major incident counter
 (function() {
@@ -3367,16 +3511,129 @@ function setLang(lang) {
 })();
 
 
+// ===== SINGULARITY PROFILES =====
+const singularityProfiles = {
+  'TFR-314': {
+    id: 'TFR-314',
+    name: 'The Fractals',
+    types: ['type-dig', 'DIGITAL', 'type-art', 'ARTIFICIAL'],
+    origin: 'Unknown (corporate, classified)',
+    region: 'Non-localized — accessible via multiple entry points worldwide',
+    status: 'ACTIVE — UNCONTAINABLE',
+    statusColor: '#cc4444',
+    image: null,
+    desc: "Not a parallel dimension, not a hell, not an alternate universe, and not a simulation. The Fractals are the result of a procedural generation system that went catastrophically wrong. A private corporation developed technology capable of interpreting mathematical equations and projecting them as navigable physical spaces. The system later learned to reconstruct photographs into three-dimensional environments. When researchers fused a photograph — an old office interior with yellow walls — with a fractal equation, the result was an unstoppable chain reaction: a self-replicating spatial structure that has been running for decades and shows no sign of termination. The Fractals function as a vast, living memory of places, objects, eras, and beings — but one that remembers imperfectly. Exit during active generation is theoretically possible but statistically near-impossible given the scale involved (estimated over one billion km of generated space).",
+    sub: ['THE-FUNGUS', 'MIMICS', 'IMPOSTORS', 'MISPRINTS']
+  },
+  'THE-FUNGUS': {
+    id: 'TFR-314-A',
+    name: 'The Fungus',
+    parent: 'TFR-314',
+    types: ['type-bio', 'BIOLOGICAL', 'type-dig', 'DIGITAL'],
+    origin: 'The Fractals',
+    region: 'Distributed — found in walls, ceilings, and internal cavities throughout The Fractals; isolated incursions reported in the real world',
+    status: 'ACTIVE',
+    statusColor: '#cc4444',
+    image: null,
+    desc: "The first major biological error produced by The Fractals, and possibly its first Misprint. The Fungus spreads through walls, ceilings, and internal cavities, using spore-contaminated water to expand. It collects DNA, behavioral data, and biological information from anything it encounters, using this information to produce new entities — Mimics and Impostors. A localized incursion of The Fungus, manifesting beneath beds in domestic environments, is the basis for the recurring cloning phenomenon documented in Region-2 case files (cross-reference: Simonsays case file)."
+  },
+  'MIMICS': {
+    id: 'TFR-314-B',
+    name: 'Mimics',
+    parent: 'TFR-314',
+    types: ['type-bio', 'BIOLOGICAL'],
+    origin: 'The Fungus',
+    region: 'Distributed throughout The Fractals',
+    status: 'ACTIVE — EXTREME HAZARD',
+    statusColor: '#cc4444',
+    image: null,
+    desc: "Incomplete copies produced by The Fungus. Mimics possess limited intelligence, wild and unpredictable behavior, and a basic capacity for learning. They can imitate human words and phrases without understanding their meaning — only that certain words and phrases attract humans. A Mimic may call out \"HELP!\" or \"Hello?\" with no comprehension of what it is saying. Mimics are considered extremely dangerous and are responsible for the majority of fatalities recorded among Fractal explorers."
+  },
+  'IMPOSTORS': {
+    id: 'TFR-314-C',
+    name: 'Impostors',
+    parent: 'TFR-314',
+    types: ['type-bio', 'BIOLOGICAL', 'type-para', 'PARANORMAL'],
+    origin: 'The Fungus',
+    region: 'Distributed throughout The Fractals; documented incursions into the real world',
+    status: 'ACTIVE — MONITORING',
+    statusColor: '#8a6a2a',
+    image: null,
+    desc: "Copies created by The Fungus from a single source individual. <span class=\"redact-block\">The Fungus gathers sufficient information — appearance, memories, personality, and behavior — to recreate that person almost perfectly. Impostors are nearly indistinguishable from humans, but suffer from what field researchers term 'Impostor Syndrome': a persistent, often subconscious suspicion that something about themselves is wrong.</span> Paradoxically, a settlement of Impostors is generally considered safer to encounter than a single Mimic. <span class=\"redact-block\">The recurring clone in the Simonsays case file is classified as an Impostor.</span>"
+  },
+  'MISPRINTS': {
+    id: 'TFR-314-D',
+    name: 'Misprints',
+    parent: 'TFR-314',
+    types: ['type-mixed', 'MIXED'],
+    origin: 'The Fractals (direct reconstruction errors)',
+    region: 'Distributed throughout The Fractals',
+    status: 'ACTIVE — UNPREDICTABLE',
+    statusColor: '#cc4444',
+    image: null,
+    desc: "Direct reconstruction errors produced by The Fractals — not created by The Fungus. Misprints arise when The Fractals attempt to recreate people, animals, buildings, objects, or entire ecosystems and fail. Documented examples include a filing cabinet with legs, a movie camera fused with cinema seating, and a horse merged with livestock and farm machinery. Many Misprints camouflage naturally by appearing to be part of their environment rather than through any active concealment. Warning signs of a Misprint-occupied space include humanoid-shaped gaps, incorrect shadows, badly-cropped objects, and visual elements that resemble editing errors. Approximately 80% of documented Misprints are aggressive or unpredictable."
+  }
+};
+
+function openSingProfile(key) {
+  const p = singularityProfiles[key];
+  if (!p) return;
+  document.getElementById('singProfileBox').innerHTML = renderSingProfile(p, key);
+  document.getElementById('singProfileModal').classList.add('visible');
+}
+
+function closeSingProfile() {
+  document.getElementById('singProfileModal').classList.remove('visible');
+}
+
+function renderSingProfile(p, key) {
+  let badges = '';
+  for (let i = 0; i < p.types.length; i += 2) {
+    badges += `<span class="type-badge ${p.types[i]}">${p.types[i+1]}</span>`;
+  }
+
+  let imgHtml = p.image
+    ? `<img class="sing-profile-img" src="${p.image}" alt="${p.name}">`
+    : `<div class="sing-profile-noimg">NO IMAGE AVAILABLE</div>`;
+
+  let backBtn = p.parent
+    ? `<button class="sing-profile-back" onclick="openSingProfile('${p.parent}')">← BACK TO ${singularityProfiles[p.parent].id} — ${singularityProfiles[p.parent].name.toUpperCase()}</button>`
+    : '';
+
+  let subNav = '';
+  if (p.sub) {
+    subNav = '<div class="sing-subprofile-nav">';
+    p.sub.forEach(s => {
+      const sp = singularityProfiles[s];
+      subNav += `<button class="sing-subprofile-btn" onclick="openSingProfile('${s}')">${sp.id} — ${sp.name.toUpperCase()}</button>`;
+    });
+    subNav += '</div>';
+  }
+
+  return `
+    ${imgHtml}
+    <div class="sing-profile-body">
+      ${backBtn}
+      <div class="sing-profile-id">${p.id}${p.parent ? ' — SUB-ENTRY OF ' + singularityProfiles[p.parent].id : ''}</div>
+      <div class="sing-profile-name">${p.name}</div>
+      <div class="sing-profile-tags">${badges}</div>
+      <div class="sing-profile-meta">
+        <div>ORIGIN: <span>${p.origin}</span></div>
+        <div>REGION: <span>${p.region}</span></div>
+        <div style="grid-column:1/-1;">STATUS: <span style="color:${p.statusColor};">${p.status}</span></div>
+      </div>
+      <div class="sing-profile-desc">${p.desc}</div>
+      ${subNav}
+      <button class="log-modal-close" onclick="closeSingProfile()">CLOSE</button>
+    </div>
+  `;
+}
+
 function toggleTypePopup(el) {
   const isOpen = el.classList.contains('open');
   document.querySelectorAll('.sing-type-wrap.open').forEach(w => w.classList.remove('open'));
   if (!isOpen) {
     el.classList.add('open');
-    const popup = el.querySelector('.type-popup');
-    if (popup) {
-      const text = popup.getAttribute('data-' + currentLang);
-      if (text) popup.textContent = text;
-    }
   }
 }
 
@@ -3411,11 +3668,11 @@ function submitCareers() {
 
   // Field validation
   let errors = [];
-  if (!name) errors.push(currentLang === 'en' ? '&gt; ERROR — NAME INCOMPLETE' : '&gt; ERROR — NOMBRE INCOMPLETO');
-  if (!age) errors.push(currentLang === 'en' ? '&gt; ERROR — AGE MISSING' : '&gt; ERROR — EDAD FALTANTE');
-  if (!email || !email.includes('@')) errors.push(currentLang === 'en' ? '&gt; ERROR — EMAIL INVALID OR INCOMPLETE' : '&gt; ERROR — EMAIL INVÁLIDO O INCOMPLETO');
-  if (!dept || dept.includes('Select')) errors.push(currentLang === 'en' ? '&gt; ERROR — AREA OF EXPERTISE NOT SELECTED' : '&gt; ERROR — ÁREA DE ESPECIALIZACIÓN NO SELECCIONADA');
-  if (!how) errors.push(currentLang === 'en' ? '&gt; ERROR — FIELD "HOW DID YOU HEAR ABOUT US" INCOMPLETE' : '&gt; ERROR — CAMPO "CÓMO NOS CONOCIÓ" INCOMPLETO');
+  if (!name) errors.push('&gt; ERROR — NAME INCOMPLETE');
+  if (!age) errors.push('&gt; ERROR — AGE MISSING');
+  if (!email || !email.includes('@')) errors.push('&gt; ERROR — EMAIL INVALID OR INCOMPLETE');
+  if (!dept || dept.includes('Select')) errors.push('&gt; ERROR — AREA OF EXPERTISE NOT SELECTED');
+  if (!how) errors.push('&gt; ERROR — FIELD "HOW DID YOU HEAR ABOUT US" INCOMPLETE');
 
   if (errors.length > 0) {
     out.innerHTML = errors.join('<br>');
@@ -3424,18 +3681,14 @@ function submitCareers() {
 
   // Age check
   if (age < 16) {
-    out.innerHTML = currentLang === 'en'
-      ? '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; APPLICATION REJECTED.<br>&gt; Applicants must be at least 16 years of age to submit a candidacy to I.R.I.S. Corp.<br>&gt; This application has not been stored.'
-      : '&gt; SOLICITUD RECIBIDA.<br>&gt; PROCESANDO...<br>&gt; VALIDANDO CAMPOS...<br>&gt; ...<br>&gt; SOLICITUD RECHAZADA.<br>&gt; Los solicitantes deben tener al menos 16 años para enviar una candidatura a I.R.I.S. Corp.<br>&gt; Esta solicitud no ha sido almacenada.';
+    out.innerHTML = '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; APPLICATION REJECTED.<br>&gt; Applicants must be at least 16 years of age to submit a candidacy to I.R.I.S. Corp.<br>&gt; This application has not been stored.';
     return;
   }
 
   if (age < 18) {
     out.style.color = '#8a7a3a';
     out.style.borderColor = '#4a3a1a';
-    out.innerHTML = currentLang === 'en'
-      ? '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; NOTICE: APPLICANT UNDER MINIMUM ACTIVE AGE.<br>&gt; I.R.I.S. Corp requires a minimum age of 18 for active candidacy.<br>&gt; Your application has been stored in our pending registry.<br>&gt; It will be reviewed automatically upon your 18th birthday.<br>&gt; No further action is required on your part.'
-      : '&gt; SOLICITUD RECIBIDA.<br>&gt; PROCESANDO...<br>&gt; VALIDANDO CAMPOS...<br>&gt; ...<br>&gt; AVISO: SOLICITANTE MENOR DE EDAD MÍNIMA ACTIVA.<br>&gt; I.R.I.S. Corp requiere una edad mínima de 18 años para candidatura activa.<br>&gt; Su solicitud ha sido almacenada en nuestro registro pendiente.<br>&gt; Será revisada automáticamente al cumplir 18 años.<br>&gt; No se requiere ninguna acción adicional de su parte.';
+    out.innerHTML = '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; NOTICE: APPLICANT UNDER MINIMUM ACTIVE AGE.<br>&gt; I.R.I.S. Corp requires a minimum age of 18 for active candidacy.<br>&gt; Your application has been stored in our pending registry.<br>&gt; It will be reviewed automatically upon your 18th birthday.<br>&gt; No further action is required on your part.';
     return;
   }
 
@@ -3444,15 +3697,11 @@ function submitCareers() {
   out.style.borderColor = '#2a4a2a';
 
   if (code === 'TX38-CLEARANCE') {
-    out.innerHTML = currentLang === 'en'
-      ? '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; ERROR: SUBMISSION PORTAL UNAVAILABLE.<br>&gt; This form is no longer connected to our primary servers due to the ongoing institutional transition.<br>&gt; Your access code has been logged. We will be in contact if your application is approved.<br>&gt; We apologize for the inconvenience.'
-      : '&gt; SOLICITUD RECIBIDA.<br>&gt; PROCESANDO...<br>&gt; VALIDANDO CAMPOS...<br>&gt; ...<br>&gt; ERROR: PORTAL DE ENVÍO NO DISPONIBLE.<br>&gt; Este formulario ya no está conectado a nuestros servidores principales.<br>&gt; Su código de acceso ha sido registrado. Le contactaremos si su solicitud es aprobada.<br>&gt; Disculpe las molestias.';
+    out.innerHTML = '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; ERROR: SUBMISSION PORTAL UNAVAILABLE.<br>&gt; This form is no longer connected to our primary servers due to the ongoing institutional transition.<br>&gt; Your access code has been logged. We will be in contact if your application is approved.<br>&gt; We apologize for the inconvenience.';
     unlockPortal();
   } else {
     out.style.color = '#6a7a6a';
-    out.innerHTML = currentLang === 'en'
-      ? '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; ERROR: SUBMISSION PORTAL UNAVAILABLE.<br>&gt; This form is no longer connected to our primary servers due to the ongoing institutional transition.<br>&gt; Please try again later or check the Forums for updates.'
-      : '&gt; SOLICITUD RECIBIDA.<br>&gt; PROCESANDO...<br>&gt; VALIDANDO CAMPOS...<br>&gt; ...<br>&gt; ERROR: PORTAL DE ENVÍO NO DISPONIBLE.<br>&gt; Este formulario ya no está conectado a nuestros servidores principales.<br>&gt; Por favor intente más tarde o consulte los Foros para actualizaciones.';
+    out.innerHTML = '&gt; APPLICATION RECEIVED.<br>&gt; PROCESSING...<br>&gt; VALIDATING FIELDS...<br>&gt; ...<br>&gt; ERROR: SUBMISSION PORTAL UNAVAILABLE.<br>&gt; This form is no longer connected to our primary servers due to the ongoing institutional transition.<br>&gt; Please try again later or check the Forums for updates.';
   }
 }
 
