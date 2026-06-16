@@ -352,6 +352,17 @@ const singularityProfiles = {
     image: null,
     desc: "A large, bioluminescent organism observed at extreme depth in a deep oceanic channel in Region-6, documented on three separate occasions by remote submersible. Estimated length exceeds 40 meters based on available footage, though no complete view of the organism has been obtained. DCE-188's bioluminescent pattern follows a slow, repeating sequence that some analysts have compared to a counting pattern, though this interpretation is disputed. The entity has shown no reaction to submersible presence and has not been observed near the surface."
   },
+  'TLS-217': {
+    id: 'TLS-217',
+    name: 'The Living Sign',
+    types: ['type-para', 'PARANORMAL', 'type-art', 'ARTIFICIAL'],
+    origin: 'Unknown',
+    region: 'Region-13 — Forest highways (primary)',
+    status: '⚠ ACTIVE',
+    statusColor: '#4a9a3a',
+    image: 'images/singularities/TLS-217.png',
+    desc: "A sapient traffic sign capable of altering its own displayed text and relocating via several concealed limbs normally kept buried beneath its post, deployed only when the entity believes itself unobserved. Witnesses describe its movement as short hops, sideways shuffling, or an awkward running motion; several reports describe it closing the distance to a stranded motorist in complete silence. TLS-217 was documented in the United States until reports of it ceased entirely, coinciding with a cluster of TFR-314 sightings describing what field teams logged as a stop-sign-shaped Misprint — a classification later called into question, as TLS-217 is visually near-identical to a genuine Misprint and may simply have been mistaken for one. Reports of the entity then resumed in Germany, with no conventional transit method accounting for the crossing. Given TFR-314's already-documented capacity for displacement across space and time, the prevailing theory holds that TLS-217 entered TFR-314 from U.S. territory, generated the misidentified sightings, and exited into Germany. Some time later, the pattern repeated in reverse — further unexplained TFR-314 reports followed by the entity's reappearance back in the United States — though how it gained entry to TFR-314 a second time remains unknown. The entity rarely causes direct physical harm, instead misleading subjects with false detours, fabricated road closures, invented accident warnings, and routes that present as safe before terminating in hazardous terrain. It shows no apparent interest in survival, aggression, or any larger objective — only in the discomfort of those nearby. Documented behavior includes nodding when watched, lingering near stranded vehicles for hours, observing roadside repairs, and what investigators describe as gloating. In one notable incident (TLS-217-44), the entity waited for a motorist to finish changing a flat tire before puncturing it again and departing. The subject later stated they would rather face another anomaly than see it again. I.R.I.S. personnel are reminded that any information displayed by TLS-217 should be treated as false until proven otherwise, and are prohibited from arguing with it — a rule introduced after several investigators lost a debate against a stop sign."
+  },
   'REDACTED-PARA-R5': {
     id: '[REDACTED]',
     name: '[REDACTED]',
