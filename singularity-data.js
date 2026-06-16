@@ -553,7 +553,7 @@ const singularityProfiles = {
     region: '[REDACTED] — Urban (decommissioned medical facility)',
     status: '⚠ ACTIVE',
     statusColor: '#4a9a3a',
-    image: null,
+    image: 'images/singularities/TMB-501.png',
     desc: "A bipedal humanoid entity exhibiting chiropteran physical traits — elongated limbs, membranous tissue between the arms and torso, inverted joint structure, and an extreme sensitivity to light consistent with nocturnal adaptation. Recovered facility records indicate TMB-501 originated from an unauthorized experimental program predating I.R.I.S. Corp's involvement, reportedly intended to adapt human subjects for survival in extreme low-light, high-toxicity environments. The program's full scope and the number of subjects involved remain unconfirmed. TMB-501 is the only known surviving subject. The entity retains partial memory of its pre-transformation identity and has, on documented occasions, attempted to communicate — though witnesses describe these attempts as 'distressing' rather than threatening. TMB-501 avoids direct confrontation and is rarely sighted outside of enclosed structures with minimal lighting."
   },
   'TMW-512': {
@@ -564,7 +564,7 @@ const singularityProfiles = {
     region: 'Region-13 — Rural (Appalachian corridor)',
     status: 'NOT ENOUGH INFO',
     statusColor: '#9a5ad8',
-    image: null,
+    image: ['images/singularities/TMW-512.png', 'images/singularities/TMW-512-2.png', 'images/singularities/TMW-512-3.png', 'images/singularities/TMW-512-4.png'],
     desc: "A large, winged humanoid entity with prominent reflective eyes, reported intermittently across a rural region since the late 1960s. TMW-512 sightings cluster conspicuously in the days and weeks preceding major regional infrastructure failures — most notably a catastrophic bridge collapse shortly after a wave of sightings in 1967, an association that has never been adequately explained and is dismissed by most public accounts as coincidence. I.R.I.S. internal records show at least four additional sighting clusters since 1967, each preceding a significant local incident by between 3 and 30 days. The entity has never been confirmed to cause harm directly, and no sighting has ever resulted in physical evidence. Whether TMW-512 causes, predicts, or is merely associated with these incidents remains an open question — and one that several past researchers have noted nobody seems eager to answer."
   },
   'TSW-528': {
@@ -575,7 +575,7 @@ const singularityProfiles = {
     region: 'Non-localized — primarily wooded areas, secondary digital incursions',
     status: 'ACTIVE — MONITORING',
     statusColor: '#4a9a3a',
-    image: null,
+    image: 'images/singularities/TSW-528.png',
     desc: "An extremely tall, faceless humanoid entity, typically described as wearing dark formal clothing, capable of appearing and disappearing without trace and frequently associated with sudden onset of nausea, memory distortion, and compulsive image-capture behavior in witnesses. TSW-528 presents I.R.I.S. with a unique classification problem: the entity's documented appearance and behavior closely mirror a body of fictional and online folklore that emerged publicly in 2009 — yet I.R.I.S. field reports describing functionally identical encounters predate that material by at least two decades. Two competing theories are under internal review: that the entity is a pre-existing Paranormal Singularity that the 2009 material independently and coincidentally described, or that the entity is a Digital-origin Singularity whose form was shaped — possibly retroactively — by the collective digital attention the 2009 material received. I.R.I.S. has not ruled out a connection to TFR-314, given the latter's documented ability to import and reconstruct based on widely-circulated imagery and narrative data, though no direct link has been confirmed."
   },
   'TWD-540': {
@@ -587,7 +587,7 @@ const singularityProfiles = {
     status: '⚠ ACTIVE',
     statusColor: '#4a9a3a',
     image: null,
-    desc: "An emaciated, antlered humanoid entity associated with extreme cold, isolation, and — in every confirmed case — a prior human subject who underwent the transformation under conditions of prolonged starvation. TWD-540 is not believed to be a single entity but a recurring transformation pathway: any sufficiently isolated human subject experiencing extended starvation in the affected region has, in at least six documented cases since I.R.I.S. began monitoring, undergone a consistent physical and behavioral change matching the TWD-540 profile. Transformed subjects exhibit insatiable hunger, advanced strength and endurance disproportionate to their physical condition, and a marked aversion to fire. No transformed subject has ever reverted. I.R.I.S. maintains a standing advisory against extended solo travel in the affected region during winter months, issued under an unrelated cover designation."
+    desc: "An emaciated, antlered humanoid entity associated with extreme cold, isolation, and — in every confirmed case — a prior human subject who underwent the transformation under conditions of prolonged starvation. TWD-540 is not believed to be a single entity but a recurring transformation pathway: any sufficiently isolated human subject experiencing extended starvation in the affected region has, in at least six documented cases since I.R.I.S. began monitoring, undergone a consistent physical and behavioral change matching the TWD-540 profile. Transformed subjects exhibit insatiable hunger, advanced strength and endurance disproportionate to their physical condition, and a marked aversion to fire. The thoracic and abdominal cavity is open and devoid of any stomach or digestive structure beyond a truncated esophagus; ingested matter passes through and falls directly from the cavity, undigested. Subjects continue to feed compulsively despite this, apparently unable to register that no nourishment is retained. No transformed subject has ever reverted. Field notes: in addition to confirmed cannibalistic behavior, several reports note an inexplicable preference for deer carcasses over other available prey, for reasons not yet understood. I.R.I.S. maintains a standing advisory against extended solo travel in the affected region during winter months, issued under an unrelated cover designation."
   },
   'CC-777': {
     id: 'CC-777',
