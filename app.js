@@ -111,6 +111,10 @@ function unlockPortal() {
   btn.setAttribute('data-en', '🔓 EMPLOYEE PORTAL');
   btn.setAttribute('data-es', '🔓 PORTAL DE EMPLEADOS');
   sessionStorage.setItem('portalUnlocked', 'true');
+
+  // Brief red gradient sweep to draw attention to the newly unlocked button
+  btn.classList.add('portal-btn-flash');
+  setTimeout(() => btn.classList.remove('portal-btn-flash'), 1450);
 }
 
 function tryEnterPortal() {
