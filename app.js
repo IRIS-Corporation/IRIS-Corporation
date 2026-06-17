@@ -117,11 +117,32 @@ function unlockPortal() {
   setTimeout(() => btn.classList.remove('portal-btn-flash'), 1450);
 }
 
+function enterEmployeeLayer() {
+  document.getElementById('publicLayer').style.display = 'none';
+  document.getElementById('employeeLayer').classList.add('visible');
+  window.scrollTo(0, 0);
+
+  if (sessionStorage.getItem('portalIntroSeen') === 'true') {
+    // Already seen this session — show the permanent header seal immediately,
+    // skip the overlay sequence entirely.
+    document.getElementById('empHeaderSeal').classList.add('emp-header-seal-visible');
+    return;
+  }
+
+  sessionStorage.setItem('portalIntroSeen', 'true');
+  const overlay = document.getElementById('empIntroOverlay');
+  overlay.classList.add('emp-intro-playing');
+
+  // Total sequence duration matches the 2.6s keyframe animations above.
+  setTimeout(() => {
+    overlay.classList.add('emp-intro-done');
+    document.getElementById('empHeaderSeal').classList.add('emp-header-seal-visible');
+  }, 2600);
+}
+
 function tryEnterPortal() {
   if (sessionStorage.getItem('portalUnlocked') === 'true') {
-    document.getElementById('publicLayer').style.display = 'none';
-    document.getElementById('employeeLayer').classList.add('visible');
-    window.scrollTo(0, 0);
+    enterEmployeeLayer();
   }
 }
 
@@ -130,9 +151,7 @@ function checkPortal() {
   if (code === 'TX38-CLEARANCE') {
     hidePortal();
     unlockPortal();
-    document.getElementById('publicLayer').style.display = 'none';
-    document.getElementById('employeeLayer').classList.add('visible');
-    window.scrollTo(0, 0);
+    enterEmployeeLayer();
   } else {
     document.getElementById('portalError').style.display = 'block';
     document.getElementById('portalInput').value = '';

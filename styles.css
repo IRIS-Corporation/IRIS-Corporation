@@ -50,6 +50,17 @@ html {
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 
+.editor-notice-banner {
+  background: #0d1c2c;
+  color: #6a8aa8;
+  text-align: center;
+  padding: 6px 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid #1a3050;
+}
+
 /* ===== HEADER ===== */
 header {
   background: var(--blue);
@@ -196,7 +207,8 @@ nav a:hover, nav a.active {
 
 #publicLayer > header,
 #publicLayer > nav,
-#publicLayer > .dissolved-banner {
+#publicLayer > .dissolved-banner,
+#publicLayer > .editor-notice-banner {
   flex-shrink: 0;
 }
 
@@ -805,15 +817,96 @@ nav a:hover, nav a.active {
 /* ===== EMPLOYEE LAYER ===== */
 .employee-layer {
   display: none;
-  background: #f5eced;
+  background: #0a0a08;
   min-height: 100vh;
 }
 
 .employee-layer.visible { display: block; }
 
+.emp-hazard-strip {
+  height: 6px;
+  background: repeating-linear-gradient(
+    135deg,
+    #f0c419 0px, #f0c419 14px,
+    #0a0a08 14px, #0a0a08 28px
+  );
+}
+
+/* ============ INTRO SEAL SEQUENCE ============
+   Locked-eye seal fades in, "unlocks" into the question-mark seal,
+   then the whole thing shrinks and migrates to the header, where it
+   remains as a permanent watermark next to the I.R.I.S. CORP logo. */
+.emp-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: #0a0a08;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.emp-intro-overlay.emp-intro-done {
+  display: none;
+}
+
+.emp-intro-seal {
+  position: absolute;
+  width: min(46vw, 360px);
+  height: min(46vw, 360px);
+  opacity: 0;
+}
+
+.emp-intro-seal-question {
+  /* hidden beneath the locked seal until the unlock moment */
+}
+
+.emp-intro-overlay.emp-intro-playing #empIntroSealLocked {
+  animation: empIntroLockedSeal 2.6s ease-in-out forwards;
+}
+
+.emp-intro-overlay.emp-intro-playing #empIntroSealQuestion {
+  animation: empIntroQuestionSeal 2.6s ease-in-out forwards;
+}
+
+@keyframes empIntroLockedSeal {
+  0%   { opacity: 0; transform: scale(0.9); }
+  18%  { opacity: 1; transform: scale(1); }
+  55%  { opacity: 1; transform: scale(1); }
+  68%  { opacity: 0; transform: scale(1.06); }
+  100% { opacity: 0; transform: scale(1.06); }
+}
+
+@keyframes empIntroQuestionSeal {
+  0%   { opacity: 0; transform: scale(1.06); }
+  60%  { opacity: 0; transform: scale(1.06); }
+  72%  { opacity: 1; transform: scale(1); }
+  84%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.15); }
+}
+
+/* Permanent header seal — hidden until the intro sequence hands off to it */
+.emp-header-seal {
+  width: 30px;
+  height: 30px;
+  opacity: 0;
+  flex-shrink: 0;
+}
+
+.emp-header-seal.emp-header-seal-visible {
+  opacity: 1;
+  animation: empHeaderSealArrive 0.5s ease-out;
+}
+
+@keyframes empHeaderSealArrive {
+  0%   { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 .emp-header {
-  background: #6b0f1e;
-  border-bottom: 2px solid #3a0810;
+  background: #111108;
+  border-bottom: 2px solid #f0c419;
   padding: 16px 30px;
   display: flex;
   align-items: center;
@@ -830,23 +923,24 @@ nav a:hover, nav a.active {
   font-family: 'Oswald', sans-serif;
   font-size: 20px;
   font-weight: 700;
-  color: #f7f0f1;
+  color: #f0c419;
   letter-spacing: 0.1em;
 }
 
 .emp-status {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
-  color: #f7c0c8;
+  color: #0a0a08;
+  background: #f0c419;
   letter-spacing: 0.2em;
-  border: 1px solid #f7c0c8;
   padding: 3px 10px;
+  font-weight: bold;
 }
 
 .emp-logout {
   background: transparent;
-  border: 1px solid #f7c0c8;
-  color: #f7c0c8;
+  border: 1px solid #b8a04a;
+  color: #b8a04a;
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.15em;
@@ -857,13 +951,14 @@ nav a:hover, nav a.active {
 }
 
 .emp-logout:hover {
-  background: #f7c0c8;
-  color: #6b0f1e;
+  background: #f0c419;
+  color: #0a0a08;
+  border-color: #f0c419;
 }
 
 .emp-nav {
-  background: #f0e4e6;
-  border-bottom: 1px solid #c8a0a8;
+  background: #14140d;
+  border-bottom: 1px solid #3a3522;
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
@@ -875,28 +970,43 @@ nav a:hover, nav a.active {
 
 .emp-nav a {
   padding: 12px 20px;
-  color: #8b4a55;
+  color: #8a8364;
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: pointer;
-  border-right: 1px solid #c8a0a8;
+  border-right: 1px solid #2a2618;
   white-space: nowrap;
   flex-shrink: 0;
   transition: all 0.2s;
   text-decoration: none;
+  position: relative;
 }
 
-.emp-nav a:hover, .emp-nav a.active {
-  background: #8b1a2a;
-  color: #f7f0f1;
+.emp-nav a:hover {
+  color: #f0c419;
+  background: #1c1a10;
+}
+
+.emp-nav a.active {
+  color: #f0c419;
+  background: #1c1a10;
+}
+
+.emp-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: #f0c419;
 }
 
 .emp-main {
   max-width: 1100px;
   margin: 0 auto;
   padding: 30px;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
 }
 
 .emp-section { display: none; }
@@ -904,11 +1014,19 @@ nav a:hover, nav a.active {
 
 /* Employee content styles */
 .emp-doc-header {
-  border: 1px solid #c8a0a8;
+  border: 1px solid #3a3522;
   padding: 16px 20px;
   margin-bottom: 24px;
-  background: #fff0f2;
+  background: #111108;
   position: relative;
+}
+
+.emp-doc-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: #f0c419;
 }
 
 .emp-doc-header::after {
@@ -918,14 +1036,17 @@ nav a:hover, nav a.active {
   right: 12px;
   font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
-  color: #8b1a2a;
+  color: #0a0a08;
+  background: #f0c419;
   letter-spacing: 0.1em;
+  padding: 2px 8px;
+  font-weight: bold;
 }
 
 .emp-doc-num {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
-  color: #9a6a72;
+  color: #6a6448;
   letter-spacing: 0.2em;
   margin-bottom: 6px;
 }
@@ -933,21 +1054,22 @@ nav a:hover, nav a.active {
 .emp-doc-title {
   font-family: 'Oswald', sans-serif;
   font-size: 18px;
-  color: #6b0f1e;
+  color: #f0e6c0;
   margin-bottom: 4px;
+  letter-spacing: 0.02em;
 }
 
 .emp-doc-meta {
   font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
-  color: #8b4a55;
+  color: #8a8364;
 }
 
 .emp-doc-meta span { margin-right: 20px; }
 
 .emp-report {
   margin-bottom: 28px;
-  border-left: 2px solid #c8a0a8;
+  border-left: 2px solid #3a3522;
   padding-left: 20px;
 }
 
@@ -955,30 +1077,30 @@ nav a:hover, nav a.active {
   font-family: 'Share Tech Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.2em;
-  color: #8b1a2a;
+  color: #f0c419;
   text-transform: uppercase;
   margin-bottom: 10px;
   padding-bottom: 6px;
-  border-bottom: 1px solid #c8a0a8;
+  border-bottom: 1px solid #3a3522;
 }
 
 .emp-report p {
   font-size: 12px;
   line-height: 1.8;
-  color: #3a1018;
+  color: #b8b094;
   margin-bottom: 10px;
 }
 
 .redact {
-  background: #3a1018;
-  color: #3a1018;
+  background: #1c1a10;
+  color: #1c1a10;
   padding: 0 4px;
   user-select: none;
 }
 
 .redact-block {
-  background: #3a1018;
-  color: #3a1018;
+  background: #1c1a10;
+  color: #1c1a10;
   padding: 0 3px;
   user-select: none;
   border-radius: 1px;
@@ -994,38 +1116,39 @@ nav a:hover, nav a.active {
 }
 
 .emp-table th {
-  background: #8b1a2a;
-  color: #f7f0f1;
+  background: #1c1a10;
+  color: #f0c419;
   padding: 8px 12px;
   text-align: left;
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  border-bottom: 1px solid #3a3522;
 }
 
 .emp-table td {
   padding: 8px 12px;
-  border-bottom: 1px solid #e0c8cc;
-  color: #3a1018;
+  border-bottom: 1px solid #1c1a10;
+  color: #c8c0a0;
   vertical-align: top;
 }
 
-.emp-table tr:hover td { background: #fce8ea; }
+.emp-table tr:hover td { background: #1c1a10; }
 
-.type-geo { color: #3a6a1a; }
-.type-bio { color: #8b1a2a; }
-.type-para { color: #4a1a7a; }
-.type-mixed { color: #7a5a1a; }
-.type-ben { color: #1a6a4a; }
-.type-dig { color: #1a5a7a; }
-.type-art { color: #6a6a1a; }
+.type-geo { color: #7ec850; }
+.type-bio { color: #e85a6a; }
+.type-para { color: #a47ce8; }
+.type-mixed { color: #e8b85a; }
+.type-ben { color: #4ad8a0; }
+.type-dig { color: #5ab8e8; }
+.type-art { color: #d4c860; }
 
-.status-contained { color: #4aa8c8; }
-.status-unknown { color: #8a8a8a; }
-.status-dead { color: #cc4444; }
-.status-active { color: #4a9a3a; }
-.status-noinfo { color: #9a5ad8; }
+.status-contained { color: #5ab8e8; }
+.status-unknown { color: #8a8364; }
+.status-dead { color: #e85a5a; }
+.status-active { color: #6ac850; }
+.status-noinfo { color: #b88ce8; }
 
 .type-badge {
   display: inline-block;
@@ -1075,19 +1198,25 @@ nav a:hover, nav a.active {
 .sing-type-wrap.open .type-popup {
   display: block;
 }
-}
 
+/* Ink-stamp effect: double rule + slight texture, evokes a physical
+   rubber stamp pressed onto the document rather than a flat CSS box */
 .emp-stamp {
   display: inline-block;
-  border: 2px solid #8b1a2a;
-  color: #8b1a2a;
-  padding: 5px 12px;
+  position: relative;
+  border: 2px solid #c8485a;
+  outline: 1px solid #c8485a;
+  outline-offset: 3px;
+  color: #c8485a;
+  padding: 6px 16px;
   font-family: 'Oswald', sans-serif;
   font-size: 13px;
-  letter-spacing: 0.1em;
-  transform: rotate(-2deg);
-  opacity: 0.8;
-  margin: 8px 0;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  transform: rotate(-3deg);
+  opacity: 0.85;
+  margin: 12px 4px;
+  mix-blend-mode: screen;
 }
 
 /* ===== FOOTER ===== */
@@ -1125,8 +1254,8 @@ footer span {
 
 /* ===== EMPLOYEE FOOTER ===== */
 .emp-footer {
-  background: #3a0810;
-  border-top: 2px solid #6b0f1e;
+  background: #111108;
+  border-top: 2px solid #f0c419;
   padding: 16px 30px;
   margin-top: 0;
 }
@@ -1144,55 +1273,18 @@ footer span {
 .emp-footer span {
   font-family: 'Share Tech Mono', monospace;
   font-size: 9px;
-  color: #9a6070;
+  color: #8a8364;
   letter-spacing: 0.15em;
 }
 
 .emp-lang-btn {
-  border-color: #6b0f1e !important;
-  color: #c8909a !important;
+  border-color: #3a3522 !important;
+  color: #b8a04a !important;
 }
 
 .emp-lang-btn.active, .emp-lang-btn:hover {
-  border-color: #f7c0c8 !important;
-  color: #f7c0c8 !important;
-}
-
-
-
-/* ===== EMPLOYEE FOOTER ===== */
-.emp-footer {
-  background: #3a0810;
-  border-top: 2px solid #6b0f1e;
-  padding: 16px 30px;
-  margin-top: 0;
-}
-
-.emp-footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.emp-footer span {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  color: #9a6070;
-  letter-spacing: 0.15em;
-}
-
-.emp-lang-btn {
-  border-color: #6b0f1e !important;
-  color: #c8909a !important;
-}
-
-.emp-lang-btn.active, .emp-lang-btn:hover {
-  border-color: #f7c0c8 !important;
-  color: #f7c0c8 !important;
+  border-color: #f0c419 !important;
+  color: #f0c419 !important;
 }
 
 
@@ -1924,13 +2016,13 @@ footer span {
 .emp-table tbody tr[onclick]:hover td { background: #fce8ea; }
 
 .emp-no-auth {
-  background: #0a1a2a;
-  border: 1px solid #1a3a5a;
+  background: #111108;
+  border: 1px solid #3a3522;
   padding: 30px;
   text-align: center;
   font-family: 'Share Tech Mono', monospace;
   font-size: 11px;
-  color: #3a6a8a;
+  color: #b8a04a;
   letter-spacing: 0.15em;
 }
 

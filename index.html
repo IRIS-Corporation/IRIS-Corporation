@@ -26,6 +26,11 @@ let currentUser = null;
   ⚠ NOTICE: I.R.I.S. CORP DISSOLVED 2025–2026 — OPERATIONS TRANSFERRED TO INTERNATIONAL OVERSIGHT COMMITTEE ⚠
 </div>
 
+<!-- EDITOR NOTICE -->
+<div class="editor-notice-banner">
+  This archive is maintained by a designated editor under IOC administrative access. Periodic improvements, corrections, or expanded transparency reflect routine maintenance of the record — not continued I.R.I.S. operations.
+</div>
+
 <!-- PUBLIC LAYER -->
 <div id="publicLayer">
 
@@ -654,7 +659,7 @@ let currentUser = null;
  <div class="forum-cat-item" onclick="setForumCat('region9')">Region-9</div>
  <div class="forum-cat-item" onclick="setForumCat('region10')">Region-10</div>
  <div class="forum-cat-item" onclick="setForumCat('offtopic')">Off-Topic</div>
-          <div class="forum-cat-item" onclick="setForumCat('bug')" style="border-color:#cc4444;color:#cc4444;">Bug Reports</div>
+          <div class="forum-cat-item" onclick="setForumCat('bug')" style="border-color:#e85a5a;color:#e85a5a;">Bug Reports</div>
         </div>
 
         <div class="forum-main">
@@ -700,8 +705,14 @@ let currentUser = null;
 
 <!-- EMPLOYEE LAYER -->
 <div class="employee-layer" id="employeeLayer">
+  <div class="emp-intro-overlay" id="empIntroOverlay">
+    <img src="images/iris-seal-locked.png" alt="" class="emp-intro-seal" id="empIntroSealLocked">
+    <img src="images/iris-seal-question.png" alt="" class="emp-intro-seal emp-intro-seal-question" id="empIntroSealQuestion">
+  </div>
+  <div class="emp-hazard-strip"></div>
   <div class="emp-header">
     <div class="emp-header-left">
+      <img src="images/iris-seal-question.png" alt="" class="emp-header-seal" id="empHeaderSeal">
       <div class="emp-logo">I.R.I.S. CORP</div>
  <div class="emp-status">RESTRICTED — EMPLOYEE ACCESS</div>
     </div>
@@ -857,30 +868,30 @@ let currentUser = null;
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>Station Forsythe</strong></td><td>Region-1</td><td>31.22, -98.44</td><td>Central Command / Administration</td><td style="color:#4a8a3a;">ACTIVE — HQ</td></tr>
- <tr><td><strong>Outpost Vance</strong></td><td>Region-1</td><td>29.75, -95.36</td><td>Containment — TTR-001 monitoring</td><td style="color:#4a8a3a;"><span>ACTIVE</span></td></tr>
-            <tr><td><strong>Station Bering</strong></td><td>Region-2</td><td>63.75, 160.42</td><td>Siberian exclusion zone monitoring</td><td style="color:#4a6a8a;">MONITORING</td></tr>
-            <tr><td><strong>Outpost Kazakh</strong></td><td>Region-2</td><td>48.22, 67.88</td><td>Geological survey — Class B zone</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Halley III</strong></td><td>Region-3</td><td>-75.41, -26.21</td><td>Survey base</td><td style="color:#4a6a8a;">Decommissioned 2001</td></tr>
-            <tr><td><strong>Halley IV</strong></td><td>Region-3</td><td>-74.98, -26.10</td><td>Logistics / secondary base</td><td style="color:#4a6a8a;">Decommissioned 2003</td></tr>
-            <tr><td><strong>Halley V</strong></td><td>Region-3</td><td>-75.5731, -26.6642</td><td>Primary research — Pozo Alfa</td><td style="color:#8a6a2a;">Abandoned / Remote monitoring</td></tr>
-            <tr><td><strong>Platform Azores</strong></td><td>Region-4</td><td>37.74, -25.67</td><td>Deep-sea anomaly monitoring</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Station Gibraltar</strong></td><td>Region-4</td><td>36.14, -5.35</td><td>Mediterranean transit hub</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-5</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#cc4444;">⚠ ACTIVE — RESTRICTED</td></tr>
-            <tr><td><strong>Station Mariana</strong></td><td>Region-6</td><td>11.37, 142.59</td><td>Deep-sea research — Pacific anomalies</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Platform Guam</strong></td><td>Region-6</td><td>13.44, 144.79</td><td>Pacific monitoring hub</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-7</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#cc4444;">⚠ ACTIVE — RESTRICTED</td></tr>
-            <tr><td><strong>Station Reykjavik</strong></td><td>Region-8</td><td>64.13, -21.93</td><td>Nordic geological monitoring</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Outpost Jan Mayen</strong></td><td>Region-8</td><td>70.97, -8.68</td><td>Arctic survey base</td><td style="color:#4a6a8a;">SEASONAL</td></tr>
-            <tr><td><strong>Station Nairobi</strong></td><td>Region-9</td><td>-1.29, 36.82</td><td>African Corridor primary hub</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Outpost Rift</strong></td><td>Region-9</td><td>-3.37, 36.68</td><td>East African Rift monitoring</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Station Cape</strong></td><td>Region-10</td><td>-33.92, 18.42</td><td>Southern Africa research hub</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Station Hokkaido</strong></td><td>Region-11</td><td>43.06, 141.35</td><td>Japanese Singularity monitoring</td><td style="color:#cc4444;">⚠ CRITICAL — POST-INCIDENT</td></tr>
-            <tr><td><strong>Station Honshu</strong></td><td>Region-11</td><td>35.68, 139.69</td><td>Pacific Rim coordination center</td><td style="color:#8a6a2a;">SUSPENDED — 2024</td></tr>
-            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-11</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#cc4444;">CRITICAL — LEVEL 5</td></tr>
-            <tr><td><strong>Station Reykjanes</strong></td><td>Region-12</td><td>63.87, -22.56</td><td>North Atlantic monitoring</td><td style="color:#4a8a3a;">ACTIVE</td></tr>
-            <tr><td><strong>Platform Atlantic</strong></td><td>Region-12</td><td>37.92, -30.14</td><td>Mid-Atlantic Ridge survey</td><td style="color:#4a6a8a;">MONITORING</td></tr>
-            <tr><td><strong><span class="redact">████████████</span></strong></td><td><span class="redact">████████</span></td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#cc4444;">CRITICAL</td></tr>
+            <tr><td><strong>Station Forsythe</strong></td><td>Region-1</td><td>31.22, -98.44</td><td>Central Command / Administration</td><td style="color:#6ac850;">ACTIVE — HQ</td></tr>
+ <tr><td><strong>Outpost Vance</strong></td><td>Region-1</td><td>29.75, -95.36</td><td>Containment — TTR-001 monitoring</td><td style="color:#6ac850;"><span>ACTIVE</span></td></tr>
+            <tr><td><strong>Station Bering</strong></td><td>Region-2</td><td>63.75, 160.42</td><td>Siberian exclusion zone monitoring</td><td style="color:#5ab8e8;">MONITORING</td></tr>
+            <tr><td><strong>Outpost Kazakh</strong></td><td>Region-2</td><td>48.22, 67.88</td><td>Geological survey — Class B zone</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Halley III</strong></td><td>Region-3</td><td>-75.41, -26.21</td><td>Survey base</td><td style="color:#5ab8e8;">Decommissioned 2001</td></tr>
+            <tr><td><strong>Halley IV</strong></td><td>Region-3</td><td>-74.98, -26.10</td><td>Logistics / secondary base</td><td style="color:#5ab8e8;">Decommissioned 2003</td></tr>
+            <tr><td><strong>Halley V</strong></td><td>Region-3</td><td>-75.5731, -26.6642</td><td>Primary research — Pozo Alfa</td><td style="color:#e8b85a;">Abandoned / Remote monitoring</td></tr>
+            <tr><td><strong>Platform Azores</strong></td><td>Region-4</td><td>37.74, -25.67</td><td>Deep-sea anomaly monitoring</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Station Gibraltar</strong></td><td>Region-4</td><td>36.14, -5.35</td><td>Mediterranean transit hub</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-5</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#e85a5a;">⚠ ACTIVE — RESTRICTED</td></tr>
+            <tr><td><strong>Station Mariana</strong></td><td>Region-6</td><td>11.37, 142.59</td><td>Deep-sea research — Pacific anomalies</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Platform Guam</strong></td><td>Region-6</td><td>13.44, 144.79</td><td>Pacific monitoring hub</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-7</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#e85a5a;">⚠ ACTIVE — RESTRICTED</td></tr>
+            <tr><td><strong>Station Reykjavik</strong></td><td>Region-8</td><td>64.13, -21.93</td><td>Nordic geological monitoring</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Outpost Jan Mayen</strong></td><td>Region-8</td><td>70.97, -8.68</td><td>Arctic survey base</td><td style="color:#5ab8e8;">SEASONAL</td></tr>
+            <tr><td><strong>Station Nairobi</strong></td><td>Region-9</td><td>-1.29, 36.82</td><td>African Corridor primary hub</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Outpost Rift</strong></td><td>Region-9</td><td>-3.37, 36.68</td><td>East African Rift monitoring</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Station Cape</strong></td><td>Region-10</td><td>-33.92, 18.42</td><td>Southern Africa research hub</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Station Hokkaido</strong></td><td>Region-11</td><td>43.06, 141.35</td><td>Japanese Singularity monitoring</td><td style="color:#e85a5a;">⚠ CRITICAL — POST-INCIDENT</td></tr>
+            <tr><td><strong>Station Honshu</strong></td><td>Region-11</td><td>35.68, 139.69</td><td>Pacific Rim coordination center</td><td style="color:#e8b85a;">SUSPENDED — 2024</td></tr>
+            <tr><td><strong><span class="redact">████████████</span></strong></td><td>Region-11</td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#e85a5a;">CRITICAL — LEVEL 5</td></tr>
+            <tr><td><strong>Station Reykjanes</strong></td><td>Region-12</td><td>63.87, -22.56</td><td>North Atlantic monitoring</td><td style="color:#6ac850;">ACTIVE</td></tr>
+            <tr><td><strong>Platform Atlantic</strong></td><td>Region-12</td><td>37.92, -30.14</td><td>Mid-Atlantic Ridge survey</td><td style="color:#5ab8e8;">MONITORING</td></tr>
+            <tr><td><strong><span class="redact">████████████</span></strong></td><td><span class="redact">████████</span></td><td><span class="redact">████████████</span></td><td><span class="redact">████████████████████████</span></td><td style="color:#e85a5a;">CRITICAL</td></tr>
           </tbody>
         </table>
         </div>
@@ -904,7 +915,7 @@ let currentUser = null;
       <div class="emp-report"><div class="emp-report-title">REGION-8 — NORDIC / ARCTIC</div><p>Station Reykjavik primary hub. Outpost Jan Mayen seasonal. Two low-tier Geological Singularities monitored.</p></div>
       <div class="emp-report"><div class="emp-report-title">REGION-9 — EAST AFRICA</div><p>African Corridor est. 1984. High density of low-tier Geological Singularities. CE-067 contained 2001.</p></div>
       <div class="emp-report"><div class="emp-report-title">REGION-10 — SOUTHERN AFRICA / INDIAN OCEAN</div><p>S9D-083 Beneficial research active. <span class="redact">Two additional files — Level 3.</span></p></div>
-      <div class="emp-report"><div class="emp-report-title">REGION-11 — JAPAN / EAST ASIA</div><p style="color:#cc6666;">Station Honshu suspended March 2024. Station Hokkaido emergency protocols. <span class="redact">2024 incident — Level 5 / IOC jurisdiction.</span></p><div class="emp-stamp">CRITICAL — POST-INCIDENT</div></div>
+      <div class="emp-report"><div class="emp-report-title">REGION-11 — JAPAN / EAST ASIA</div><p style="color:#e88a8a;">Station Honshu suspended March 2024. Station Hokkaido emergency protocols. <span class="redact">2024 incident — Level 5 / IOC jurisdiction.</span></p><div class="emp-stamp">CRITICAL — POST-INCIDENT</div></div>
       <div class="emp-report"><div class="emp-report-title">REGION-12 — NORTH ATLANTIC</div><p>Station Reykjanes and Platform Atlantic active. SEA-422 monitored. Low historical incident rate.</p></div>
     </div>
 
@@ -983,7 +994,7 @@ let currentUser = null;
  <button class="logs-save-btn" onclick="logLoginNew()" style="flex:1;">LOGIN</button>
  <button class="logs-save-btn" onclick="logRegisterNew()" style="flex:1;border-color:#2a5a7a;color:#4a8aaa;">REGISTER</button>
             </div>
-            <div id="logAuthStatusNew" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#cc4444;margin-top:8px;letter-spacing:0.1em;"></div>
+            <div id="logAuthStatusNew" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:#e85a5a;margin-top:8px;letter-spacing:0.1em;"></div>
           </div>
 
           <!-- AUTH STATE -->
@@ -1056,12 +1067,12 @@ let currentUser = null;
             <div class="logs-panel-body">
               <div class="logs-support-msg">
                 <div style="font-size:20px;margin-bottom:12px;opacity:0.4;">F</div>
- <div style="color:#cc4444;"><span>FILE TRANSFER UNAVAILABLE</span></div>
+ <div style="color:#e85a5a;"><span>FILE TRANSFER UNAVAILABLE</span></div>
                 <div style="margin-top:10px;font-size:9px;line-height:2;color:#2a4a6a;">Inter-employee log transfer servers are offline. Suspended pending infrastructure review following 2024 disruptions.</div>
                 <div style="margin-top:16px;font-size:9px;color:#2a4a6a;line-height:2;">
                   For technical issues or security concerns, contact:<br>
                   <strong style="color:#e8c840;">iris.corp.1938@gmail.com</strong><br>
-                  Or post under <strong style="color:#cc4444;">Bug Reports</strong>
+                  Or post under <strong style="color:#e85a5a;">Bug Reports</strong>
                 </div>
               </div>
             </div>
