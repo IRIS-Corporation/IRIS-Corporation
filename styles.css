@@ -855,8 +855,8 @@ nav a:hover, nav a.active {
 
 .emp-intro-stage {
   position: relative;
-  width: min(46vw, 360px);
-  height: min(46vw, 360px);
+  width: min(62vw, 460px);
+  height: min(62vw, 460px);
   display: flex;
   align-items: center;
   justify-content: center;
