@@ -855,8 +855,8 @@ nav a:hover, nav a.active {
 
 .emp-intro-stage {
   position: relative;
-  width: min(62vw, 460px);
-  height: min(62vw, 460px);
+  width: min(74vw, 560px);
+  height: min(74vw, 560px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -983,6 +983,7 @@ nav a:hover, nav a.active {
   pointer-events: none;
   mix-blend-mode: screen;
   background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,0.6) 50%, transparent 85%);
+  background-repeat: no-repeat;
   background-size: 260% 260%;
   background-position: -120% -120%;
   -webkit-mask-repeat: no-repeat;
