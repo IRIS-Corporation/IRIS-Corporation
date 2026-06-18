@@ -833,15 +833,17 @@ nav a:hover, nav a.active {
 }
 
 /* ============ INTRO SEAL SEQUENCE ============
-   Locked-eye seal fades in, "unlocks" into the question-mark seal,
-   then the whole thing shrinks and migrates to the header, where it
-   remains as a permanent watermark next to the I.R.I.S. CORP logo. */
+   Locked-eye seal fades in under a verification scan, "unlocks" into
+   the question-mark seal with a shockwave burst, then the whole thing
+   shrinks and migrates to the header, where it remains as a permanent
+   watermark next to the I.R.I.S. CORP logo. */
 .emp-intro-overlay {
   position: fixed;
   inset: 0;
   z-index: 900;
   background: #0a0a08;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   pointer-events: none;
@@ -851,15 +853,97 @@ nav a:hover, nav a.active {
   display: none;
 }
 
-.emp-intro-seal {
-  position: absolute;
+.emp-intro-stage {
+  position: relative;
   width: min(46vw, 360px);
   height: min(46vw, 360px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient pulsing glow behind the seal */
+.emp-intro-glow {
+  position: absolute;
+  inset: -35%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,196,25,0.4) 0%, rgba(240,196,25,0) 68%);
   opacity: 0;
 }
 
-.emp-intro-seal-question {
-  /* hidden beneath the locked seal until the unlock moment */
+.emp-intro-overlay.emp-intro-playing .emp-intro-glow {
+  animation: empIntroGlow 2.6s ease-in-out forwards;
+}
+
+@keyframes empIntroGlow {
+  0%   { opacity: 0; transform: scale(0.88); }
+  18%  { opacity: 0.55; transform: scale(1); }
+  45%  { opacity: 0.35; transform: scale(1.02); }
+  58%  { opacity: 0.5; transform: scale(1); }
+  66%  { opacity: 0.95; transform: scale(1.22); }
+  82%  { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.8); }
+}
+
+/* Shockwave ring bursting outward at the unlock moment */
+.emp-intro-shockwave {
+  position: absolute;
+  inset: 6%;
+  border: 2px solid #f0c419;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.emp-intro-overlay.emp-intro-playing .emp-intro-shockwave {
+  animation: empIntroShockwave 2.6s ease-out forwards;
+}
+
+@keyframes empIntroShockwave {
+  0%, 58% { opacity: 0; transform: scale(0.85); }
+  63%     { opacity: 0.9; transform: scale(0.95); }
+  80%     { opacity: 0; transform: scale(1.7); }
+  100%    { opacity: 0; transform: scale(1.7); }
+}
+
+/* Scanline sweeping top-to-bottom across the seal during verification,
+   clipped to a circular mask so it reads as a beam scanning the disc */
+.emp-intro-seal-clip {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.emp-intro-scanline {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 4px;
+  top: -8%;
+  background: linear-gradient(90deg, transparent, rgba(240,196,25,0.95), transparent);
+  filter: blur(0.5px);
+  opacity: 0;
+}
+
+.emp-intro-overlay.emp-intro-playing .emp-intro-scanline {
+  animation: empIntroScanline 2.6s linear forwards;
+}
+
+@keyframes empIntroScanline {
+  0%   { top: -8%; opacity: 0; }
+  6%   { opacity: 0.85; }
+  50%  { top: 104%; opacity: 0.85; }
+  58%  { opacity: 0; }
+  100% { top: 104%; opacity: 0; }
+}
+
+.emp-intro-seal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 .emp-intro-overlay.emp-intro-playing #empIntroSealLocked {
@@ -874,22 +958,77 @@ nav a:hover, nav a.active {
   0%   { opacity: 0; transform: scale(0.9); }
   18%  { opacity: 1; transform: scale(1); }
   55%  { opacity: 1; transform: scale(1); }
-  68%  { opacity: 0; transform: scale(1.06); }
-  100% { opacity: 0; transform: scale(1.06); }
+  64%  { opacity: 0; transform: scale(1.08) rotate(1deg); }
+  100% { opacity: 0; transform: scale(1.08); }
 }
 
 @keyframes empIntroQuestionSeal {
-  0%   { opacity: 0; transform: scale(1.06); }
-  60%  { opacity: 0; transform: scale(1.06); }
-  72%  { opacity: 1; transform: scale(1); }
+  0%   { opacity: 0; transform: scale(1.08); }
+  60%  { opacity: 0; transform: scale(1.08); }
+  64%  { opacity: 0.4; transform: scale(1.02); }
+  68%  { opacity: 1; transform: scale(1); }
   84%  { opacity: 1; transform: scale(1); }
   100% { opacity: 0; transform: scale(0.15); }
 }
 
+/* Animated glint sweeping diagonally across each seal, masked to its exact
+   silhouette (alpha channel) so the shine only travels over the visible
+   gold lines/icon rather than across a plain rectangle. */
+.emp-seal-shine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,0.6) 50%, transparent 85%);
+  background-size: 260% 260%;
+  background-position: -120% -120%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+
+.emp-seal-shine-locked {
+  -webkit-mask-image: url('images/iris-seal-locked.png');
+  mask-image: url('images/iris-seal-locked.png');
+}
+
+.emp-seal-shine-question {
+  -webkit-mask-image: url('images/iris-seal-question.png');
+  mask-image: url('images/iris-seal-question.png');
+}
+
+.emp-intro-overlay.emp-intro-playing .emp-seal-shine-locked {
+  animation: empShineSweepLocked 2.6s ease-in-out forwards;
+}
+
+.emp-intro-overlay.emp-intro-playing .emp-seal-shine-question {
+  animation: empShineSweepQuestion 2.6s ease-in-out forwards;
+}
+
+@keyframes empShineSweepLocked {
+  0%, 8%  { opacity: 0; background-position: -120% -120%; }
+  14%     { opacity: 0.9; }
+  30%     { opacity: 0.9; background-position: 120% 120%; }
+  38%, 100% { opacity: 0; background-position: 120% 120%; }
+}
+
+@keyframes empShineSweepQuestion {
+  0%, 70%   { opacity: 0; background-position: -120% -120%; }
+  76%       { opacity: 0.9; }
+  88%       { opacity: 0.9; background-position: 120% 120%; }
+  93%, 100% { opacity: 0; background-position: 120% 120%; }
+}
+
 /* Permanent header seal — hidden until the intro sequence hands off to it */
 .emp-header-seal {
-  width: 30px;
-  height: 30px;
+  width: 64px;
+  height: 64px;
   opacity: 0;
   flex-shrink: 0;
 }
