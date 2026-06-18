@@ -123,8 +123,11 @@ function enterEmployeeLayer() {
   window.scrollTo(0, 0);
 
   if (sessionStorage.getItem('portalIntroSeen') === 'true') {
-    // Already seen this session — show the permanent header seal immediately,
-    // skip the overlay sequence entirely.
+    // Already seen this session — explicitly force the overlay hidden rather
+    // than assuming it already carries the "done" class, since a page reload
+    // resets the DOM to its static state (no JS-added classes survive that),
+    // even though sessionStorage itself persists across reloads.
+    document.getElementById('empIntroOverlay').classList.add('emp-intro-done');
     document.getElementById('empHeaderSeal').classList.add('emp-header-seal-visible');
     return;
   }
