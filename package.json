@@ -1,0 +1,13 @@
+{
+  "name": "iris-corporation",
+  "version": "1.0.0",
+  "description": "I.R.I.S. Corp - Institute for Research on Irregular Singularities",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Static site - no build required'"
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  }
+}
