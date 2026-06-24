@@ -2,6 +2,16 @@
 // Replace LOGO_PLACEHOLDER with actual logo base64 when available
 
 
+// ===== ARCHIVE VERSION =====
+// Update this string manually on each deploy: format [YY].[M].[D]
+(function() {
+  const version = 'v26.6.24';
+  const el1 = document.getElementById('archive-version');
+  const el2 = document.getElementById('emp-archive-version');
+  if (el1) el1.textContent = version;
+  if (el2) el2.textContent = version;
+})();
+
 // ===== LANGUAGE =====
 // ===== PUBLIC NAVIGATION =====
 // Days since last major incident counter
