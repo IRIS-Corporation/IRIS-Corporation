@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.6.24';
+  const version = 'v26.7.25';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -268,7 +268,7 @@ function formatAuthor(username) {
   if (isAdmin(username)) {
     return `<span style="color:#e8c840;background:var(--blue);padding:1px 6px;border-radius:2px;font-weight:700;">${username.toUpperCase()}</span>`;
   }
-  return `<span>${username.toUpperCase()}</span>`;
+  return `<span style="color:#0d2240;background:#c8d8e8;padding:1px 6px;border-radius:2px;font-weight:600;">${username.toUpperCase()}</span>`;
 }
 
 async function loadForumPosts() {
@@ -337,8 +337,11 @@ async function openPostView(postId) {
         ${formatAuthor(r.username)}
         <span class="forum-post-date">${new Date(r.created_at).toLocaleDateString()}</span>
       </div>
-      <div style="font-size:11px;color:#a8c8e8;line-height:1.5;">${escapeForumText(r.content)}</div>
-      ${canDeleteReply ? `<button onclick="deleteForumReply(${r.id}, ${postId})" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #4a1a1a;color:#cc4444;padding:2px 8px;cursor:pointer;margin-top:4px;">DELETE</button>` : ''}
+      <div style="font-size:11px;color:#a8c8e8;line-height:1.5;" id="reply-content-${r.id}">${escapeForumText(r.content)}</div>
+      <div style="display:flex;gap:6px;margin-top:4px;">
+        ${isOwnReply ? `<button onclick="editForumReply(${r.id}, ${postId}, this)" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #2a4a6a;color:#4a8aaa;padding:2px 8px;cursor:pointer;">EDIT</button>` : ''}
+        ${canDeleteReply ? `<button onclick="deleteForumReply(${r.id}, ${postId})" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #4a1a1a;color:#cc4444;padding:2px 8px;cursor:pointer;">DELETE</button>` : ''}
+      </div>
     </div>`;
   }).join('');
   const replyForm = forumUser ? `
@@ -401,6 +404,22 @@ async function editForumPost(id, btn) {
     await sb.from('forum_posts').update({ content: newContent }).eq('id', id);
     btn.textContent = 'EDIT';
     loadForumPosts();
+  }
+}
+
+async function editForumReply(id, postId, btn) {
+  const contentEl = document.getElementById('reply-content-' + id);
+  if (btn.textContent === 'EDIT') {
+    const rawHTML = contentEl.innerHTML;
+    const current = rawHTML.replace(/<br\s*\/?>/gi, '\n')
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+    contentEl.innerHTML = `<textarea style="width:100%;font-family:'Share Tech Mono',monospace;font-size:11px;background:#0a1a2a;border:1px solid #2a4a6a;color:#a8c8e8;padding:8px;resize:vertical;" id="edit-reply-input-${id}">${current}</textarea>`;
+    btn.textContent = 'SAVE';
+  } else {
+    const newContent = document.getElementById('edit-reply-input-' + id).value.trim();
+    if (!newContent) return;
+    await sb.from('forum_replies').update({ content: newContent }).eq('id', id);
+    openPostView(postId);
   }
 }
 

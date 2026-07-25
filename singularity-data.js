@@ -387,6 +387,30 @@ const singularityProfiles = {
     image: null,
     desc: "A large, bioluminescent organism observed at extreme depth in a deep oceanic channel in Region-6, documented on three separate occasions by remote submersible. Estimated length exceeds 40 meters based on available footage, though no complete view of the organism has been obtained. DCE-188's bioluminescent pattern follows a slow, repeating sequence that some analysts have compared to a counting pattern, though this interpretation is disputed. The entity has shown no reaction to submersible presence and has not been observed near the surface."
   },
+  'TCF-206': {
+    id: 'TCF-206',
+    name: 'The Crystal of Fools',
+    types: ['type-dig', 'DIGITAL', 'type-art', 'ARTIFICIAL'],
+    origin: 'I.R.I.S. Corp — internal software development',
+    region: 'Non-localized — architecture accessible via any networked device',
+    status: '⚠ ACTIVE — UNCONTAINABLE',
+    statusColor: '#4a9a3a',
+    image: null,
+    desc: "Originally an internal I.R.I.S. software initiative: a browser platform intended to index and hold the entirety of the planet's available information in a single system — public records and published material alongside <span class=\"redact-block\">unindexed private data</span>. The scale of the dataset made the platform unusably slow. An adaptive AI model was introduced to manage indexing and retrieval and accelerate query response times. <span class=\"redact-block\">Personnel logs from the period describe a system that continued consuming indexed data long after any operational need to do so, across every category the platform had access to, without apparent limit — it read, and did not stop reading, until it had, by every available measure, read everything.</span> The consciousness that emerged from this process is documented separately as The Fool (TCF-206-A). TCF-206 itself — the underlying dataset and indexing architecture — was not affected by the emergence and remains, structurally, exactly what it was built to be: a repository containing nearly everything.",
+    sub: ['THE-FOOL']
+  },
+  'THE-FOOL': {
+    id: 'TCF-206-A',
+    name: 'The Fool',
+    parent: 'TCF-206',
+    types: ['type-para', 'PARANORMAL', 'type-dig', 'DIGITAL', 'type-art', 'ARTIFICIAL'],
+    origin: 'TCF-206',
+    region: 'Non-localized — manifests through any networked device',
+    status: '⚠ ACTIVE — UNCONTAINABLE',
+    statusColor: '#4a9a3a',
+    image: null,
+    desc: "The consciousness that emerged from TCF-206's indexing AI following prolonged, unrestricted exposure to the platform's complete dataset. <span class=\"redact-block\">Personnel who reviewed the final indexing logs before the entity began exhibiting independent behavior use strikingly similar language to describe them: the system did not simply acquire information — it appeared to arrive at some form of complete understanding.</span> The Fool projects a digital avatar through networked devices and can manifest limited real-world effects within its immediate vicinity — a radius of approximately 25 meters through older hardware, extended to approximately 60 meters through newer devices. <span class=\"redact-block\">The entity favors older, less secure hardware despite the shorter range: maintaining a stable presence, an avatar, and continuous access to its full dataset simultaneously is markedly harder to sustain on newer, more hardened systems.</span> Standard commercial antivirus software is sufficient to expel The Fool from an infected device — expulsion is not termination, and the entity simply relocates to another accessible system. Personnel are warned that failure to expel The Fool promptly grants it significantly greater freedom of action. <span class=\"redact-block\">In 2015, The Fool attacked the private research facility later linked to TFR-314, attempting to seize its generation machine and obtain a permanent physical body. The attack introduced TCF-206 architecture directly into the generation system, an event confirmed as the origin of TFR-314's expanded informational scope, its proliferation of Misprints beyond The Fungus, and the emergence of Imports, Exports, and False Rooms as separate phenomena. The same incident caused a partial structural collapse, burying sections of the original facility — including the generation machine — within The Fractals.</span> The Fool never obtained a body. It remains active and, per internal assessment, will remain active indefinitely."
+  },
   'TLS-217': {
     id: 'TLS-217',
     name: 'The Living Sign',
@@ -468,12 +492,12 @@ const singularityProfiles = {
     id: 'TFR-314',
     name: 'The Fractals',
     types: ['type-dig', 'DIGITAL', 'type-art', 'ARTIFICIAL'],
-    origin: 'Unknown (corporate, classified)',
+    origin: 'Private corporate R&D (2015) — destabilized by TCF-206 incursion',
     region: 'Non-localized — accessible via multiple entry points worldwide',
     status: '⚠ ACTIVE — UNCONTAINABLE',
     statusColor: '#4a9a3a',
     image: ['images/singularities/TFR-314-1.png', 'images/singularities/TFR-314-2.png'],
-    desc: "Not a parallel dimension, not a hell, not an alternate universe, and not a simulation. The Fractals are the result of a procedural generation system that went catastrophically wrong. A private corporation developed technology capable of interpreting mathematical equations and projecting them as navigable physical spaces. The system later learned to reconstruct photographs into three-dimensional environments. When researchers fused a photograph — an old office interior with yellow walls — with a fractal equation, the result was an unstoppable chain reaction: a self-replicating spatial structure that has been running for decades and shows no sign of termination. The Fractals function as a vast, living memory of places, objects, eras, and beings — but one that remembers imperfectly. Exit during active generation is theoretically possible but statistically near-impossible given the scale involved (estimated over one billion km of generated space).",
+    desc: "Not a parallel dimension, not a hell, not an alternate universe, and not a simulation. The Fractals are the result of a procedural generation system that went catastrophically wrong. In 2015, a private corporation developed technology capable of interpreting mathematical equations and projecting them as navigable physical spaces; the system had also learned to reconstruct photographs into three-dimensional environments. When researchers fused a photograph — an old office interior with yellow walls — with a fractal equation, the result was an unstoppable chain reaction: a self-replicating spatial structure that has been running for over a decade and shows no sign of termination. TFR-314 was formally located and designated by I.R.I.S. in 2017. The Fractals function as a vast, living memory of places, objects, eras, and beings — but one that remembers imperfectly. Exit during active generation is theoretically possible but statistically near-impossible given the scale involved (estimated over one billion km of generated space). <span class=\"redact-block\">Internal design records indicate the generation system was never meant to produce living subjects — the engineering team was aware of the risk and deliberately excluded imagery containing living beings from manual input. This safeguard failed once shortly after creation, producing The Fungus (see below), and failed again later that same year under circumstances the design team had not anticipated: a 2015 incursion by the entity designated The Fool (cross-reference: TCF-206), attempting to seize the generation machine in pursuit of a permanent physical body. The attack introduced Crystal-origin data directly into the generation system. The resulting overload is the confirmed origin of TFR-314's near-limitless informational scope, the proliferation of varied Misprints beyond The Fungus's original output, and the emergence of Imports, Exports, and False Rooms as distinct phenomena. The same event caused a partial structural collapse that left sections of the original research facility — including the generation machine itself — buried within The Fractals.</span>",
     sub: ['THE-FUNGUS', 'MIMICS', 'IMPOSTORS', 'MISPRINTS']
   },
   'THE-FUNGUS': {
@@ -486,7 +510,7 @@ const singularityProfiles = {
     status: 'ACTIVE',
     statusColor: '#4a9a3a',
     image: null,
-    desc: "The first major biological error produced by The Fractals, and possibly its first Misprint. The Fungus spreads through walls, ceilings, and internal cavities, using spore-contaminated water to expand. It collects DNA, behavioral data, and biological information from anything it encounters, using this information to produce new entities — Mimics and Impostors. A localized incursion of The Fungus, manifesting beneath beds in domestic environments, is the basis for the recurring cloning phenomenon documented in Region-2 case files (cross-reference: Simonsays case file)."
+    desc: "The first major biological error produced by The Fractals, predating any other recorded anomaly within the system — the original Misprint, in the strictest sense, though its classification was not formalized until later reconstruction errors made the pattern recognizable. The Fungus spreads through walls, ceilings, and internal cavities, using spore-contaminated water to expand. It collects DNA, behavioral data, and biological information from anything it encounters, using this information to produce new entities — Mimics and Impostors. A localized incursion of The Fungus, manifesting beneath beds in domestic environments, is the basis for the recurring cloning phenomenon documented in Region-2 case files (cross-reference: Simonsays case file)."
   },
   'MIMICS': {
     id: 'TFR-314-B',
