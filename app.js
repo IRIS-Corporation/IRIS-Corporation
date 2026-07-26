@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.7.25';
+  const version = 'v26.7.26';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -402,8 +402,7 @@ async function editForumPost(id, btn) {
     const newContent = document.getElementById('edit-input-' + id).value.trim();
     if (!newContent) return;
     await sb.from('forum_posts').update({ content: newContent }).eq('id', id);
-    btn.textContent = 'EDIT';
-    loadForumPosts();
+    openPostView(id);
   }
 }
 
