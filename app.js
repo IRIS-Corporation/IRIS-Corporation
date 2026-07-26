@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.7.26';
+  const version = 'v26.7.27';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -401,7 +401,9 @@ async function editForumPost(id, btn) {
   } else {
     const newContent = document.getElementById('edit-input-' + id).value.trim();
     if (!newContent) return;
-    await sb.from('forum_posts').update({ content: newContent }).eq('id', id);
+    const { data, error } = await sb.from('forum_posts').update({ content: newContent }).eq('id', id).select();
+    if (error) { alert('Could not save edit: ' + error.message); return; }
+    if (!data || data.length === 0) { alert('Edit was not saved — you may not have permission to edit this post.'); return; }
     openPostView(id);
   }
 }
@@ -417,7 +419,9 @@ async function editForumReply(id, postId, btn) {
   } else {
     const newContent = document.getElementById('edit-reply-input-' + id).value.trim();
     if (!newContent) return;
-    await sb.from('forum_replies').update({ content: newContent }).eq('id', id);
+    const { data, error } = await sb.from('forum_replies').update({ content: newContent }).eq('id', id).select();
+    if (error) { alert('Could not save edit: ' + error.message); return; }
+    if (!data || data.length === 0) { alert('Edit was not saved — you may not have permission to edit this reply.'); return; }
     openPostView(postId);
   }
 }
