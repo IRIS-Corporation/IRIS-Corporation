@@ -198,6 +198,17 @@ function showEmpSection(id) {
 let forumUser = null;
 let currentForumCat = 'general';
 
+async function restoreForumSession() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session && session.user && session.user.email && session.user.email.endsWith('@iris-forum.local')) {
+      forumUser = session.user.email.split('@')[0];
+      showForumUser();
+    }
+  } catch (e) { /* no session, stay logged out */ }
+}
+restoreForumSession();
+
 function escapeForumText(str) {
   return str
     .replace(/&/g, '&amp;')
@@ -441,6 +452,16 @@ let logUserNew = null;
 let logsCurrentPage = 1;
 const LOGS_PER_PAGE = 10;
 let allUserLogs = [];
+
+async function restoreLogsSession() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session && session.user && session.user.email && session.user.email.endsWith('@iris-logs.local')) {
+      logUserNew = session.user.email.split('@')[0];
+    }
+  } catch (e) { /* no session, stay logged out */ }
+}
+restoreLogsSession();
 
 async function initLogs() {
   const logsApp = document.getElementById('logsApp');
