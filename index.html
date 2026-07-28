@@ -792,7 +792,48 @@ let currentUser = null;
  <div class="emp-doc-title">Global Singularity Registry — Partial Extract</div>
  <div class="emp-doc-meta"><span>848 total entries — 313 accessible at current clearance</span></div>
       </div>
-      <div class="emp-report"><div style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="emp-table">
+      <div class="emp-report">
+        <div class="sing-registry-controls">
+          <input type="text" id="singSearchInput" class="sing-registry-search" placeholder="Search by name or ID..." oninput="renderSingularityRegistry()">
+          <select id="singRegionFilter" class="sing-registry-select" onchange="renderSingularityRegistry()">
+            <option value="">All Regions</option>
+            <option value="1">Region-1</option>
+            <option value="2">Region-2</option>
+            <option value="3">Region-3</option>
+            <option value="4">Region-4</option>
+            <option value="5">Region-5</option>
+            <option value="6">Region-6</option>
+            <option value="7">Region-7</option>
+            <option value="8">Region-8</option>
+            <option value="9">Region-9</option>
+            <option value="10">Region-10</option>
+            <option value="11">Region-11</option>
+            <option value="12">Region-12</option>
+            <option value="13">Region-13</option>
+            <option value="14">Region-14</option>
+            <option value="15">Region-15</option>
+            <option value="16">Region-16</option>
+            <option value="17">Region-17</option>
+          </select>
+          <select id="singSortSelect" class="sing-registry-select" onchange="renderSingularityRegistry()">
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="num-asc">Designation # (Low-High)</option>
+            <option value="num-desc">Designation # (High-Low)</option>
+            <option value="height-desc">Height (Tallest first)</option>
+            <option value="height-asc">Height (Shortest first)</option>
+          </select>
+        </div>
+        <div class="sing-registry-controls" style="margin-top:8px;">
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-bio" onchange="renderSingularityRegistry()"> BIO</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-geo" onchange="renderSingularityRegistry()"> GEO</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-mixed" onchange="renderSingularityRegistry()"> MIX</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-para" onchange="renderSingularityRegistry()"> PARA</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-ben" onchange="renderSingularityRegistry()"> BEN</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-art" onchange="renderSingularityRegistry()"> ART</label>
+          <label class="sing-type-checkbox"><input type="checkbox" value="type-dig" onchange="renderSingularityRegistry()"> DIG</label>
+        </div>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;"><table class="emp-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -802,70 +843,7 @@ let currentUser = null;
  <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr onclick="openSingProfile('TTR-001')"><td>TTR-001</td><td>The Texas Rift</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-1</td><td class="status-contained">CONTAINED — SEALED 1938</td></tr>
- <tr onclick="openSingProfile('RP7-004')"><td>RP7-004</td><td>Resonance Pocket 7</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-active"><span>ACTIVE — MONITORING</span></td></tr>
-            <tr onclick="openSingProfile('TPC-008')"><td>TPC-008</td><td>The Pale Circuit</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('DS4-011')"><td>DS4-011</td><td>Drift Station 4</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TMC-019')"><td>TMC-019</td><td>The Mariana Choir</td><td><span class="type-badge type-para">PARA</span></td><td>Region-6</td><td class="status-active">ACTIVE — MONITORING</td></tr>
- <tr onclick="openSingProfile('IC-021')"><td>IC-021</td><td>Ice Cathedral</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-3</td><td class="status-noinfo"><span>NOT ENOUGH INFO — ACCESS SUSPENDED</span></td></tr>
- <tr onclick="openSingProfile('ML-033')"><td>ML-033</td><td>Mirror Lake (Siberia)</td><td><span class="type-badge type-para">PARA</span></td><td>Region-11</td><td class="status-contained"><span>CONTAINED</span></td></tr>
-            <tr onclick="openSingProfile('TLF-044')"><td>TLF-044</td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td>Region-5</td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('TBS-058')"><td>TBS-058</td><td>The Breathing Shelf</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('BS-064')"><td>BS-064</td><td>Base64 Bloat Anomaly</td><td><span class="type-badge type-dig">DIG</span></td><td><span class="redact">████████</span></td><td class="status-contained">CONTAINED</td></tr>
-            <tr onclick="openSingProfile('CE-067')"><td>CE-067</td><td>Corridor Entity — Class B</td><td><span class="type-badge type-bio">BIO</span></td><td>Region-9</td><td class="status-contained">CONTAINED</td></tr>
-            <tr onclick="openSingProfile('TPA-071')"><td>TPA-071</td><td>The Permafrost Anomaly 3</td><td><span class="type-badge type-para">PARA</span></td><td>Region-3</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('REDACTED-MIXED-R7')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td>Region-7</td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('EHB-075')"><td>EHB-075</td><td>El Hombre de la Bolsa</td><td><span class="type-badge type-para">PARA</span> <span class="type-badge type-bio">BIO</span></td><td>Region-13</td><td class="status-active">⚠ ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('TEC-133')"><td>TEC-133</td><td>El Cuero</td><td><span class="type-badge type-bio">BIO</span></td><td>Region-13</td><td class="status-unknown">UNKNOWN</td></tr>
-            <tr onclick="openSingProfile('S9D-083')"><td>S9D-083</td><td>Stratum-9 Deposit</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-12</td><td class="status-active">ACTIVE — RESEARCH</td></tr>
-            <tr onclick="openSingProfile('TCS-093')"><td>TCS-093</td><td>The Chernobyl Society</td><td><span class="type-badge type-bio">BIO</span> <span class="type-badge type-para">PARA</span></td><td>Region-4</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TTM-097')"><td>TTM-097</td><td>The Third Man</td><td><span class="type-badge type-para">PARA</span></td><td>Non-localized</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TLF-099')"><td>TLF-099</td><td>The Listening Field</td><td><span class="type-badge type-para">PARA</span></td><td>Region-11</td><td class="status-contained">CONTAINED — EXCL. ZONE</td></tr>
-            <tr onclick="openSingProfile('REDACTED-BIO-R10')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td>Region-10</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('DM-101')"><td>DM-101</td><td>Desmodus Monarchis</td><td><span class="type-badge type-mixed">MIXED</span></td><td>Region-3</td><td class="status-dead">DEAD — NEUTRALIZED 2003</td></tr>
-            <tr onclick="openSingProfile('TWK-114')"><td>TWK-114</td><td>The Skinwalkers</td><td><span class="type-badge type-bio">BIO</span> <span class="type-badge type-para">PARA</span></td><td><span class="redact">████████</span></td><td class="status-active">ACTIVE — UNCONTAINED</td></tr>
- <tr onclick="openSingProfile('REDACTED-PARA-CRIT')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td><span class="redact">████████</span></td><td class="status-active"><span>⚠ ACTIVE — CRITICAL</span></td></tr>
-            <tr onclick="openSingProfile('REDACTED-BIO-R7-ACTIVE')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td>Region-7</td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('TCB-130')"><td>TCB-130</td><td>Thermal Column Beta</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-12</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('TRK-138')"><td>TRK-138</td><td>Trakthalia Aeternum</td><td><span class="type-badge type-bio">BIO</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('TMF-144')"><td>TMF-144</td><td>The Mirror Field</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-active">ACTIVE — HAZARD MONITORING</td></tr>
-            <tr onclick="openSingProfile('REDACTED-MIXED-PRIORITY1-A')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — PRIORITY 1</td></tr>
-            <tr onclick="openSingProfile('SR-170')"><td>SR-170</td><td>Subsurface Resonator (Chile)</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-13</td><td class="status-contained">CONTAINED</td></tr>
-            <tr onclick="openSingProfile('DCE-188')"><td>DCE-188</td><td>Deep Channel Entity</td><td><span class="type-badge type-bio">BIO</span></td><td>Region-6</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('TCF-206')"><td>TCF-206</td><td>The Crystal of Fools</td><td><span class="type-badge type-dig">DIG</span> <span class="type-badge type-art">ART</span></td><td>Non-localized</td><td class="status-active">⚠ ACTIVE — UNCONTAINABLE</td></tr>
-            <tr onclick="openSingProfile('TLS-217')">
-    <td>TLS-217</td>
-    <td>The Living Sign</td>
-    <td>
-        <span class="type-badge type-para">PARA</span>
-        <span class="type-badge type-art">ART</span>
-    </td>
-    <td>Region-13</td>
-    <td class="status-active">⚠ ACTIVE</td>
-</tr>
-            <tr onclick="openSingProfile('REDACTED-PARA-R5')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td>Region-5</td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('BCK-230')"><td>BCK-230</td><td>Bioluminescent Colony K</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-12</td><td class="status-active">ACTIVE — RESEARCH</td></tr>
- <tr onclick="openSingProfile('TSC-247')"><td>TSC-247</td><td>The Singing Crack</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-3</td><td class="status-unknown"><span>UNKNOWN — ARCHIVED</span></td></tr>
-            <tr onclick="openSingProfile('REDACTED-BIO-R9')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td>Region-9</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TVA-279')"><td>TVA-279</td><td>Thermal Vent Array (Iceland)</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-12</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('REDACTED-MIXED-CRIT5-A')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — CRITICAL LEVEL 5</td></tr>
-            <tr onclick="openSingProfile('TFR-314')"><td>TFR-314</td><td>The Fractals</td><td><span class="type-badge type-dig">DIG</span> <span class="type-badge type-art">ART</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — UNCONTAINABLE</td></tr>
-            <tr onclick="openSingProfile('CFA-388')"><td>CFA-388</td><td>Crystalline Formation — Class A</td><td><span class="type-badge type-ben">BEN</span></td><td>Region-10</td><td class="status-active">ACTIVE — RESEARCH</td></tr>
-            <tr onclick="openSingProfile('TSP-391')"><td>TSP-391</td><td>The Shadow People</td><td><span class="type-badge type-para">PARA</span></td><td>Non-localized</td><td class="status-active">⚠ ACTIVE — UNRESOLVED</td></tr>
-            <tr onclick="openSingProfile('REDACTED-MIXED-PRIORITY1-B')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — PRIORITY 1</td></tr>
-            <tr onclick="openSingProfile('SEA-422')"><td>SEA-422</td><td>Subsonic Emitter (Atlantic)</td><td><span class="type-badge type-geo">GEO</span></td><td>Region-12</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('REDACTED-PARA-R5-NOINFO')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-para">PARA</span></td><td>Region-5</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('REDACTED-MIXED-CRIT5-B')"><td><span class="redact">████████</span></td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE — CRITICAL LEVEL 5</td></tr>
-            <tr onclick="openSingProfile('MX-470')"><td>MX-470</td><td><span class="redact">████████████████████</span></td><td><span class="type-badge type-bio">BIO</span></td><td><span class="redact">████████</span></td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TMB-501')"><td>TMB-501</td><td>The Man-Bat</td><td><span class="type-badge type-bio">BIO</span> <span class="type-badge type-art">ART</span></td><td><span class="redact">████████</span></td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('TMW-512')"><td>TMW-512</td><td>The Moth</td><td><span class="type-badge type-para">PARA</span> <span class="type-badge type-bio">BIO</span></td><td>Region-1</td><td class="status-noinfo">NOT ENOUGH INFO</td></tr>
-            <tr onclick="openSingProfile('TSW-528')"><td>TSW-528</td><td>[DESIGNATION PENDING — "Tall"]</td><td><span class="type-badge type-para">PARA</span> <span class="type-badge type-dig">DIG</span></td><td><span class="redact">████████</span></td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('TWD-540')"><td>TWD-540</td><td>The Wendigo</td><td><span class="type-badge type-para">PARA</span> <span class="type-badge type-bio">BIO</span></td><td>Region-1</td><td class="status-active">⚠ ACTIVE</td></tr>
-            <tr onclick="openSingProfile('TNZ-559')"><td>TNZ-559</td><td>Null Zone / Zona Nula</td><td><span class="type-badge type-geo">GEO</span> <span class="type-badge type-para">PARA</span></td><td>Region-6 / Multiple</td><td class="status-active">ACTIVE — RESEARCH</td></tr>
-            <tr onclick="openSingProfile('YAI-650')"><td>YAI-650</td><td>[DESIGNATION PENDING — "You Are An Idiot"]</td><td><span class="type-badge type-dig">DIG</span></td><td>Non-localized</td><td class="status-active">ACTIVE — MONITORING</td></tr>
-            <tr onclick="openSingProfile('CC-777')"><td>CC-777</td><td>Celestial Crystal Fragment</td><td><span class="type-badge type-para">PARA</span> <span class="type-badge type-mixed">MIXED</span></td><td><span class="redact">████████</span></td><td class="status-contained">CONTAINED</td></tr>
-          </tbody>
+          <tbody id="singRegistryBody"></tbody>
         </table>
  <p style="margin-top:12px;">535 additional entries require Level 3 clearance or above. Contact IOC Records Office for access.</p>
  <p style="margin-top:8px; font-family:'Share Tech Mono',monospace; font-size:9px; letter-spacing:0.15em; color:#6a8aa8; padding-top:10px; border-top:1px dashed #2a4a6a;">CLASSIFICATION NOTE: "Caused By [Singularity]" ≠ "Related To [Singularity]". The former denotes a confirmed origin relationship (the referenced Singularity directly produced or generated the entry in question); such entries are catalogued under a sub-designation of the originating Singularity's number (e.g. TFR-314-A) and are not assigned an independent registry number. The latter denotes a documented similarity, cross-reference, or unconfirmed connection between otherwise independent catalog entries, each retaining its own full registry number (e.g. MX-470, CC-777). Personnel should not treat these designations as interchangeable.</p>

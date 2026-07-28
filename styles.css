@@ -1641,217 +1641,6 @@ footer span {
 }
 
 /* ===== EMPLOYEE LOGS ===== */
-/* ===== PADLOCK ===== */
-.padlock {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 500;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.padlock-icon {
-  width: 44px;
-  height: 44px;
-  background: #1a2a4a;
-  border: 2px solid #2a4a6a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  transition: all 0.3s;
-}
-
-.padlock:hover .padlock-icon {
-  border-color: var(--gold);
-  background: #1a3a5a;
-}
-
-.padlock.unlocked .padlock-icon {
-  border-color: var(--gold);
-  background: #1a3a2a;
-}
-
-.padlock-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 7px;
-  color: #2a4a6a;
-  letter-spacing: 0.15em;
-  text-align: center;
-  text-transform: uppercase;
-  transition: color 0.3s;
-}
-
-.padlock:hover .padlock-label { color: var(--gold); }
-.padlock.unlocked .padlock-label { color: var(--gold); }
-
-@media (max-width: 700px) {
-  .padlock { right: 10px; }
-  .padlock-icon { width: 36px; height: 36px; font-size: 16px; }
-}
-
-/* ===== FORUM ===== */
-.forum-layout { display: grid; grid-template-columns: 200px 1fr; gap: 24px; }
-@media(max-width:600px){ .forum-layout { grid-template-columns: 1fr; } }
-
-.forum-categories { }
-.forum-cat-item {
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  background: var(--white);
-  cursor: pointer;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--ink-light);
-  margin-bottom: 4px;
-  transition: all 0.2s;
-  text-transform: uppercase;
-}
-.forum-cat-item:hover, .forum-cat-item.active {
-  background: var(--blue);
-  color: #e8eef8;
-  border-color: var(--blue);
-}
-
-.forum-main { }
-
-.forum-auth-box {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.forum-auth-box input {
-  padding: 8px 12px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 11px;
-  color: var(--ink);
-  outline: none;
-  width: 160px;
-}
-
-.forum-auth-box input:focus { border-color: var(--blue); }
-
-.forum-btn {
-  padding: 8px 16px;
-  background: var(--blue);
-  color: #e8eef8;
-  border: none;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.forum-btn:hover { background: var(--blue-mid); }
-.forum-btn.secondary {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--ink-light);
-}
-.forum-btn.secondary:hover { border-color: var(--blue); color: var(--blue); }
-
-.forum-user-info {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-}
-
-.forum-post-form {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 20px;
-  margin-bottom: 20px;
-  display: none;
-}
-
-.forum-post-form.visible { display: block; }
-
-.forum-post-form textarea {
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  font-family: 'Source Serif 4', serif;
-  font-size: 13px;
-  color: var(--ink);
-  resize: vertical;
-  outline: none;
-  margin-bottom: 10px;
-}
-
-.forum-post-form textarea:focus { border-color: var(--blue); }
-
-.forum-post {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 16px 20px;
-  margin-bottom: 8px;
-}
-
-.forum-post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
-}
-
-.forum-post-author {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  color: var(--blue);
-  letter-spacing: 0.1em;
-}
-
-.forum-post-date {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  color: var(--ink-light);
-  letter-spacing: 0.05em;
-}
-
-.forum-post-content {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--ink-faded);
-  white-space: pre-wrap;
-}
-
-.forum-empty {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  color: var(--ink-light);
-  letter-spacing: 0.15em;
-  text-align: center;
-  padding: 40px;
-  border: 1px dashed var(--border);
-}
-
-.forum-status {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  color: var(--ink-light);
-  padding: 8px 0;
-  letter-spacing: 0.1em;
-}
-
-/* ===== EMPLOYEE LOGS ===== */
 .logs-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media(max-width:600px){ .logs-layout { grid-template-columns: 1fr; } }
 
@@ -2657,3 +2446,58 @@ footer span {
   height: 100%;
   padding: 30px;
 }
+
+/* ===== SINGULARITY REGISTRY — SEARCH / FILTER / SORT ===== */
+.sing-registry-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sing-registry-search {
+  flex: 1 1 220px;
+  min-width: 180px;
+  background: #0a1a2a;
+  border: 1px solid #1a3a5a;
+  color: #c8d8e8;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 8px 12px;
+  outline: none;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s;
+}
+.sing-registry-search:focus { border-color: var(--gold); }
+.sing-registry-search::placeholder { color: #3a6a8a; }
+
+.sing-registry-select {
+  background: #0a1a2a;
+  border: 1px solid #1a3a5a;
+  color: #c8d8e8;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  padding: 8px 10px;
+  outline: none;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+.sing-registry-select:focus { border-color: var(--gold); }
+
+.sing-type-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #6a8aa8;
+  cursor: pointer;
+  user-select: none;
+}
+.sing-type-checkbox input {
+  cursor: pointer;
+  accent-color: var(--gold);
+}
+.sing-type-checkbox:hover { color: var(--gold); }

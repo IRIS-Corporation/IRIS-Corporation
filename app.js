@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.7.27';
+  const version = 'v26.7.28';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -191,6 +191,9 @@ function showEmpSection(id) {
   window.scrollTo(0, 0);
   if (id === 'logs') {
     initLogs();
+  }
+  if (id === 'singularities') {
+    renderSingularityRegistry();
   }
 }
 
@@ -435,6 +438,126 @@ async function editForumReply(id, postId, btn) {
     if (!data || data.length === 0) { alert('Edit was not saved — you may not have permission to edit this reply.'); return; }
     openPostView(postId);
   }
+}
+
+// ===== SINGULARITY REGISTRY — SEARCH / FILTER / SORT =====
+function parseRegionNumber(regionStr) {
+  if (!regionStr) return null;
+  const m = regionStr.match(/Region-(\d+)/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function parseIdNumber(idStr) {
+  if (!idStr) return null;
+  const m = idStr.match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function parseHeightMeters(heightStr) {
+  if (!heightStr) return null;
+  if (/infinite/i.test(heightStr)) return Infinity;
+  if (/^(n\/a|unknown)/i.test(heightStr.trim()) && !/\d/.test(heightStr)) return null;
+  const m = heightStr.match(/(\d+(\.\d+)?)/);
+  return m ? parseFloat(m[1]) : null;
+}
+
+function formatRegionForTable(p) {
+  if (p.region === '[REDACTED]') return '<span class="redact">████████</span>';
+  const m = p.region ? p.region.match(/^(Region-\d+)/) : null;
+  return m ? m[1] : (p.region || '—');
+}
+
+function formatIdForTable(p) {
+  return p.id === '[REDACTED]' ? '<span class="redact">████████</span>' : p.id;
+}
+
+function formatNameForTable(p) {
+  return p.name === '[REDACTED]' ? '<span class="redact">████████████████████</span>' : p.name;
+}
+
+function formatTypesForTable(p) {
+  let badges = '';
+  for (let i = 0; i < p.types.length; i += 2) {
+    const short = p.types[i + 1].slice(0, 4);
+    badges += `<span class="type-badge ${p.types[i]}">${short}</span> `;
+  }
+  return badges.trim();
+}
+
+function singularityMatchesFilters(key, p, query, regionFilter, typeFilters) {
+  if (regionFilter) {
+    const rNum = parseRegionNumber(p.region);
+    if (rNum !== parseInt(regionFilter, 10)) return false;
+  }
+  if (typeFilters.length > 0) {
+    const hasType = typeFilters.some(t => p.types.includes(t));
+    if (!hasType) return false;
+  }
+  if (query) {
+    if (p.name === '[REDACTED]') return false;
+    const q = query.toLowerCase();
+    const nameMatch = p.name.toLowerCase().includes(q);
+    const idMatch = p.id.toLowerCase().includes(q);
+    if (!nameMatch && !idMatch) return false;
+  }
+  return true;
+}
+
+function renderSingularityRegistry() {
+  const body = document.getElementById('singRegistryBody');
+  if (!body || typeof singularityProfiles === 'undefined') return;
+
+  const query = (document.getElementById('singSearchInput').value || '').trim();
+  const regionFilter = document.getElementById('singRegionFilter').value;
+  const sortMode = document.getElementById('singSortSelect').value;
+  const typeFilters = Array.from(document.querySelectorAll('.sing-type-checkbox input:checked')).map(el => el.value);
+
+  const allKeys = Object.keys(singularityProfiles);
+  const topLevelKeys = allKeys.filter(k => !singularityProfiles[k].parent);
+
+  const included = [];
+  topLevelKeys.forEach(key => {
+    const p = singularityProfiles[key];
+    const selfMatches = singularityMatchesFilters(key, p, query, regionFilter, typeFilters);
+    const childKeys = allKeys.filter(k => singularityProfiles[k].parent === key);
+    const matchingChildren = childKeys.filter(ck => singularityMatchesFilters(ck, singularityProfiles[ck], query, regionFilter, typeFilters));
+    if (selfMatches || matchingChildren.length > 0) {
+      included.push({ key, p, children: matchingChildren });
+    }
+  });
+
+  included.sort((a, b) => {
+    if (a.p.name === '[REDACTED]' && b.p.name !== '[REDACTED]') return 1;
+    if (b.p.name === '[REDACTED]' && a.p.name !== '[REDACTED]') return -1;
+    switch (sortMode) {
+      case 'name-asc': return a.p.name.localeCompare(b.p.name);
+      case 'name-desc': return b.p.name.localeCompare(a.p.name);
+      case 'num-asc': return (parseIdNumber(a.p.id) ?? 999999) - (parseIdNumber(b.p.id) ?? 999999);
+      case 'num-desc': return (parseIdNumber(b.p.id) ?? -1) - (parseIdNumber(a.p.id) ?? -1);
+      case 'height-desc': {
+        const ah = parseHeightMeters(a.p.height); const bh = parseHeightMeters(b.p.height);
+        if (ah === null) return 1; if (bh === null) return -1;
+        return bh - ah;
+      }
+      case 'height-asc': {
+        const ah = parseHeightMeters(a.p.height); const bh = parseHeightMeters(b.p.height);
+        if (ah === null) return 1; if (bh === null) return -1;
+        return ah - bh;
+      }
+      default: return 0;
+    }
+  });
+
+  let html = '';
+  included.forEach(({ key, p, children }) => {
+    html += `<tr onclick="openSingProfile('${key}')"><td>${formatIdForTable(p)}</td><td>${formatNameForTable(p)}</td><td>${formatTypesForTable(p)}</td><td>${formatRegionForTable(p)}</td><td style="color:${p.statusColor};">${p.status}</td></tr>`;
+    children.forEach(ck => {
+      const cp = singularityProfiles[ck];
+      html += `<tr onclick="openSingProfile('${ck}')" style="opacity:0.85;"><td style="padding-left:22px;">↳ ${formatIdForTable(cp)}</td><td>${formatNameForTable(cp)}</td><td>${formatTypesForTable(cp)}</td><td>${formatRegionForTable(cp)}</td><td style="color:${cp.statusColor};">${cp.status}</td></tr>`;
+    });
+  });
+
+  body.innerHTML = html || '<tr><td colspan="5" style="text-align:center;color:#4a6a8a;">No matching entries.</td></tr>';
 }
 
 async function submitForumPost() {
