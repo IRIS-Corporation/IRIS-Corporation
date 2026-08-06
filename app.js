@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.7.28';
+  const version = 'v26.8.6';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -472,7 +472,9 @@ function formatIdForTable(p) {
 }
 
 function formatNameForTable(p) {
-  return p.name === '[REDACTED]' ? '<span class="redact">████████████████████</span>' : p.name;
+  const newBadge = p.isNew ? '<span class="sing-new-badge">NEW</span> ' : '';
+  if (p.name === '[REDACTED]') return newBadge + '<span class="redact">████████████████████</span>';
+  return newBadge + p.name;
 }
 
 function formatTypesForTable(p) {
