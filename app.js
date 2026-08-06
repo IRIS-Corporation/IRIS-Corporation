@@ -449,7 +449,7 @@ function parseRegionNumber(regionStr) {
 
 function parseIdNumber(idStr) {
   if (!idStr) return null;
-  const m = idStr.match(/(\d+)/);
+  const m = idStr.match(/-(\d+)/);
   return m ? parseInt(m[1], 10) : null;
 }
 
