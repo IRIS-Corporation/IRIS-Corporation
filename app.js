@@ -5,7 +5,7 @@
 // ===== ARCHIVE VERSION =====
 // Update this string manually on each deploy: format [YY].[M].[D]
 (function() {
-  const version = 'v26.8.6';
+  const version = 'v26.8.12';
   const el1 = document.getElementById('archive-version');
   const el2 = document.getElementById('emp-archive-version');
   if (el1) el1.textContent = version;
@@ -207,6 +207,13 @@ async function restoreForumSession() {
     if (session && session.user && session.user.email && session.user.email.endsWith('@iris-forum.local')) {
       forumUser = session.user.email.split('@')[0];
       showForumUser();
+      // If a post view happened to render before this async restore finished,
+      // its EDIT/DELETE buttons would have been computed with forumUser still
+      // null. Re-render it now that forumUser is actually known.
+      const view = document.getElementById('forumPostView');
+      if (view && view.style.display === 'block' && window.__openPostId) {
+        openPostView(window.__openPostId);
+      }
     }
   } catch (e) { /* no session, stay logged out */ }
 }
@@ -286,6 +293,7 @@ function formatAuthor(username) {
 }
 
 async function loadForumPosts() {
+  window.__openPostId = null;
   const container = document.getElementById('forumPosts');
   const view = document.getElementById('forumPostView');
   if (!container) return;
@@ -327,6 +335,7 @@ async function loadForumPosts() {
 }
 
 async function openPostView(postId) {
+  window.__openPostId = postId;
   const container = document.getElementById('forumPosts');
   const view = document.getElementById('forumPostView');
   container.style.display = 'none';
@@ -344,6 +353,7 @@ async function openPostView(postId) {
     </div>` : '';
   const repliesHTML = (replies || []).map(r => {
     const isOwnReply = forumUser && r.username.toLowerCase() === forumUser.toLowerCase();
+    const canEditReply = isOwnReply || (forumUser && isAdmin(forumUser));
     const canDeleteReply = isOwnReply || (forumUser && isAdmin(forumUser));
     return `
     <div style="margin-top:10px;padding:10px 12px;border-left:2px solid #2a4a6a;background:#0a1a2e;">
@@ -353,7 +363,7 @@ async function openPostView(postId) {
       </div>
       <div style="font-size:11px;color:#a8c8e8;line-height:1.5;" id="reply-content-${r.id}">${escapeForumText(r.content)}</div>
       <div style="display:flex;gap:6px;margin-top:4px;">
-        ${isOwnReply ? `<button onclick="editForumReply(${r.id}, ${postId}, this)" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #2a4a6a;color:#4a8aaa;padding:2px 8px;cursor:pointer;">EDIT</button>` : ''}
+        ${canEditReply ? `<button onclick="editForumReply(${r.id}, ${postId}, this)" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #2a4a6a;color:#4a8aaa;padding:2px 8px;cursor:pointer;">EDIT</button>` : ''}
         ${canDeleteReply ? `<button onclick="deleteForumReply(${r.id}, ${postId})" style="font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:0.1em;background:transparent;border:1px solid #4a1a1a;color:#cc4444;padding:2px 8px;cursor:pointer;">DELETE</button>` : ''}
       </div>
     </div>`;
@@ -457,6 +467,14 @@ function parseHeightMeters(heightStr) {
   if (!heightStr) return null;
   if (/infinite/i.test(heightStr)) return Infinity;
   if (/^(n\/a|unknown)/i.test(heightStr.trim()) && !/\d/.test(heightStr)) return null;
+  const withUnit = heightStr.match(/(\d+(?:\.\d+)?)\s*(km|cm|m)\b/i);
+  if (withUnit) {
+    const value = parseFloat(withUnit[1]);
+    const unit = withUnit[2].toLowerCase();
+    if (unit === 'km') return value * 1000;
+    if (unit === 'cm') return value / 100;
+    return value;
+  }
   const m = heightStr.match(/(\d+(\.\d+)?)/);
   return m ? parseFloat(m[1]) : null;
 }
