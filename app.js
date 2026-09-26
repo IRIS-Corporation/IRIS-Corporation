@@ -120,7 +120,7 @@ function unlockPortal() {
   btn.textContent = '🔓 EMPLOYEE PORTAL';
   btn.setAttribute('data-en', '🔓 EMPLOYEE PORTAL');
   btn.setAttribute('data-es', '🔓 PORTAL DE EMPLEADOS');
-  sessionStorage.setItem('portalUnlocked', 'true');
+  localStorage.setItem('portalUnlocked', 'true');
 
   // Brief red gradient sweep to draw attention to the newly unlocked button
   btn.classList.add('portal-btn-flash');
@@ -139,12 +139,14 @@ function enterEmployeeLayer() {
     // even though sessionStorage itself persists across reloads.
     document.getElementById('empIntroOverlay').classList.add('emp-intro-done');
     document.getElementById('empHeaderSeal').classList.add('emp-header-seal-visible');
+    restoreEmpSection();
     return;
   }
 
   sessionStorage.setItem('portalIntroSeen', 'true');
   const overlay = document.getElementById('empIntroOverlay');
   overlay.classList.add('emp-intro-playing');
+  restoreEmpSection();
 
   // Total sequence duration matches the 2.6s keyframe animations above.
   setTimeout(() => {
@@ -153,8 +155,17 @@ function enterEmployeeLayer() {
   }, 2600);
 }
 
+// Restores whichever section (Dashboard, My Logs, etc.) the user last had
+// open, so a hard refresh doesn't dump them back to Dashboard every time.
+function restoreEmpSection() {
+  const saved = localStorage.getItem('empActiveSection');
+  if (saved && document.getElementById('empsec-' + saved)) {
+    showEmpSection(saved);
+  }
+}
+
 function tryEnterPortal() {
-  if (sessionStorage.getItem('portalUnlocked') === 'true') {
+  if (localStorage.getItem('portalUnlocked') === 'true') {
     enterEmployeeLayer();
   }
 }
@@ -189,6 +200,7 @@ function showEmpSection(id) {
   document.getElementById('empsec-' + id).classList.add('active');
   document.getElementById('enav-' + id).classList.add('active');
   window.scrollTo(0, 0);
+  localStorage.setItem('empActiveSection', id);
   if (id === 'logs') {
     initLogs();
   }
@@ -604,17 +616,21 @@ async function restoreLogsSession() {
     }
   } catch (e) { /* no session, stay logged out */ }
 }
-restoreLogsSession();
+// initLogs() awaits this so it never renders a false "not authenticated"
+// state while the Supabase session is still being restored from storage.
+const logsSessionReady = restoreLogsSession();
 
 async function initLogs() {
   const logsApp = document.getElementById('logsApp');
   if (!logsApp) return;
+  await logsSessionReady;
   if (logUserNew) {
     document.getElementById('logsNotAuthNew').style.display = 'none';
     const authDiv = document.getElementById('logsAuthNew');
     authDiv.style.display = 'flex';
     document.getElementById('logsUserLabel').textContent = '⬤ ' + logUserNew.toUpperCase();
     loadLogsNew();
+    restoreLogDraft();
   } else {
     document.getElementById('logsNotAuthNew').style.display = 'flex';
     document.getElementById('logsAuthNew').style.display = 'none';
@@ -719,6 +735,7 @@ async function submitNewLog() {
   if (!error) {
     document.getElementById('logNewTitle').value = '';
     document.getElementById('logNewContent').value = '';
+    localStorage.removeItem('iris_log_draft');
     status.style.color='#4a8a4a';
     status.textContent = '> ENTRY SAVED SUCCESSFULLY';
     setTimeout(() => { status.textContent = ''; hideLogsPanel('add'); }, 1500);
@@ -727,6 +744,32 @@ async function submitNewLog() {
     status.style.color='#cc4444';
     status.textContent = '> ERROR: ' + error.message;
   }
+}
+
+// ===== NEW-LOG DRAFT AUTOSAVE =====
+// Keeps whatever's typed in the "New Log" panel across a hard refresh —
+// cleared only on a successful submit (above) or manually by the user.
+function saveLogDraft() {
+  const title = document.getElementById('logNewTitle').value;
+  const content = document.getElementById('logNewContent').value;
+  if (!title && !content) {
+    localStorage.removeItem('iris_log_draft');
+    return;
+  }
+  localStorage.setItem('iris_log_draft', JSON.stringify({ title, content }));
+}
+
+function restoreLogDraft() {
+  const raw = localStorage.getItem('iris_log_draft');
+  if (!raw) return;
+  try {
+    const draft = JSON.parse(raw);
+    if (draft.title || draft.content) {
+      document.getElementById('logNewTitle').value = draft.title || '';
+      document.getElementById('logNewContent').value = draft.content || '';
+      showLogsPanel('add');
+    }
+  } catch (e) { localStorage.removeItem('iris_log_draft'); }
 }
 
 async function sendLog() {
@@ -930,3 +973,16 @@ function openLog(title, date, content) {
 function closeLogModal() {
   document.getElementById('logModal').classList.remove('visible');
 }
+
+// ===== AUTO-RESTORE PORTAL SESSION =====
+// Script tag is at the end of <body>, so the DOM is already parsed here.
+tryEnterPortal();
+
+// Autosave the new-log draft as the user types (assigning .oninput, not
+// addEventListener, so this can safely run once without stacking handlers).
+(function() {
+  const titleEl = document.getElementById('logNewTitle');
+  const contentEl = document.getElementById('logNewContent');
+  if (titleEl) titleEl.oninput = saveLogDraft;
+  if (contentEl) contentEl.oninput = saveLogDraft;
+})();
