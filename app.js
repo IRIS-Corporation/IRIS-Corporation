@@ -957,6 +957,15 @@ function closeLogModal() {
 // takes priority, falling back to a name saved in localStorage, falling
 // back to asking once.
 const SIRHOOT_LS_NAME_KEY = 'sirhoot_username';
+
+function sirhootNormalizeName(value) {
+  let name = String(value || '').trim();
+  // Remove common introductions so the stored/displayed name is just the name.
+  name = name.replace(/^(?:please\s+)?(?:call\s+me|my\s+name\s+is|i\s+am|i'm|me\s+llamo|ll[aá]mame|soy)\s+/i, '');
+  name = name.replace(/^["'“”‘’]+|["'“”‘’]+$/g, '').trim();
+  return name.slice(0, 80) || 'visitor';
+}
+
 let sirhootUsername = null;
 let sirhootOpened = false;
 let sirhootHistory = [];
@@ -993,8 +1002,11 @@ async function sirhootResolveIdentity() {
 
   const saved = localStorage.getItem(SIRHOOT_LS_NAME_KEY);
   if (saved) {
-    sirhootUsername = saved;
-    sirhootAddMsg(`Back again, ${saved}. I don't keep records between visits — not my strong suit, for now — but this browser remembered your name.`, 'bot');
+    // Migrate older saved phrases such as "Call me UnUsuario" to just the name.
+    const cleanName = sirhootNormalizeName(saved);
+    sirhootUsername = cleanName;
+    localStorage.setItem(SIRHOOT_LS_NAME_KEY, cleanName);
+    sirhootAddMsg(`Back again, ${cleanName}. I don't keep records between visits — not my strong suit, for now — but this browser remembered your name.`, 'bot');
     return;
   }
 
@@ -1026,10 +1038,11 @@ async function sirhootSend() {
   input.value = '';
 
   if (!sirhootUsername) {
-    sirhootUsername = text;
-    localStorage.setItem(SIRHOOT_LS_NAME_KEY, text);
+    const cleanName = sirhootNormalizeName(text);
+    sirhootUsername = cleanName;
+    localStorage.setItem(SIRHOOT_LS_NAME_KEY, cleanName);
     sirhootAddMsg(text, 'user');
-    sirhootAddMsg(`Pleasure, ${text}. What can I help you with?`, 'bot');
+    sirhootAddMsg(`Pleasure, ${cleanName}. What can I help you with?`, 'bot');
     return;
   }
 
