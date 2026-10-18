@@ -112,20 +112,40 @@ function hidePortal() {
   document.getElementById('portalError').style.display = 'none';
 }
 
-function unlockPortal() {
+// Visual-only: flips the button into its unlocked appearance. Split out from
+// unlockPortal() so the same visual can be restored on page load without
+// re-triggering the flash animation or touching storage.
+function setPortalButtonUnlocked() {
   const btn = document.getElementById('portalBtn');
+  if (!btn) return;
   btn.disabled = false;
   btn.style.opacity = '1';
   btn.style.cursor = 'pointer';
   btn.textContent = '🔓 EMPLOYEE PORTAL';
   btn.setAttribute('data-en', '🔓 EMPLOYEE PORTAL');
   btn.setAttribute('data-es', '🔓 PORTAL DE EMPLEADOS');
-  localStorage.setItem('portalUnlocked', 'true');
+}
+
+function unlockPortal() {
+  setPortalButtonUnlocked();
+  sessionStorage.setItem('portalUnlocked', 'true');
 
   // Brief red gradient sweep to draw attention to the newly unlocked button
+  const btn = document.getElementById('portalBtn');
   btn.classList.add('portal-btn-flash');
   setTimeout(() => btn.classList.remove('portal-btn-flash'), 1450);
 }
+
+// If the visitor already unlocked the portal earlier in this browser
+// session, the button comes back lit on reload — but this does NOT enter
+// the portal automatically. They land on the main page either way and
+// click in themselves when they're ready.
+function restorePortalButtonState() {
+  if (sessionStorage.getItem('portalUnlocked') === 'true') {
+    setPortalButtonUnlocked();
+  }
+}
+restorePortalButtonState();
 
 function enterEmployeeLayer() {
   document.getElementById('publicLayer').style.display = 'none';
@@ -139,14 +159,12 @@ function enterEmployeeLayer() {
     // even though sessionStorage itself persists across reloads.
     document.getElementById('empIntroOverlay').classList.add('emp-intro-done');
     document.getElementById('empHeaderSeal').classList.add('emp-header-seal-visible');
-    restoreEmpSection();
     return;
   }
 
   sessionStorage.setItem('portalIntroSeen', 'true');
   const overlay = document.getElementById('empIntroOverlay');
   overlay.classList.add('emp-intro-playing');
-  restoreEmpSection();
 
   // Total sequence duration matches the 2.6s keyframe animations above.
   setTimeout(() => {
@@ -155,17 +173,8 @@ function enterEmployeeLayer() {
   }, 2600);
 }
 
-// Restores whichever section (Dashboard, My Logs, etc.) the user last had
-// open, so a hard refresh doesn't dump them back to Dashboard every time.
-function restoreEmpSection() {
-  const saved = localStorage.getItem('empActiveSection');
-  if (saved && document.getElementById('empsec-' + saved)) {
-    showEmpSection(saved);
-  }
-}
-
 function tryEnterPortal() {
-  if (localStorage.getItem('portalUnlocked') === 'true') {
+  if (sessionStorage.getItem('portalUnlocked') === 'true') {
     enterEmployeeLayer();
   }
 }
@@ -200,7 +209,6 @@ function showEmpSection(id) {
   document.getElementById('empsec-' + id).classList.add('active');
   document.getElementById('enav-' + id).classList.add('active');
   window.scrollTo(0, 0);
-  localStorage.setItem('empActiveSection', id);
   if (id === 'logs') {
     initLogs();
   }
@@ -616,21 +624,17 @@ async function restoreLogsSession() {
     }
   } catch (e) { /* no session, stay logged out */ }
 }
-// initLogs() awaits this so it never renders a false "not authenticated"
-// state while the Supabase session is still being restored from storage.
-const logsSessionReady = restoreLogsSession();
+restoreLogsSession();
 
 async function initLogs() {
   const logsApp = document.getElementById('logsApp');
   if (!logsApp) return;
-  await logsSessionReady;
   if (logUserNew) {
     document.getElementById('logsNotAuthNew').style.display = 'none';
     const authDiv = document.getElementById('logsAuthNew');
     authDiv.style.display = 'flex';
     document.getElementById('logsUserLabel').textContent = '⬤ ' + logUserNew.toUpperCase();
     loadLogsNew();
-    restoreLogDraft();
   } else {
     document.getElementById('logsNotAuthNew').style.display = 'flex';
     document.getElementById('logsAuthNew').style.display = 'none';
@@ -735,7 +739,6 @@ async function submitNewLog() {
   if (!error) {
     document.getElementById('logNewTitle').value = '';
     document.getElementById('logNewContent').value = '';
-    localStorage.removeItem('iris_log_draft');
     status.style.color='#4a8a4a';
     status.textContent = '> ENTRY SAVED SUCCESSFULLY';
     setTimeout(() => { status.textContent = ''; hideLogsPanel('add'); }, 1500);
@@ -744,32 +747,6 @@ async function submitNewLog() {
     status.style.color='#cc4444';
     status.textContent = '> ERROR: ' + error.message;
   }
-}
-
-// ===== NEW-LOG DRAFT AUTOSAVE =====
-// Keeps whatever's typed in the "New Log" panel across a hard refresh —
-// cleared only on a successful submit (above) or manually by the user.
-function saveLogDraft() {
-  const title = document.getElementById('logNewTitle').value;
-  const content = document.getElementById('logNewContent').value;
-  if (!title && !content) {
-    localStorage.removeItem('iris_log_draft');
-    return;
-  }
-  localStorage.setItem('iris_log_draft', JSON.stringify({ title, content }));
-}
-
-function restoreLogDraft() {
-  const raw = localStorage.getItem('iris_log_draft');
-  if (!raw) return;
-  try {
-    const draft = JSON.parse(raw);
-    if (draft.title || draft.content) {
-      document.getElementById('logNewTitle').value = draft.title || '';
-      document.getElementById('logNewContent').value = draft.content || '';
-      showLogsPanel('add');
-    }
-  } catch (e) { localStorage.removeItem('iris_log_draft'); }
 }
 
 async function sendLog() {
@@ -974,15 +951,119 @@ function closeLogModal() {
   document.getElementById('logModal').classList.remove('visible');
 }
 
-// ===== AUTO-RESTORE PORTAL SESSION =====
-// Script tag is at the end of <body>, so the DOM is already parsed here.
-tryEnterPortal();
+// ===== SIR HOOT — SITE ASSISTANT =====
+// No persistent memory of its own (unlike Foolie). Recognition is purely
+// per-browser/per-session: a logged-in Supabase Auth session (if present)
+// takes priority, falling back to a name saved in localStorage, falling
+// back to asking once.
+const SIRHOOT_LS_NAME_KEY = 'sirhoot_username';
+let sirhootUsername = null;
+let sirhootOpened = false;
+let sirhootHistory = [];
 
-// Autosave the new-log draft as the user types (assigning .oninput, not
-// addEventListener, so this can safely run once without stacking handlers).
-(function() {
-  const titleEl = document.getElementById('logNewTitle');
-  const contentEl = document.getElementById('logNewContent');
-  if (titleEl) titleEl.oninput = saveLogDraft;
-  if (contentEl) contentEl.oninput = saveLogDraft;
+function sirhootAddMsg(text, who) {
+  const log = document.getElementById('sirhootLog');
+  if (!log) return;
+  const el = document.createElement('div');
+  el.className = 'sirhoot-msg ' + who;
+  el.textContent = text;
+  log.appendChild(el);
+  log.scrollTop = log.scrollHeight;
+}
+
+// Reuses the same Supabase Auth session the Logs panel checks — if the
+// visitor is logged in there, Sir Hoot recognizes them too, at no extra cost.
+async function sirhootGetAuthUsername() {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (session && session.user && session.user.email && session.user.email.endsWith('@iris-logs.local')) {
+      return session.user.email.split('@')[0];
+    }
+  } catch (e) { /* no session */ }
+  return null;
+}
+
+async function sirhootResolveIdentity() {
+  const authName = await sirhootGetAuthUsername();
+  if (authName) {
+    sirhootUsername = authName;
+    sirhootAddMsg(`Welcome, ${authName}. I see you're logged in on the archive side — saves us the awkward introductions.`, 'bot');
+    return;
+  }
+
+  const saved = localStorage.getItem(SIRHOOT_LS_NAME_KEY);
+  if (saved) {
+    sirhootUsername = saved;
+    sirhootAddMsg(`Back again, ${saved}. I don't keep records between visits — not my strong suit, for now — but this browser remembered your name.`, 'bot');
+    return;
+  }
+
+  sirhootAddMsg("Hello. I'm Sir Hoot, the archive's assistant — a bit late to my own debut, but here I am. What should I call you?", 'bot');
+}
+
+function sirhootOpen() {
+  const panel = document.getElementById('sirhootPanel');
+  const ping = document.getElementById('sirhootPing');
+  if (!panel) return;
+  panel.classList.add('open');
+  if (ping) ping.style.display = 'none';
+  if (!sirhootOpened) {
+    sirhootOpened = true;
+    sirhootResolveIdentity();
+  }
+}
+
+function sirhootClose() {
+  const panel = document.getElementById('sirhootPanel');
+  if (panel) panel.classList.remove('open');
+}
+
+async function sirhootSend() {
+  const input = document.getElementById('sirhootInput');
+  if (!input) return;
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  if (!sirhootUsername) {
+    sirhootUsername = text;
+    localStorage.setItem(SIRHOOT_LS_NAME_KEY, text);
+    sirhootAddMsg(text, 'user');
+    sirhootAddMsg(`Pleasure, ${text}. What can I help you with?`, 'bot');
+    return;
+  }
+
+  sirhootAddMsg(text, 'user');
+  sirhootHistory.push({ role: 'user', content: text });
+
+  try {
+    const res = await fetch('/api/sirhoot', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: sirhootHistory, username: sirhootUsername })
+    });
+    const data = await res.json();
+    const reply = data.reply || "Sorry — I didn't catch that.";
+    sirhootAddMsg(reply, 'bot');
+    sirhootHistory.push({ role: 'assistant', content: reply });
+  } catch (e) {
+    sirhootAddMsg("I can't reach the archive's systems right now. Try again in a moment.", 'bot');
+  }
+}
+
+(function sirhootInit() {
+  const launcher = document.getElementById('sirhootLauncher');
+  const closeBtn = document.getElementById('sirhootClose');
+  const sendBtn = document.getElementById('sirhootSend');
+  const input = document.getElementById('sirhootInput');
+  if (!launcher) return; // widget not on this page (e.g. employee layer)
+
+  launcher.addEventListener('click', () => {
+    const panel = document.getElementById('sirhootPanel');
+    if (panel && panel.classList.contains('open')) sirhootClose();
+    else sirhootOpen();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', sirhootClose);
+  if (sendBtn) sendBtn.addEventListener('click', sirhootSend);
+  if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter') sirhootSend(); });
 })();
