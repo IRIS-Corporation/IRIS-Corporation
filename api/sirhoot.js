@@ -76,24 +76,76 @@ async function logGuess(username, guess, evaluation) {
 }
 
 const guessTool = {
-  functionDeclarations: [
-    {
-      name: 'check_portal_guess',
-      description:
-        "Check a visitor's proposed employee-portal password. Return only whether it is correct, whether its length matches, and the number of exact-position matches. Never return the actual password.",
-      parameters: {
-        type: 'OBJECT',
-        properties: {
-          guess: {
-            type: 'STRING',
-            description: "The visitor's proposed password, exactly as written.",
-          },
-        },
-        required: ['guess'],
-      },
-    },
-  ],
+  name: 'check_portal_guess',
+  description: "Check a proposed employee-portal password without revealing it.",
+  parameters: {
+    type: 'OBJECT',
+    properties: { guess: { type: 'STRING' } },
+    required: ['guess'],
+  },
 };
+
+const forumSearchTool = {
+  name: 'search_iris_forum',
+  description: "Search public forum posts by category and optional text query. Use for real forum content and author questions.",
+  parameters: {
+    type: 'OBJECT',
+    properties: {
+      category: { type: 'STRING', description: "Optional category name." },
+      query: { type: 'STRING', description: "Optional text to search for." },
+    },
+  },
+};
+
+async function searchIrisForum(category, query) {
+  const base = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!base || !key) return { ok: false, message: 'Forum search is not configured.' };
+
+  const aliases = {
+    'singularidades': 'anomalies',
+    'singularities': 'anomalies',
+    'investigación': 'research',
+    'investigacion': 'research',
+    'bug reports': 'bug',
+  };
+  const requested = String(category || '').trim();
+  const stored = aliases[requested.toLowerCase()] || requested.toLowerCase();
+  const params = new URLSearchParams({
+    select: 'username,category,content,created_at',
+    order: 'created_at.desc',
+    limit: '50',
+  });
+  if (stored) params.set('category', 'eq.' + stored);
+  const q = String(query || '').trim().slice(0, 80).replace(/[,*()]/g, ' ');
+  if (q) params.set('content', 'ilike.*' + q + '*');
+
+  try {
+    const response = await fetch(base.replace(/\/$/, '') + '/rest/v1/forum_posts?' + params, {
+      headers: { apikey: key, Authorization: 'Bearer ' + key },
+    });
+    const data = await response.json().catch(() => []);
+    if (!response.ok || !Array.isArray(data)) {
+      console.error('sirhoot forum search failed:', response.status);
+      return { ok: false, message: 'Forum search failed.' };
+    }
+    return {
+      ok: true,
+      category: stored || null,
+      postCount: data.length,
+      authors: [...new Set(data.map(p => String(p.username || '').trim()).filter(Boolean))],
+      posts: data.slice(0, 20).map(p => ({
+        username: p.username,
+        category: p.category,
+        content: String(p.content || '').slice(0, 350),
+        created_at: p.created_at,
+      })),
+    };
+  } catch (error) {
+    console.error('sirhoot forum search error:', error);
+    return { ok: false, message: 'Forum search is temporarily unavailable.' };
+  }
+}
 
 function buildSystemPrompt(username) {
   const greetingContext = username
@@ -196,7 +248,7 @@ export default async function handler(req, res) {
             parts: [{ text: buildSystemPrompt(username) }],
           },
           contents,
-          tools: [guessTool],
+          tools: [{ functionDeclarations: [guessTool, forumSearchTool] }],
           generationConfig: {
             temperature: 0.7,
             maxOutputTokens: 700,
@@ -238,48 +290,40 @@ export default async function handler(req, res) {
         partTypes: parts.map((part) => Object.keys(part)),
       });
 
-      const calls = parts.filter(
-        (part) => part.functionCall?.name === 'check_portal_guess'
+      const calls = parts.filter((part) =>
+        ['check_portal_guess', 'search_iris_forum'].includes(part.functionCall?.name)
       );
 
       if (calls.length > 0) {
-        contents.push({
-          role: 'model',
-          parts,
-        });
-
+        contents.push({ role: 'model', parts });
         const functionResponses = [];
 
         for (const part of calls) {
+          const name = part.functionCall.name;
           const args = part.functionCall.args || {};
+          let result;
 
-          const guess =
-            typeof args.guess === 'string'
-              ? args.guess
-              : '';
+          if (name === 'check_portal_guess') {
+            const guess = typeof args.guess === 'string' ? args.guess : '';
+            const evaluation = evaluateGuess(guess);
+            await logGuess(username, guess, evaluation);
+            result = {
+              isCorrect: evaluation.isCorrect,
+              sameLength: evaluation.sameLength,
+              expectedLength: evaluation.expectedLength,
+              positionalMatches: evaluation.positionalMatches,
+            };
+          } else {
+            result = await searchIrisForum(
+              typeof args.category === 'string' ? args.category : '',
+              typeof args.query === 'string' ? args.query : ''
+            );
+          }
 
-          const evaluation = evaluateGuess(guess);
-
-          await logGuess(username, guess, evaluation);
-
-          functionResponses.push({
-            functionResponse: {
-              name: 'check_portal_guess',
-              response: {
-                isCorrect: evaluation.isCorrect,
-                sameLength: evaluation.sameLength,
-                expectedLength: evaluation.expectedLength,
-                positionalMatches: evaluation.positionalMatches,
-              },
-            },
-          });
+          functionResponses.push({ functionResponse: { name, response: result } });
         }
 
-        contents.push({
-          role: 'user',
-          parts: functionResponses,
-        });
-
+        contents.push({ role: 'user', parts: functionResponses });
         continue;
       }
 
