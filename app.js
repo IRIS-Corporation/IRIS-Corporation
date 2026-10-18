@@ -1042,8 +1042,17 @@ async function sirhootSend() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text, history: sirhootHistory, username: sirhootUsername })
     });
-    const data = await res.json();
-    const reply = data.reply || "Sorry — I didn't catch that.";
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const errorMessage = typeof data.error === 'string'
+        ? data.error
+        : "I couldn't get a response from the archive's AI service.";
+      sirhootAddMsg(errorMessage, 'bot');
+      return;
+    }
+    const reply = typeof data.reply === 'string' && data.reply.trim()
+      ? data.reply.trim()
+      : "The archive's AI service returned an empty response. Please try again.";
     sirhootAddMsg(reply, 'bot');
     sirhootHistory.push({ role: 'assistant', content: reply });
   } catch (e) {
