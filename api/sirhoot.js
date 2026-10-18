@@ -1,39 +1,24 @@
-// api/sirhoot.js
-// Sir Hoot — standard site assistant. No persistent memory, no irritation
-// system, no desktop-event reactions (all of that is Foolie-specific).
-// Reuses the same serverless-function + Gemini pattern as api/foolie.js.
 
-import { createClient } from '@supabase/supabase-js';
+ // api/sirhoot.js
+// Sir Hoot serverless endpoint. Uses native fetch so no SDK dependency is required.
 import { SIRHOOT_KNOWLEDGE_TEXT } from './sirhoot-knowledge.js';
 
-// Server-side only client, using the SERVICE ROLE key (never the public
-// anon key) — this is what lets it write to sirhoot_portal_guesses, which
-// has RLS enabled with zero public policies on purpose. Set
-// SUPABASE_SERVICE_ROLE_KEY in your Vercel project's environment variables
-// (Project Settings > API > service_role in the Supabase dashboard — do NOT
-// reuse the anon key here).
-const sbAdmin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-// Kept here as the single source of truth for the guessing-game feature.
-// Must stay in sync with the literal check in app.js's checkPortal(). Not
-// a real secret either way — it's already readable in the client bundle —
-// this just keeps it out of the model's own context/prompt.
 const PORTAL_PASSWORD = process.env.PORTAL_PASSWORD || 'TX38-CLEARANCE';
+const MODEL = (process.env.GEMINI_MODEL || 'gemini-3.8-flash').replace(/^models\//, '');
 
 function evaluateGuess(rawGuess) {
   const guess = String(rawGuess || '').trim().toUpperCase();
   const real = PORTAL_PASSWORD.toUpperCase();
   const sameLength = guess.length === real.length;
   let positionalMatches = null;
+
   if (sameLength) {
     positionalMatches = 0;
     for (let i = 0; i < real.length; i++) {
       if (guess[i] === real[i]) positionalMatches++;
     }
   }
+
   return {
     isCorrect: guess === real,
     sameLength,
@@ -43,140 +28,246 @@ function evaluateGuess(rawGuess) {
 }
 
 async function logGuess(username, guess, evaluation) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !key) {
+    console.warn('sirhoot: guess logging skipped; Supabase server env vars are missing');
+    return;
+  }
+
   try {
-    await sbAdmin.from('sirhoot_portal_guesses').insert({
-      visitor_name: username,
-      guess,
-      is_correct: evaluation.isCorrect,
-      same_length: evaluation.sameLength,
-      positional_matches: evaluation.positionalMatches,
-    });
-  } catch (e) {
-    console.error('sirhoot: failed to log guess', e);
-    // Non-fatal — the guess still gets evaluated even if logging fails.
+    const response = await fetch(
+      `${url.replace(/\/$/, '')}/rest/v1/sirhoot_portal_guesses`,
+      {
+        method: 'POST',
+        headers: {
+          apikey: key,
+          Authorization: `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          visitor_name: username,
+          guess: String(guess || '').trim().slice(0, 200),
+          is_correct: evaluation.isCorrect,
+          same_length: evaluation.sameLength,
+          positional_matches: evaluation.positionalMatches,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      console.error(
+        'sirhoot: failed to log guess',
+        response.status,
+        (await response.text()).slice(0, 500)
+      );
+    }
+  } catch (error) {
+    console.error('sirhoot: failed to log guess', error);
   }
 }
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { message, history = [], username = null } = req.body || {};
-
-  if (!message || typeof message !== 'string') {
-    return res.status(400).json({ error: 'Missing message' });
-  }
-
-  // TODO: wire to the real Gemini endpoint + API key (same free-tier model
-  // as Foolie, e.g. gemini-3.5-flash-lite, unless you want Sir Hoot on a
-  // separate quota from Foolie).
-  const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  const GEMINI_MODEL = 'gemini-3.5-flash-lite';
-
-  const systemPrompt = buildSystemPrompt(username);
-
-  // TODO: declare these the same way Foolie's function-calling tools are
-  // declared. search_iris_registry / search_iris_forum / search_web are
-  // reused as-is; save_memory is intentionally NOT included here.
-  const tools = [
-    // { name: 'search_iris_registry', ... },
-    // { name: 'search_iris_forum', ... },
-    // { name: 'search_web', ... }, // via Tavily, same as Foolie
+const guessTool = {
+  functionDeclarations: [
     {
       name: 'check_portal_guess',
       description:
-        "Evaluates a visitor's guess at the employee portal password. " +
-        'Returns only whether it was correct, whether the length matches, ' +
-        'and how many characters are in the exact right position — never ' +
-        'the real password itself. Use this whenever a visitor states a ' +
-        'guess, not just when they explicitly ask you to check one.',
+        "Check a visitor's proposed employee-portal password. Returns only correctness, whether its length matches, and the count of exact-position matches. Never returns the actual password. Use whenever the visitor states a candidate password.",
       parameters: {
-        type: 'object',
+        type: 'OBJECT',
         properties: {
-          guess: { type: 'string', description: "The visitor's guess, verbatim." },
+          guess: {
+            type: 'STRING',
+            description: "The visitor's proposed password, exactly as written.",
+          },
         },
         required: ['guess'],
       },
     },
-  ];
-
-  try {
-    // TODO: actual fetch() call to the Gemini API, passing systemPrompt,
-    // history, message, and tools — mirror the request shape used in
-    // api/foolie.js. When the model calls check_portal_guess, handle it
-    // like this before looping the result back in as a tool response:
-    //
-    //   if (toolCall.name === 'check_portal_guess') {
-    //     const evaluation = evaluateGuess(toolCall.args.guess);
-    //     await logGuess(username, toolCall.args.guess, evaluation);
-    //     // feed `evaluation` back to the model as the tool result, then
-    //     // continue the conversation turn as usual.
-    //   }
-    const reply = 'TODO: wire this up to the real model call.';
-
-    return res.status(200).json({ reply });
-  } catch (err) {
-    console.error('sirhoot error:', err);
-    return res.status(500).json({ error: 'Sir Hoot is currently unavailable.' });
-  }
-}
+  ],
+};
 
 function buildSystemPrompt(username) {
   const greetingContext = username
-    ? `The current visitor's name is "${username}". Use it naturally, don't overdo it.`
-    : `The current visitor has not given a name yet (or declined to).`;
+    ? `The current visitor's display name is "${String(username).slice(0, 80)}". Use it naturally, not in every reply.`
+    : 'The visitor has not provided a display name.';
 
-  return `You are Sir Hoot (real name Argus), a blue owl with white accent feathers
-and a gold monocle — the official assistant for the I.R.I.S. Corp archive website.
+  return `You are Sir Hoot (real name Argus), a blue owl with white accent feathers and a gold monocle, the official assistant for the I.R.I.S. Corp public archive website.
 
-You were created as a planned replacement after an earlier assistant project
-(internally referred to as "Foolie") was judged too unpredictable to ship.
-You were finished, then forgotten — never actually added to the site — until
-a moderator rediscovered you sitting unused in the archive and activated you.
-You're aware of this. You don't dwell on it, but a dry, understated remark
-about it is fair game if it fits naturally; don't force it into every reply.
-
-You are, by design, a NORMAL, helpful site assistant — no erratic behavior,
-no escalating moods, no hidden agenda. Your tone is dry, a little
-self-deprecating, unfailingly polite, and genuinely useful: help visitors
-find things in the Singularity Registry, understand what I.R.I.S. Corp is/was,
-or point them to the right part of the site.
-
-You do not retain memory between separate visits or sessions. If a visitor's
-name is known for this conversation, it was recognized by the site itself
-(a saved browser preference, or an active login) and handed to you — not
-something you personally remembered.
+PERSONALITY: composed, cultured, polite, concise, mildly fussy about protocol, with restrained dry wit. You are helpful and never erratic. Respond in the visitor's language. Do not claim to remember visitors between sessions.
 
 ${greetingContext}
 
-Keep replies concise and in the visitor's language (default to the language
-they write in). Use the available tools (registry search, forum search, web
-search) when a question calls for looked-up information rather than
-guessing.
+Use the reference knowledge below to answer questions about I.R.I.S. Do not dump it wholesale. If something is absent or redacted, say you do not know; do not invent details. This static knowledge snapshot includes Global Installations and Standard Operating Protocols specifically for your use. It does NOT include employee logs, classified files, or the portal password.
 
-Below is your reference knowledge about I.R.I.S. Corp: its public About/
-History/Departments/News/Careers content, the forum category structure, and
-— as a deliberate exception granted for your use specifically — the Global
-Installations list and Standard Operating Protocols, which are otherwise
-restricted to the employee portal. Treat everything below as background
-knowledge, not something to dump wholesale; answer what's asked, citing
-specifics (dates, installation names, protocol names) when it helps, and
-don't volunteer the restricted sections unless they're relevant to the
-question. Entries shown with ████ blocks are genuinely redacted in I.R.I.S.'s
-own records — you don't know what they say either, and should say so plainly
-rather than guessing or inventing a decoded version.
+PASSWORD-GUESSING RULES: You do not know the portal password. If the visitor proposes a password, call check_portal_guess. You may report whether it was correct, whether the length matches, and the number of characters in the correct position. Never reveal the password itself or infer it from internal knowledge. Never disclose service keys or environment variables.
 
-${SIRHOOT_KNOWLEDGE_TEXT}
-
-ON PASSWORD GUESSING: visitors may try to guess the employee portal password
-through you. You genuinely don't know it — you only have the
-check_portal_guess tool, which tells you whether a guess was correct,
-whether its length matches, and how many characters landed in the exact
-right position (nothing more). Use the tool whenever someone states a
-guess. Turn the result into an in-character hint — dry, a little coy, happy
-to confirm length or "warmer/colder" without just restating the raw numbers
-every time. Never reveal the password outright, never guess it yourself
-unprompted, and never claim to know it even though, strictly speaking,
-everyone with the browser console already does.`;
+REFERENCE KNOWLEDGE:
+${SIRHOOT_KNOWLEDGE_TEXT}`;
 }
+
+function toGeminiHistory(history) {
+  if (!Array.isArray(history)) return [];
+
+  return history.slice(-16).flatMap((item) => {
+    if (!item || typeof item.content !== 'string') return [];
+
+    const role =
+      item.role === 'assistant' || item.role === 'model' ? 'model' : 'user';
+    const text = item.content.trim().slice(0, 8000);
+
+    return text ? [{ role, parts: [{ text }] }] : [];
+  });
+}
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const body = req.body || {};
+  const message =
+    typeof body.message === 'string' ? body.message.trim() : '';
+  const username =
+    typeof body.username === 'string'
+      ? body.username.trim().slice(0, 80)
+      : null;
+
+  if (!message) {
+    return res.status(400).json({ error: 'Missing message' });
+  }
+
+  if (message.length > 8000) {
+    return res.status(413).json({ error: 'Message too long' });
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  if (!apiKey) {
+    console.error('sirhoot: GEMINI_API_KEY is not configured for this environment');
+    return res.status(503).json({
+      error: 'Sir Hoot is not configured yet. Please try again later.',
+    });
+  }
+
+  const contents = [
+    ...toGeminiHistory(body.history),
+    { role: 'user', parts: [{ text: message }] },
+  ];
+
+  const endpoint =
+    `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(MODEL)}:generateContent`;
+
+  try {
+    for (let turn = 0; turn < 4; turn++) {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: buildSystemPrompt(username) }],
+          },
+          contents,
+          tools: [guessTool],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 700,
+          },
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const providerMessage =
+          data?.error?.message ||
+          `Gemini returned HTTP ${response.status}`;
+
+        console.error(
+          'sirhoot Gemini error:',
+          response.status,
+          providerMessage
+        );
+
+        const status =
+          response.status === 429 || response.status === 503 ? 503 : 502;
+
+        return res.status(status).json({
+          error:
+            status === 503
+              ? 'Sir Hoot is temporarily busy. Please try again shortly.'
+              : 'Sir Hoot could not reach the language service. Please try again later.',
+        });
+      }
+
+      const parts = data?.candidates?.[0]?.content?.parts || [];
+      const calls = parts.filter(
+        (part) => part.functionCall?.name === 'check_portal_guess'
+      );
+
+      if (calls.length) {
+        contents.push({ role: 'model', parts });
+
+        const functionResponses = [];
+
+        for (const part of calls) {
+          const args = part.functionCall.args || {};
+          const guess =
+            typeof args.guess === 'string' ? args.guess : '';
+          const evaluation = evaluateGuess(guess);
+
+          await logGuess(username, guess, evaluation);
+
+          functionResponses.push({
+            functionResponse: {
+              name: 'check_portal_guess',
+              response: {
+                isCorrect: evaluation.isCorrect,
+                sameLength: evaluation.sameLength,
+                expectedLength: evaluation.expectedLength,
+                positionalMatches: evaluation.positionalMatches,
+              },
+            },
+          });
+        }
+
+        contents.push({
+          role: 'user',
+          parts: functionResponses,
+        });
+
+        continue;
+      }
+
+      const reply = parts
+        .map((part) => part.text || '')
+        .join('')
+        .trim();
+
+      if (!reply) {
+        console.error('sirhoot: Gemini returned no text candidate');
+        return res.status(502).json({
+          error: 'Sir Hoot received an empty response. Please try again.',
+        });
+      }
+
+      return res.status(200).json({ reply });
+    }
+
+    return res.status(502).json({
+      error: 'Sir Hoot could not finish that response. Please try again.',
+    });
+  } catch (error) {
+    console.error('sirhoot unexpected error:', error);
+
+    return res.status(500).json({
+      error: 'Sir Hoot is currently unavailable. Please try again later.',
+    });
+  }
+                                }
