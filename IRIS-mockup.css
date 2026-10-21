@@ -3500,3 +3500,20 @@ html:is([data-theme="aqua"],[data-theme="clearance"]) #publicLayer .iris-searchb
 /* 4) Bloque heredado "About I.R.I.S." en temas claros. */
 html:is([data-theme="iris"],[data-theme="classic"],[data-theme="light"],[data-theme="autumn"],[data-theme="aqua"]) #publicLayer .section-header h3{color:var(--iris-navy) !important}
 html:is([data-theme="iris"],[data-theme="classic"],[data-theme="light"],[data-theme="autumn"],[data-theme="aqua"]) #publicLayer .card .card-label{color:var(--iris-muted) !important}
+
+
+/* v26: contraste adaptativo para la introducción y el acceso a los foros. */
+#publicLayer #page-forums > p {
+  color: var(--iris-muted) !important;
+  background: transparent !important;
+}
+#publicLayer #page-forums .forum-auth-box {
+  background: var(--iris-paper) !important;
+  color: var(--iris-ink) !important;
+  border-color: var(--iris-line) !important;
+}
+#publicLayer #page-forums .forum-auth-box > span,
+#publicLayer #page-forums .forum-auth-box .forum-user-info,
+#publicLayer #page-forums .forum-auth-box .forum-status {
+  color: var(--iris-ink) !important;
+}
