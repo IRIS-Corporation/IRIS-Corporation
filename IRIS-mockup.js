@@ -1113,6 +1113,7 @@ function submitCareers() {
 
 // ===== PORTAL =====
 function showPortal() {
+  irisJinglePreload();
   document.getElementById('portalOverlay').classList.add('visible');
   document.getElementById('portalInput').focus();
 }
@@ -1127,6 +1128,7 @@ function hidePortal() {
 // unlockPortal() so the same visual can be restored on page load without
 // re-triggering the flash animation or touching storage.
 function setPortalButtonUnlocked() {
+  irisJinglePreload();
   const btn = document.getElementById('portalBtn');
   if (!btn) return;
   btn.disabled = false;
@@ -1158,6 +1160,28 @@ function restorePortalButtonState() {
 }
 restorePortalButtonState();
 
+// ===== JINGLE DEL PORTAL =====
+// Suena una sola vez por sesión, junto con la animación de entrada (2.6 s).
+// Nunca arranca solo: solo se dispara desde un clic o Enter del visitante.
+let irisJingleAudio = null;
+function irisJinglePreload() {
+  try {
+    if (!irisJingleAudio) {
+      irisJingleAudio = new Audio('assets/iris-jingle.mp3');
+      irisJingleAudio.preload = 'auto';
+      irisJingleAudio.volume = 0.7;
+    }
+  } catch (e) {}
+}
+function irisJinglePlay() {
+  try {
+    irisJinglePreload();
+    irisJingleAudio.currentTime = 0;
+    const p = irisJingleAudio.play();
+    if (p && p.catch) p.catch(() => {});
+  } catch (e) {}
+}
+
 function enterEmployeeLayer() {
   document.getElementById('publicLayer').style.display = 'none';
   document.getElementById('employeeLayer').classList.add('visible');
@@ -1176,6 +1200,7 @@ function enterEmployeeLayer() {
   sessionStorage.setItem('portalIntroSeen', 'true');
   const overlay = document.getElementById('empIntroOverlay');
   overlay.classList.add('emp-intro-playing');
+  irisJinglePlay();
 
   // Total sequence duration matches the 2.6s keyframe animations above.
   setTimeout(() => {
